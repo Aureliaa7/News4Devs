@@ -4,14 +4,4 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="DomainServices\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Interfaces\UnitOfWork\" />
-    <Folder Include="Interfaces\Repositories\" />
-    <Folder Include="Interfaces\Services\" />
-  </ItemGroup>
-
 </Project>
