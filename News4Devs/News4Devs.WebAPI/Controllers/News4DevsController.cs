@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+//TODO add versioning
+
 namespace News4Devs.WebAPI.Controllers
 {
     [Route("api/[controller]")]

@@ -68,14 +68,6 @@ namespace News4Devs.Infrastructure.Repositories
                 entities = entities.Where(filter);
             }
 
-            //if (includeProperties != null)
-            //{
-            //    var propertiesToBeIncluded = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            //    foreach (var property in propertiesToBeIncluded)
-            //    {
-            //        entities = entities.Include(property);
-            //    }
-            //}
             entities = GetEntitiesWithIncludedProperties(entities, includeProperties);
 
             return Task.FromResult(entities);

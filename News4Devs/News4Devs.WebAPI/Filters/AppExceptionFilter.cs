@@ -18,13 +18,11 @@ namespace News4Devs.WebAPI.Filters
             else if (context.Exception is EntityNotFoundException)
             {
                 var errorDetails = new ExceptionDetails(Constants.NotFound, context.Exception.Message);
-
                 context.Result = new NotFoundObjectResult(errorDetails);
             }
             else if (context.Exception is Exception)
             {
                 var errorDetails = new ExceptionDetails(Constants.BadRequest, context.Exception.Message);
-
                 context.Result = new BadRequestObjectResult(errorDetails);
             }
         }

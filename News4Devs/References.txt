@@ -1,0 +1,7 @@
+*** Useful links ***
+-----------------------
+
+* Clean Architecture/Onion Architecture: https://github.com/ardalis/CleanArchitecture 
+* API versioning: https://nordicapis.com/everything-you-need-to-know-about-api-versioning/
+	https://www.infoworld.com/article/3562355/how-to-use-api-versioning-in-aspnet-core.html
+* API best practices: https://code-maze.com/aspnetcore-webapi-best-practices/
