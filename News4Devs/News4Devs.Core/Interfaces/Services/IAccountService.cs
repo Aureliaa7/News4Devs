@@ -1,5 +1,6 @@
 ﻿using News4Devs.Core.DTOs;
 using News4Devs.Core.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace News4Devs.Core.Interfaces.Services
@@ -17,7 +18,15 @@ namespace News4Devs.Core.Interfaces.Services
         /// Registers a new user
         /// </summary>
         /// <param name="user">A model containing user info</param>
+        /// <param name="profilePhotoContent">The profile photo content</param>
         /// <returns>The created user</returns>
-        Task<User> RegisterAsync(User user);
+        Task<User> RegisterAsync(User user, byte[] profilePhotoContent = null);
+
+        /// <summary>
+        /// Returns the user's details based on their id
+        /// </summary>
+        /// <param name="id">The user's id</param>
+        /// <returns>An object containing the user's account details</returns>
+        Task<User> GetByIdAsync(Guid id);
     }
 }

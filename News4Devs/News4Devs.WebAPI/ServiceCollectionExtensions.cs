@@ -52,11 +52,25 @@ namespace News4Devs.WebAPI
             });
         }
 
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+                });
+            });
+        }
+
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IImageService, ImageService>();
         }
     }
 }

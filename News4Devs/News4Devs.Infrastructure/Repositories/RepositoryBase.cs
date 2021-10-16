@@ -17,10 +17,10 @@ namespace News4Devs.Infrastructure.Repositories
             Context = context;
         }
 
-        public async Task<T> AddAsync(T entity)
+        public Task<T> AddAsync(T entity)
         {
-            await Context.Set<T>().AddAsync(entity);
-            return entity;
+            Context.Set<T>().Add(entity);
+            return Task.FromResult(entity);
         }
 
         public async Task<T> GetAsync(Guid id)
@@ -54,9 +54,9 @@ namespace News4Devs.Infrastructure.Repositories
             return Task.FromResult(entities.Any());
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public Task<T> GetByIdAsync(Guid id)
         {
-            return await Context.Set<T>().FindAsync(id);
+            return Task.FromResult(Context.Set<T>().Find(id));
         }
 
         public Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null)

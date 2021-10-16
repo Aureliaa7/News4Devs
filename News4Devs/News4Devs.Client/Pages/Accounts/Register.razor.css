@@ -1,0 +1,19 @@
+﻿.my-card {
+    width: 50%;
+    margin-left: 25%;
+    background-color: gainsboro;
+}
+
+.card-title, label {
+    text-align: center;
+}
+
+div {
+    margin-top: 15px;
+}
+
+button {
+    align-content: center;
+}
+
+/*TODO find a way to avoid duplicated css code*/

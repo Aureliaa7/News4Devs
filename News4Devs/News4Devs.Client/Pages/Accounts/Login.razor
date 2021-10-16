@@ -1,0 +1,62 @@
+﻿@page "/login"
+
+@using System.Diagnostics;
+
+@inject IToastService toastService;
+@inject HttpClient httpClient;
+@inject NavigationManager navigationManager
+
+<div class="card my-card">
+    <div class="card-title">
+        <h3>Login</h3>
+    </div>
+
+    <div class="card-body">
+        <EditForm Model="@loginModel" OnValidSubmit="@LogIn">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div>
+                <label>Email</label>
+                <InputText class="form-control" @bind-Value="loginModel.Email" />
+            </div>
+            <div>
+                <label>Password</label>
+                <InputText type="password" class="form-control" @bind-Value="loginModel.Password" />
+            </div>
+            <div>
+                <button class="btn btn-primary form-control">Log in</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private LoginDto loginModel = new();
+
+    private async Task LogIn()
+    {
+        var timer = new Stopwatch();
+        timer.Start();
+
+        var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(loginModel);
+        var result = await this.httpClient.PostAsync("accounts/login", byteArrayContent);
+        timer.Stop();
+        Console.WriteLine($"elapsed seconds: {timer.Elapsed.TotalSeconds}");
+
+        if (result.StatusCode == HttpStatusCode.OK)
+        {
+            var token = await HttpResponseMessageHelper.DeserializeContentAsync<JwtToken>(result);
+            //TODO store the JWT token and redirect the user to his/her profile page
+            navigationManager.NavigateTo("/profile");
+        }
+        else
+        {
+            toastService.ShowError("Incorrect credentials!");
+        }
+    }
+
+    private class JwtToken
+    {
+        public string Token { get; set; }
+    }
+}

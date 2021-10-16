@@ -32,6 +32,8 @@ namespace News4Devs.WebAPI
             string jwtKey = Configuration.GetSection("Authentication:JWTKey").Value;
             services.ConfigureJwtAuthentication(jwtKey);
 
+            services.ConfigureCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "News4Devs.WebAPI", Version = "v1" });
@@ -50,7 +52,7 @@ namespace News4Devs.WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("EnableCORS");
             app.UseAuthentication();
             app.UseAuthorization();
 

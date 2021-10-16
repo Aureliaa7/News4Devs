@@ -1,21 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Http;
 
 namespace News4Devs.Core.DTOs
 {
     public class RegisterDto
     {
         [Required]
-        public string FirstName { get; init; }
+        public string FirstName { get; set; }
 
         [Required]
-        public string LastName { get; init; }
+        public string LastName { get; set; }
 
         [Required]
-        public string Email { get; init; }
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
-        public string Password { get; init; }
+        public string Password { get; set; }
 
-        public string ProfilePhotoPath { get; init; }
+        public byte[] ProfilePhotoContent { get; set; }
     }
 }

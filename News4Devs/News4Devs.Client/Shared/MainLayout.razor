@@ -1,4 +1,14 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.Toast
+@using Blazored.Toast.Configuration
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                ShowProgressBar="true"
+                SuccessClass="success-toast-override"
+                ErrorIcon="fa fa-bug"
+                SuccessIcon="fa fa-thumbs-up" />
 
 <div class="page">
     <div class="sidebar">
@@ -7,6 +17,8 @@
 
     <div class="main">
         <div class="top-row px-4">
+            <a href="/register" class="ml-md-auto">Register</a>
+            <a href="/login" class="ml-md-auto">Login</a>
             <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
         </div>
 

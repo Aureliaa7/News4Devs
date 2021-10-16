@@ -13,11 +13,13 @@ namespace News4Devs.Core.DomainServices
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IJwtService jwtService;
+        private readonly IImageService imageService;
 
-        public AccountService(IUnitOfWork unitOfWork, IJwtService jwtService)
+        public AccountService(IUnitOfWork unitOfWork, IJwtService jwtService, IImageService imageService)
         {
             this.unitOfWork = unitOfWork;
             this.jwtService = jwtService;
+            this.imageService = imageService;
         }
 
         public async Task<string> LoginAsync(LoginDto loginDto)
@@ -36,7 +38,7 @@ namespace News4Devs.Core.DomainServices
             return token;
         }
 
-        public async Task<User> RegisterAsync(User user)
+        public async Task<User> RegisterAsync(User user, byte[] profilePhotoContent = null)
         {
             bool userExists = await unitOfWork.UsersRepository.ExistsAsync(u => u.Email.Equals(user.Email));
             if (userExists)
@@ -47,12 +49,26 @@ namespace News4Devs.Core.DomainServices
             PasswordHelper.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            if (profilePhotoContent != null)
+            {
+                user.ProfilePhotoPath = await imageService.SaveImageAsync(profilePhotoContent);
+            }
+
             var newUser = await unitOfWork.UsersRepository.AddAsync(user);
             await unitOfWork.SaveChangesAsync();
 
-            //TODO add a service for storing the users' profile photo
-
             return newUser;
+        }
+
+        public async Task<User> GetByIdAsync(Guid id)
+        {
+            var searchedUser = await unitOfWork.UsersRepository.GetByIdAsync(id);
+            if (searchedUser == null)
+            {
+                throw new EntityNotFoundException($"The user with the id {id} was not found!");
+            }
+
+            return searchedUser;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace News4Devs.WebAPI.Controllers
         [Route("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerDto)
         {
-            var createdUser = await accountService.RegisterAsync(mapper.Map<User>(registerDto));
+            var createdUser = await accountService.RegisterAsync(mapper.Map<User>(registerDto), registerDto.ProfilePhotoContent);
 
             /*Note: Can't use nameof(actionName) because ASP.NET Core MVC trims the suffix Async
              * from action names by default.
@@ -33,20 +33,11 @@ namespace News4Devs.WebAPI.Controllers
                 new { id = createdUser.Id }, mapper.Map<UserDto>(createdUser));
         }
 
-        [HttpGet]
-        [Authorize]
-        [Route("{id}")]
-        public IActionResult GetAccountInfoAsync([FromRoute] Guid id)
-        {
-            //TODO to be implemented
-            return Ok("hello");
-        }
-
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            /*Note: No need to check if the model is valid since the action is decorated with [ApiController] attribute
+            /*Note: No need to check if the model is valid since the controller is decorated with [ApiController] attribute
             which makes model validation errors automatically trigger an HTTP 400 response */
 
             var jwtToken = await accountService.LoginAsync(loginDto);
@@ -56,6 +47,15 @@ namespace News4Devs.WebAPI.Controllers
             }
 
             return Unauthorized();
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("{id}")]
+        public async Task<IActionResult> GetAccountInfoAsync([FromRoute] Guid id)
+        {
+            var user = await accountService.GetByIdAsync(id);
+            return Ok(mapper.Map<UserDto>(user));
         }
     }
 }
