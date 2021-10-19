@@ -7,6 +7,9 @@
 * API best practices: https://code-maze.com/aspnetcore-webapi-best-practices/
 * Blazored Toast: https://github.com/Blazored/Toast
 * File Upload with Blazor WebAssembly: https://code-maze.com/blazor-webassembly-file-upload/
+* Separate Razor code from C# code(for a component): https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-3.1#partial-class-support
+* Blazor DI: https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=server
+
 
 *** Books ***
  * Blazor Revealed: Building Web Applications in .NET

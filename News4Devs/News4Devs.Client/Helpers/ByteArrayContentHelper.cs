@@ -13,7 +13,7 @@ namespace News4Devs.Client.Helpers
             var serializedData = JsonConvert.SerializeObject(objectToBeConverted);
             var bytes = Encoding.UTF8.GetBytes(serializedData);
             var byteArrayContent = new ByteArrayContent(bytes);
-            byteArrayContent.Headers.ContentType = new MediaTypeHeaderValue(Constants.ContentType);
+            byteArrayContent.Headers.ContentType = new MediaTypeHeaderValue(ClientConstants.ContentType);
 
             return byteArrayContent;
         }

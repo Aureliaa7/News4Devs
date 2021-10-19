@@ -16,4 +16,8 @@
     <ProjectReference Include="..\News4Devs.Core\News4Devs.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\profile-photos\" />
+  </ItemGroup>
+
 </Project>

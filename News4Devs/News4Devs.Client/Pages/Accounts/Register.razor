@@ -1,14 +1,5 @@
 ﻿@page "/register"
 
-@using System.Diagnostics;
-@using System.IO;
-@using System;
-
-
-@inject IToastService toastService;
-@inject HttpClient httpClient;
-@inject NavigationManager navigationManager;
-
 <div class="card my-card">
     <div class="card-title">
         <h3>Register</h3>
@@ -44,64 +35,3 @@
         </EditForm>
     </div>
 </div>
-
-
-@code {
-    private RegisterDto registerModel = new();
-    private IBrowserFile imageFile;
-
-
-    private async Task CreateAccount()
-    {
-        var timer = new Stopwatch();
-        timer.Start();
-
-        var profilePhotoContent = await GetProfilePhotoContentAsync();
-        if (profilePhotoContent != null)
-        {
-            registerModel.ProfilePhotoContent = profilePhotoContent;
-        }
-
-        var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(registerModel);
-        var result = await this.httpClient.PostAsync("accounts/register", byteArrayContent);
-        timer.Stop();
-        Console.WriteLine($"elapsed seconds: {timer.Elapsed.TotalSeconds}");
-
-        if (result.StatusCode == HttpStatusCode.Created)
-        {
-            navigationManager.NavigateTo("/login");
-        }
-        else if (result.StatusCode == HttpStatusCode.Conflict)
-        {
-            toastService.ShowError("A user with the same email already exists!");
-        }
-
-        registerModel = new(); // clear the form
-
-
-        //TODO find some cute background images
-    }
-
-    private void HandleSelected(InputFileChangeEventArgs e)
-    {
-        imageFile = e.File;
-    }
-
-    private async Task<byte[]> GetProfilePhotoContentAsync()
-    {
-        if (imageFile != null)
-        {
-            var resizedFile = await imageFile.RequestImageFileAsync(
-                "image/png", Constants.ImageWidth, Constants.ImageHeight);
-            using (var source = resizedFile.OpenReadStream(resizedFile.Size))
-            {
-                using (var stream = new MemoryStream())
-                {
-                    await source.CopyToAsync(stream);
-                    return stream.ToArray();
-                }
-            }
-        }
-        return null!;
-    }
-}

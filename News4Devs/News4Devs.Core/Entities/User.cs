@@ -12,7 +12,7 @@ namespace News4Devs.Core.Entities
 
         public string Email { get; set; }
 
-        public string ProfilePhotoPath { get; set; }
+        public string ProfilePhotoName { get; set; }
         
         public byte[] PasswordHash { get; set; }
 

@@ -15,7 +15,7 @@ namespace News4Devs.Core.DomainServices
             string filePath = Path.Combine(imageFolder, fileName);
             await File.WriteAllBytesAsync(filePath, imageContent);
 
-            return filePath;
+            return fileName;
         }
     }
 }

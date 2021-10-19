@@ -51,7 +51,7 @@ namespace News4Devs.Core.DomainServices
             user.PasswordSalt = passwordSalt;
             if (profilePhotoContent != null)
             {
-                user.ProfilePhotoPath = await imageService.SaveImageAsync(profilePhotoContent);
+                user.ProfilePhotoName = await imageService.SaveImageAsync(profilePhotoContent);
             }
 
             var newUser = await unitOfWork.UsersRepository.AddAsync(user);

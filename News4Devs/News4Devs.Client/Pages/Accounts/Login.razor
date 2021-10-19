@@ -1,11 +1,5 @@
 ﻿@page "/login"
 
-@using System.Diagnostics;
-
-@inject IToastService toastService;
-@inject HttpClient httpClient;
-@inject NavigationManager navigationManager
-
 <div class="card my-card">
     <div class="card-title">
         <h3>Login</h3>
@@ -29,34 +23,3 @@
         </EditForm>
     </div>
 </div>
-
-@code {
-    private LoginDto loginModel = new();
-
-    private async Task LogIn()
-    {
-        var timer = new Stopwatch();
-        timer.Start();
-
-        var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(loginModel);
-        var result = await this.httpClient.PostAsync("accounts/login", byteArrayContent);
-        timer.Stop();
-        Console.WriteLine($"elapsed seconds: {timer.Elapsed.TotalSeconds}");
-
-        if (result.StatusCode == HttpStatusCode.OK)
-        {
-            var token = await HttpResponseMessageHelper.DeserializeContentAsync<JwtToken>(result);
-            //TODO store the JWT token and redirect the user to his/her profile page
-            navigationManager.NavigateTo("/profile");
-        }
-        else
-        {
-            toastService.ShowError("Incorrect credentials!");
-        }
-    }
-
-    private class JwtToken
-    {
-        public string Token { get; set; }
-    }
-}
