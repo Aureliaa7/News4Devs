@@ -9,7 +9,12 @@
 * File Upload with Blazor WebAssembly: https://code-maze.com/blazor-webassembly-file-upload/
 * Separate Razor code from C# code(for a component): https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-3.1#partial-class-support
 * Blazor DI: https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-5.0&pivots=server
-
+* Blazor- Authentication & Authorization: https://docs.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-5.0
+	https://docs.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/?view=aspnetcore-5.0
+	https://code-maze.com/authenticationstateprovider-blazor-webassembly/
+	https://code-maze.com/blazor-webassembly-authentication-aspnetcore-identity/
+* Blazor Routing: https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0
+* Blazor WebAssembly: https://code-maze.com/blazor-webassembly-series/
 
 *** Books ***
  * Blazor Revealed: Building Web Applications in .NET

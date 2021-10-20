@@ -12,6 +12,6 @@ namespace News4Devs.Core.DTOs
 
         public string Email { get; set; }
 
-        public string ProfilePhotoPath { get; set; }
+        public string ProfilePhotoName { get; set; }
     }
 }

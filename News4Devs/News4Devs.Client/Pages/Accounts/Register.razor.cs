@@ -1,12 +1,12 @@
 ﻿using System.IO;
 using Blazored.Toast.Services;
-using System.Net.Http;
 using Microsoft.AspNetCore.Components;
 using News4Devs.Core.DTOs;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
-using News4Devs.Client.Helpers;
 using System.Net;
+using News4Devs.Client.Services.Interfaces;
+using News4Devs.Client.Helpers;
 
 namespace News4Devs.Client.Pages.Accounts
 { 
@@ -16,7 +16,7 @@ namespace News4Devs.Client.Pages.Accounts
         private IToastService ToastService { get; set; }
 
         [Inject]
-        private HttpClient HttpClient { get; set; }
+        private IHttpClientService HttpClientService { get; set; }
 
         [Inject]
         private NavigationManager NavigationManager { get; set; }
@@ -33,13 +33,13 @@ namespace News4Devs.Client.Pages.Accounts
             }
 
             var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(registerModel);
-            var result = await this.HttpClient.PostAsync("accounts/register", byteArrayContent);
+            var apiResponse = await HttpClientService.PostAsync<UserDto>("accounts/register", byteArrayContent);
 
-            if (result.StatusCode == HttpStatusCode.Created)
+            if (apiResponse.StatusCode == HttpStatusCode.Created)
             {
                 NavigationManager.NavigateTo("/login");
             }
-            else if (result.StatusCode == HttpStatusCode.Conflict)
+            else if (apiResponse.StatusCode == HttpStatusCode.Conflict)
             {
                 ToastService.ShowError("A user with the same email already exists!");
             }

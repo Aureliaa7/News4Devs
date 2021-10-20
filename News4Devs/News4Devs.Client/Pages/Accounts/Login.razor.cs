@@ -1,9 +1,11 @@
-﻿using Blazored.Toast.Services;
+﻿using Blazored.LocalStorage;
+using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
 using News4Devs.Client.Helpers;
+using News4Devs.Client.Services.Interfaces;
+using News4Devs.Core;
 using News4Devs.Core.DTOs;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace News4Devs.Client.Pages.Accounts
@@ -14,7 +16,10 @@ namespace News4Devs.Client.Pages.Accounts
         private IToastService ToastService { get; set; }
 
         [Inject]
-        private HttpClient HttpClient { get; set; }
+        private ILocalStorageService LocalStorageService { get; set; }
+
+        [Inject]
+        private IHttpClientService HttpClientService { get; set; }
 
         [Inject]
         private NavigationManager NavigationManager { get; set; }
@@ -24,13 +29,14 @@ namespace News4Devs.Client.Pages.Accounts
         private async Task LogIn()
         {
             var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(loginModel);
-            var result = await HttpClient.PostAsync("accounts/login", byteArrayContent);
+            var result = await HttpClientService.PostAsync<JwtToken>("accounts/login", byteArrayContent);
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                var token = await HttpResponseMessageHelper.DeserializeContentAsync<JwtToken>(result);
-                //TODO store the JWT token and redirect the user to his/her profile page
-                NavigationManager.NavigateTo("/profile");
+                var token = result.Data.Token;
+                await LocalStorageService.SetItemAsStringAsync(ClientConstants.Token, token);
+                string userId = JwtHelper.GetClaimValueByName(token, Constants.UserId);
+                NavigationManager.NavigateTo($"/profile/{userId}");
             }
             else
             {
