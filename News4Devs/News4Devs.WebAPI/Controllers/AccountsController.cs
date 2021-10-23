@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using News4Devs.Core.DTOs;
 using News4Devs.Core.Entities;
 using News4Devs.Core.Interfaces.Services;
+using News4Devs.Core.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -43,7 +44,7 @@ namespace News4Devs.WebAPI.Controllers
             var jwtToken = await accountService.LoginAsync(loginDto);
             if (!string.IsNullOrEmpty(jwtToken))
             {
-                return Ok(new { Token = jwtToken });
+                return Ok(new JwtToken { Token = jwtToken });
             }
 
             return Unauthorized();

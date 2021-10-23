@@ -14,12 +14,14 @@ namespace News4Devs.Client.Pages.Accounts
         public string Id { get; set; }
 
         private UserDto userDetails;
-        private string imageSrc;			  
+        private string imageSrc;
+        private string fullName;
 
         protected override async Task OnInitializedAsync()
         {
             var response = await HttpClientService.GetAsync<UserDto>($"accounts/{Id}");
             userDetails = response.Data;
+            fullName = $"{userDetails.FirstName} {userDetails.LastName}";
             imageSrc = ClientConstants.ProfileImagesDirector + userDetails?.ProfilePhotoName;
         }
     }
