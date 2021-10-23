@@ -89,7 +89,7 @@ namespace News4Devs.Infrastructure.Repositories
             return await entities.FirstOrDefaultAsync();
         }
 
-        private IQueryable<T> GetEntitiesWithIncludedProperties(IQueryable<T> entities, string includeProperties)
+        private static IQueryable<T> GetEntitiesWithIncludedProperties(IQueryable<T> entities, string includeProperties)
         {
             if (includeProperties != null)
             {

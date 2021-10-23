@@ -33,7 +33,7 @@ namespace News4Devs.Client.Pages.Accounts
             }
 
             var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(registerModel);
-            var apiResponse = await HttpClientService.PostAsync<UserDto>("accounts/register", byteArrayContent);
+            var apiResponse = await HttpClientService.PostAsync<UserDto>("v1/accounts/register", byteArrayContent);
 
             if (apiResponse.StatusCode == HttpStatusCode.Created)
             {
@@ -44,10 +44,7 @@ namespace News4Devs.Client.Pages.Accounts
                 ToastService.ShowError("A user with the same email already exists!");
             }
 
-            registerModel = new(); // clear the form
-
-
-            //TODO find some cute background images
+            registerModel = new(); 
         }
 
         private void HandleSelected(InputFileChangeEventArgs e)

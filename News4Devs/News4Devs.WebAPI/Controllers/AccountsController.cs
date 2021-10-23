@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace News4Devs.WebAPI.Controllers
 {
+    [ApiVersion("1.0")]
     public class AccountsController : News4DevsController
     {
         private readonly IAccountService accountService;

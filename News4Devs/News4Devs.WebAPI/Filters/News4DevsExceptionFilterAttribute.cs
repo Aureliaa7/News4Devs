@@ -6,7 +6,7 @@ using System;
 
 namespace News4Devs.WebAPI.Filters
 {
-    public class AppExceptionFilter : ExceptionFilterAttribute
+    public class News4DevsExceptionFilterAttribute : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
         {
@@ -19,11 +19,6 @@ namespace News4Devs.WebAPI.Filters
             {
                 var errorDetails = new ExceptionDetails(Constants.NotFound, context.Exception.Message);
                 context.Result = new NotFoundObjectResult(errorDetails);
-            }
-            else if (context.Exception is Exception)
-            {
-                var errorDetails = new ExceptionDetails(Constants.BadRequest, context.Exception.Message);
-                context.Result = new BadRequestObjectResult(errorDetails);
             }
         }
     }

@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-//TODO add versioning
-
 namespace News4Devs.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
     [ApiController]
     public class News4DevsController : ControllerBase { }

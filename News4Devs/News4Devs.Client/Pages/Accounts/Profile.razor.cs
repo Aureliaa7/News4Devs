@@ -19,7 +19,7 @@ namespace News4Devs.Client.Pages.Accounts
 
         protected override async Task OnInitializedAsync()
         {
-            var response = await HttpClientService.GetAsync<UserDto>($"accounts/{Id}");
+            var response = await HttpClientService.GetAsync<UserDto>($"v1/accounts/{Id}");
             userDetails = response.Data;
             fullName = $"{userDetails.FirstName} {userDetails.LastName}";
             imageSrc = ClientConstants.ProfileImagesDirector + userDetails?.ProfilePhotoName;

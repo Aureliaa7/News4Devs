@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,13 @@ namespace News4Devs.WebAPI
             services.AddAutoMapper(typeof(MappingConfiguration));
 
             services.AddControllers();
+
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true; // let the consumers know the available versions
+                options.DefaultApiVersion = ApiVersion.Default;
+            });
 
             services.ConfigureGlobalFilters();
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Client
 {
-    public class Program
+    public static class Program
     {
         public static async Task Main(string[] args)
         {

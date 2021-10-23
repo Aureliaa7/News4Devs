@@ -48,7 +48,7 @@ namespace News4Devs.WebAPI
         public static void ConfigureGlobalFilters(this IServiceCollection services)
         {
             services.AddMvc(options => {
-                options.Filters.Add(new AppExceptionFilter());
+                options.Filters.Add(new News4DevsExceptionFilterAttribute());
             });
         }
 

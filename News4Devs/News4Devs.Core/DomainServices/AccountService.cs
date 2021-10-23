@@ -33,7 +33,6 @@ namespace News4Devs.Core.DomainServices
             {
                 // swallow the exception
             }
-            catch (Exception) { }
 
             return token;
         }

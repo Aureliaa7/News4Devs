@@ -45,7 +45,7 @@ namespace News4Devs.Client.Services
             NotifyAuthenticationStateChanged(authState);
         }
 
-        private ClaimsPrincipal GetClaimsPrincipal(string token)
+        private static ClaimsPrincipal GetClaimsPrincipal(string token)
         {
             var claims = JwtHelper.GetClaimsFromJWT(token);
             if (claims.Any())

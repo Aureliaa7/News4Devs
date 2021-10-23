@@ -25,19 +25,19 @@ namespace News4Devs.Infrastructure.Services
             this.configuration = configuration;
         }
 
-        public async Task<string> GenerateTokenAsync(LoginDto userLogin)
+        public async Task<string> GenerateTokenAsync(LoginDto loginDto)
         {
-            var user = await unitOfWork.UsersRepository.GetFirstOrDefaultAsync(u => u.Email == userLogin.Email);
+            var user = await unitOfWork.UsersRepository.GetFirstOrDefaultAsync(u => u.Email == loginDto.Email);
             if (user == null)
             {
                 throw new EntityNotFoundException("The user was not found!");
             }
 
-            bool isCorrectPassword = PasswordHelper.IsCorrectPasswordHash(userLogin.Password, user.PasswordHash, user.PasswordSalt);
+            bool isCorrectPassword = PasswordHelper.IsCorrectPasswordHash(loginDto.Password, user.PasswordHash, user.PasswordSalt);
 
             if (!isCorrectPassword)
             {
-                throw new Exception("Wrong credentials!");
+                throw new EntityNotFoundException("Wrong credentials!");
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -46,7 +46,7 @@ namespace News4Devs.Infrastructure.Services
             var tokenKeyBytes = Encoding.ASCII.GetBytes(jwtKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Email, userLogin.Email),
+                Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Email, loginDto.Email),
                 new Claim(ClaimTypes.Name, string.Concat(user.FirstName, " ", user.LastName)),
                 new Claim(Constants.UserId, user.Id.ToString())
                 }),

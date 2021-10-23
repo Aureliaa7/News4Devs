@@ -20,7 +20,7 @@
 * Loading indicator: https://www.pragimtech.com/blog/blazor/blazor-loading-indicator/
 * Authentication State Provider: https://code-maze.com/authenticationstateprovider-blazor-webassembly/
 * Authorization: https://www.learmoreseekmore.com/2020/12/blazorwebassembly-authorization.html
-
+* Make an exception serializable: https://stackoverflow.com/questions/94488/what-is-the-correct-way-to-make-a-custom-net-exception-serializable
 
 
 *** Books ***
