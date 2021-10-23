@@ -10,7 +10,7 @@ using News4Devs.Client.Helpers;
 
 namespace News4Devs.Client.Pages.Accounts
 { 
-    public partial class Register : ComponentBase
+    public partial class Register
     {
         [Inject]
         private IToastService ToastService { get; set; }

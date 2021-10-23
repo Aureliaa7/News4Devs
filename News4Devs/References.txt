@@ -4,6 +4,7 @@
 * Clean Architecture/Onion Architecture: https://github.com/ardalis/CleanArchitecture 
 * API versioning: https://nordicapis.com/everything-you-need-to-know-about-api-versioning/
 	https://www.infoworld.com/article/3562355/how-to-use-api-versioning-in-aspnet-core.html
+	https://www.youtube.com/watch?v=WFEE5yVJwGU&ab_channel=NickChapsas
 * API best practices: https://code-maze.com/aspnetcore-webapi-best-practices/
 * Blazored Toast: https://github.com/Blazored/Toast
 * File Upload with Blazor WebAssembly: https://code-maze.com/blazor-webassembly-file-upload/
@@ -15,6 +16,7 @@
 	https://code-maze.com/blazor-webassembly-authentication-aspnetcore-identity/
 * Blazor Routing: https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0
 * Blazor WebAssembly: https://code-maze.com/blazor-webassembly-series/
+* Loading indicator: https://www.pragimtech.com/blog/blazor/blazor-loading-indicator/
 
 *** Books ***
  * Blazor Revealed: Building Web Applications in .NET

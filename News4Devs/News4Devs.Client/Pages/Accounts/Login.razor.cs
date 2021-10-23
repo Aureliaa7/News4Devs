@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Client.Pages.Accounts
 {
-    public partial class Login : ComponentBase
+    public partial class Login
     {
         [Inject]
         private IToastService ToastService { get; set; }
