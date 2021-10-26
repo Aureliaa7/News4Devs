@@ -10,6 +10,7 @@ using News4Devs.Infrastructure.AppDbContext;
 using News4Devs.Infrastructure.Services;
 using News4Devs.Infrastructure.UnitOfWork;
 using News4Devs.WebAPI.Filters;
+using System.Net.Http;
 using System.Text;
 
 namespace News4Devs.WebAPI
@@ -71,6 +72,7 @@ namespace News4Devs.WebAPI
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddHttpClient<INewsCatcherApiService, NewsCatcherApiService>();
         }
     }
 }

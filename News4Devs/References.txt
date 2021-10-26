@@ -21,6 +21,13 @@
 * Authentication State Provider: https://code-maze.com/authenticationstateprovider-blazor-webassembly/
 * Authorization: https://www.learmoreseekmore.com/2020/12/blazorwebassembly-authorization.html
 * Make an exception serializable: https://stackoverflow.com/questions/94488/what-is-the-correct-way-to-make-a-custom-net-exception-serializable
+* API Pagination: https://code-maze.com/paging-aspnet-core-webapi/
+	https://www.jerriepelser.com/blog/paging-in-aspnet-webapi-http-headers/
+	https://codewithmukesh.com/blog/pagination-in-aspnet-core-webapi/
+	https://www.youtube.com/watch?v=cKj6U4qDmgQ&ab_channel=NickChapsas
+* How to manage secrets: https://www.infoworld.com/article/3576292/how-to-work-with-user-secrets-in-asp-net-core.html
+* Build query strings in Asp.Net: https://www.talkingdotnet.com/build-query-string-asp-net-core/
+
 
 
 *** Books ***

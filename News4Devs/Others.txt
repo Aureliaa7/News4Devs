@@ -1,0 +1,7 @@
+* Images:
+	https://unsplash.com/backgrounds/art/simple
+	https://www.pexels.com/search/simple%20background/
+
+* External APIs:
+	NewsCatcher API: https://newscatcherapi.com/
+					https://docs.newscatcherapi.com/api-docs/endpoints/search-news
