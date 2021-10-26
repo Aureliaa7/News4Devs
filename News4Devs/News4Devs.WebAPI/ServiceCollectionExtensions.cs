@@ -68,11 +68,13 @@ namespace News4Devs.WebAPI
 
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.AddHttpClient<IApiService, ApiService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IImageService, ImageService>();
-            services.AddHttpClient<INewsCatcherApiService, NewsCatcherApiService>();
+            services.AddScoped<INewsCatcherApiService, NewsCatcherApiService>();
         }
     }
 }

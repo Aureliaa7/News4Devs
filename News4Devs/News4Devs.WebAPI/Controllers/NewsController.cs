@@ -18,21 +18,13 @@ namespace News4Devs.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Test([FromQuery] string q, [FromQuery] string lang, [FromQuery] string page)
         {
-            // "search?q=programming&lang=en&page=2"
-            //var queryParams = new Dictionary<string, string>()
-            //{
-            //    {"q", "programming%news" },
-            //    {"lang", "en" },
-            //    {"page","2" }
-            //};
-
+            // https://localhost:44347/api/v1/news?q=programming&lang=en&page=2
             var queryParams = new Dictionary<string, string>()
             {
                 { nameof(q), q },
                 { nameof(lang), lang },
                 { nameof(page), page }
             };
-
 
             var result = await newsService.GetNewsAsync(queryParams);
             return Ok(result);

@@ -15,5 +15,6 @@
 
 
         public const string NewsCatcherApiBaseUrl = "https://free-news.p.rapidapi.com/v1/search";
+        public const string NewsCatcherApiKeyName = "x-rapidapi-key";
     }
 }
