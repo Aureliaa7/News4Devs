@@ -5,3 +5,4 @@
 * External APIs:
 	NewsCatcher API: https://newscatcherapi.com/
 					https://docs.newscatcherapi.com/api-docs/endpoints/search-news
+	Dictionary: https://dictionaryapi.dev/
