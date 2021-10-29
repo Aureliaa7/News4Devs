@@ -42,7 +42,7 @@ namespace News4Devs.Infrastructure.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            string jwtKey = configuration.GetSection("Authentication:JWTKey").Value;
+            string jwtKey = configuration.GetSection("JWTKey").Value;
             var tokenKeyBytes = Encoding.ASCII.GetBytes(jwtKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {

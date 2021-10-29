@@ -37,7 +37,7 @@ namespace News4Devs.WebAPI
 
             services.ConfigureGlobalFilters();
 
-            string jwtKey = Configuration.GetSection("Authentication:JWTKey").Value;
+            string jwtKey = Configuration.GetSection("JWTKey").Value;
             services.ConfigureJwtAuthentication(jwtKey);
 
             services.ConfigureCors();
