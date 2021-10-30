@@ -1,0 +1,20 @@
+﻿@page "/news"
+
+@if (!articles.Any())
+{
+    <LoadingSpinner />
+}
+else
+{
+    <h3>News</h3>
+
+    <div>
+        @foreach (var article in articles)
+        {
+            <Article ArticleDto="@article"></Article>
+        }
+    </div>
+
+
+   <button class="btn btn-primary" @onclick="LoadMoreArticles">Load more</button>
+}
