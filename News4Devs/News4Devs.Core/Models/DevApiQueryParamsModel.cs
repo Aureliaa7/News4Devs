@@ -3,20 +3,20 @@
     // A model containing all the query params that can be used when calling Dev API
     public class DevApiQueryParamsModel
     {
-        public string Page { get; set; }
+        public string page { get; set; }
 
-        public string Per_Page { get; set; }
+        public string per_page { get; set; }
 
-        public string Tag { get; set; }
+        public string tag { get; set; }
 
-        public string Tags { get; set; }
+        public string tags { get; set; }
 
-        public string Tags_Exclude { get; set; }
+        public string tags_exclude { get; set; }
 
-        public string Username { get; set; }
+        public string username { get; set; }
 
-        public string State { get; set; }
+        public string state { get; set; }
 
-        public string Top { get; set; }
+        public string top { get; set; }
     }
 }

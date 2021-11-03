@@ -1,5 +1,4 @@
-﻿using News4Devs.Core;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
