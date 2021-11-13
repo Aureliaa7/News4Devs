@@ -2,8 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: url('/images/background-image.jpg') no-repeat center center fixed;
-    background-size: cover;
+    background-color: #BFD7ED;
 }
 
 a, .btn-link {
