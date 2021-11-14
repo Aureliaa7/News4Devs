@@ -8,7 +8,7 @@ namespace News4Devs.Client.Shared
         [Parameter] 
         public EventCallback<string> OnSearch { get; set; }
 
-        private bool shouldDisplaySearchBox = false;
+        private bool isSearchBoxVisible = false;
         private bool showSearchIcon = true;
         private bool showHideText = false;
         private string searchedWords;
@@ -20,20 +20,20 @@ namespace News4Devs.Client.Shared
 
         private void ShowSearchBox()
         {
-            shouldDisplaySearchBox = true;
+            isSearchBoxVisible = true;
             SetShowHideOrShowSearchIcon();
         }
 
         private void ShowHideText()
         {
-            shouldDisplaySearchBox = false;
+            isSearchBoxVisible = false;
             SetShowHideOrShowSearchIcon();
         }
 
         private void SetShowHideOrShowSearchIcon()
         {
-            showSearchIcon = shouldDisplaySearchBox ? false : true;
-            showHideText = shouldDisplaySearchBox ? true : false;
+            showSearchIcon = !isSearchBoxVisible;
+            showHideText = isSearchBoxVisible;
         }
     }
 }

@@ -33,3 +33,11 @@ input {
     background-color: #BFD7ED;
     z-index: 1;
 }
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
