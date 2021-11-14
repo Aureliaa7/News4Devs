@@ -33,4 +33,6 @@ img {
     margin-bottom: 10px;
     background-color: whitesmoke;
     border-radius: 20px;
+    z-index: -1;
+    margin-left: 50px;
 }

@@ -22,6 +22,9 @@
 * Authorization: https://www.learmoreseekmore.com/2020/12/blazorwebassembly-authorization.html
 * Make an exception serializable: https://stackoverflow.com/questions/94488/what-is-the-correct-way-to-make-a-custom-net-exception-serializable
 * Read values from query string: https://stackoverflow.com/questions/41577376/how-to-read-values-from-the-querystring-with-asp-net-core
+* Ways to communicate between components: https://chrissainty.com/3-ways-to-communicate-between-components-in-blazor/
+* Get query params from URL: https://www.syncfusion.com/faq/blazor/routing/how-do-you-get-the-query-parameter-from-the-url-using-navigationmanager-in-asp-net-core-blazor
+* Passing parameter value as query string when redirecting: https://www.c-sharpcorner.com/article/working-with-query-string-or-query-parameter-in-blazor/
 
 
 

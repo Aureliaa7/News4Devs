@@ -1,0 +1,9 @@
+﻿@page "/fresh-news"
+@inherits NewsBase
+
+<h3>Newest articles</h3>
+<SearchBar OnSearch="RedirectToSearchNewsPage"/>
+<News Articles="@Articles"
+      OnLoadMoreArticles="LoadMoreFreshArticles"
+      IsLoadMoreButtonVisible="isLoadMoreButtonVisible" 
+      NoArticlesFound="noArticlesFound"/>

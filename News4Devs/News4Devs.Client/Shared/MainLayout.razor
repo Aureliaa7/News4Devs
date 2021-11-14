@@ -2,6 +2,8 @@
 @using Blazored.Toast
 @using Blazored.Toast.Configuration
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.WebUtilities;
 
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
@@ -36,3 +38,16 @@
         </div>
     </div>
 </div>
+
+@code {
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+
+    private void SearchArticlesByTags(string searchedWords)
+    {
+        var query = new Dictionary<string, string> {
+            { "searchedWords", $"{searchedWords}" }
+        };
+        NavigationManager.NavigateTo(QueryHelpers.AddQueryString("/search-news", query));
+    }
+} 
