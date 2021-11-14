@@ -3,6 +3,7 @@
 }
 
 footer {
-    height:60px;
-    position: fixed;
+    height: 60px;
+    position:relative;
+    bottom: 0;
 }

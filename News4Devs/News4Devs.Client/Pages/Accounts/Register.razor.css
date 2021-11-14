@@ -1,7 +1,7 @@
 ﻿.my-card {
     width: 50%;
     margin-left: 25%;
-    background-color: gainsboro;
+    background-color: #BCD4E6;
 }
 
 .card-title, label {
@@ -15,5 +15,3 @@ div {
 button {
     align-content: center;
 }
-
-/*TODO find a way to avoid duplicated css code*/
