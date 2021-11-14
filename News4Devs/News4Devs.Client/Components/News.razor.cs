@@ -17,7 +17,7 @@ namespace News4Devs.Client.Components
         public bool IsLoadMoreButtonVisible { get; set; }
 
         [Parameter]
-        public bool NoArticlesFound { get; set; }
+        public bool Loading { get; set; }
 
         private async Task LoadMoreArticles()
         {

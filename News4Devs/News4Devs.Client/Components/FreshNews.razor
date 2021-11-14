@@ -1,4 +1,4 @@
-﻿@page "/fresh-news"
+﻿@page "/"
 @inherits NewsBase
 
 <h3>Newest articles</h3>
@@ -6,4 +6,4 @@
 <News Articles="@Articles"
       OnLoadMoreArticles="LoadMoreFreshArticles"
       IsLoadMoreButtonVisible="isLoadMoreButtonVisible" 
-      NoArticlesFound="noArticlesFound"/>
+      Loading="loading"/>

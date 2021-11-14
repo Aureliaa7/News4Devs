@@ -1,7 +1,7 @@
 ﻿@page "/search-news"
 @inherits NewsBase
 
-@if (!noArticlesFound)
+@if (!loading && Articles.Any())
 {
     <h3>Found articles</h3>
 }
@@ -10,4 +10,4 @@
 <News Articles="@Articles"
       OnLoadMoreArticles="LoadMoreArticles"
       IsLoadMoreButtonVisible="isLoadMoreButtonVisible" 
-      NoArticlesFound="noArticlesFound"/>
+      Loading="loading"/>

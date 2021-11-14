@@ -1,8 +1,8 @@
-﻿@if (NoArticlesFound)
+﻿@if (!Loading && !Articles.Any())
 {
     <NoArticlesFound/>
 }
-else if (!Articles.Any())
+else if (Loading)
 {
     <LoadingSpinner />
 }
