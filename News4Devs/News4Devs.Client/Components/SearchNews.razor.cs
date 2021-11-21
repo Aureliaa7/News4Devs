@@ -12,8 +12,11 @@ namespace News4Devs.Client.Components
 
         protected override async Task OnInitializedAsync()
         {
+            loading = true;
             SetSearchedTags();
+
             await GetArticlesAsync();
+            loading = false;
         }
 
         private async Task LoadMoreArticles()
@@ -33,9 +36,11 @@ namespace News4Devs.Client.Components
 
         private async Task SearchArticles(string searchedWords)
         {
+            loading = true;
             Reset(searchedWords);
             SetSearchedTags();
             await GetArticlesAsync();
+            loading = false;
         }
 
         private void Reset(string newSearchedWords)

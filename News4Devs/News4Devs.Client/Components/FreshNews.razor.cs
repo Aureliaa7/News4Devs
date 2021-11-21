@@ -8,7 +8,9 @@ namespace News4Devs.Client.Components
     {
         protected override async Task OnInitializedAsync()
         {
+            loading = true;
             await GetArticlesAsync();
+            loading = false;
         }
 
         private async Task LoadMoreFreshArticles()

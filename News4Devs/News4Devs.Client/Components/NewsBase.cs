@@ -26,13 +26,12 @@ namespace News4Devs.Client.Components
 
         protected bool isLoadMoreButtonVisible = true;
        
-        protected bool loading = true;
+        protected bool loading = false;
 
         protected abstract string GetUrl();
 
         protected async Task GetArticlesAsync()
         {
-            loading = true;
             string url = GetUrl();
             var response = await HttpClientService.GetAsync<IList<ArticleDto>>(url);
 
@@ -52,7 +51,6 @@ namespace News4Devs.Client.Components
                 }
                 pageNumber += 1;
             }
-            loading = false; // no need to display the spinner while checking if there are more articles
             await CheckIfThereAreMoreArticlesAsync();
         }
 
