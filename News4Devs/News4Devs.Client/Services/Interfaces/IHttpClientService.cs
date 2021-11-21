@@ -1,4 +1,5 @@
 ﻿using News4Devs.Client.Models;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,5 +10,7 @@ namespace News4Devs.Client.Services.Interfaces
         Task<ApiResponse<T>> GetAsync<T>(string apiEndpoint);
 
         Task<ApiResponse<T>> PostAsync<T>(string apiEndpoint, ByteArrayContent content);
+
+        Task<HttpStatusCode> PutAsync(string apiEndpoint, ByteArrayContent content);
     }
 }

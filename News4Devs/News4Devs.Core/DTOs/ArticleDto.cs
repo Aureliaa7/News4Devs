@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace News4Devs.Core.DTOs
+﻿namespace News4Devs.Core.DTOs
 {
     // Model used to catch data from Dev API.
-    // The property names must have the same names as the ones used by the Dev.to API.
+    // The property names must be the same as those used by the Dev.to API.
     public class ArticleDto
     {
         public string title { get; set; }

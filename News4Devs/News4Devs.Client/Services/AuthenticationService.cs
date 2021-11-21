@@ -26,6 +26,18 @@ namespace News4Devs.Client.Services
             this.authStateProvider = authStateProvider;
         }
 
+        public async Task<string> GetCurrentUserIdAsync()
+        {
+            var token = await localStorageService.GetItemAsStringAsync(ClientConstants.Token);
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return string.Empty;
+            }
+
+            return JwtHelper.GetClaimValueByName(token, Constants.UserId);
+        }
+
         public async Task<string> LoginAsync(LoginDto loginModel)
         {
             var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(loginModel);
@@ -36,9 +48,8 @@ namespace News4Devs.Client.Services
                 var token = result.Data.Token;
                 await localStorageService.SetItemAsStringAsync(ClientConstants.Token, token);
                 ((News4DevsAuthenticationStateProvider)authStateProvider).NotifyUserAuthentication(token);
-                string userId = JwtHelper.GetClaimValueByName(token, Constants.UserId);
-                
-                return userId;
+
+                return JwtHelper.GetClaimValueByName(token, Constants.UserId);
             }
 
             return null;

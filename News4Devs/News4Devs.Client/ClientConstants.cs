@@ -6,6 +6,7 @@
         public const string ContentType = "application/json";
         public const string ProfileImagesDirector = "/profile-photos/"; // <img src="/profile-photos/guid.png"/>
         public const string Token = "token";
+        public const string ExpirationDateKey = "exp";
         
         public const int ImageWidth = 300;
         public const int ImageHeight = 500;

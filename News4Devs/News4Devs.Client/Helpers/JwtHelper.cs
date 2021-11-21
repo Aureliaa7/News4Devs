@@ -49,5 +49,20 @@ namespace News4Devs.Client.Helpers
 
             return searchedClaim?.Value;
         }
+
+        public static bool IsValidJwt(string jwt)
+        {
+            var expValue = GetClaimValueByName(jwt, ClientConstants.ExpirationDateKey);
+
+            if (long.TryParse(expValue, out long unixTimeSeconds))
+            {
+                DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTimeSeconds);
+                var expirationDate = dateTimeOffset.DateTime;
+
+                return expirationDate > DateTime.Now;
+            }
+
+            return false;
+        }
     }
 }

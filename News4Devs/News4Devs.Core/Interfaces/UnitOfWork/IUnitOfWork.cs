@@ -8,6 +8,10 @@ namespace News4Devs.Core.Interfaces.UnitOfWork
     {
         IRepositoryBase<User> UsersRepository{ get; }
 
+        IRepositoryBase<Article> ArticlesRepository { get; }
+
+        IRepositoryBase<SavedArticle> SavedArticlesRepository { get; }
+
         Task SaveChangesAsync();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using News4Devs.Client.Helpers;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,10 +19,21 @@ namespace News4Devs.Client.Services
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
+            Console.WriteLine("GetAuthenticationStateAsync()...");
             string token = await localStorageService.GetItemAsStringAsync(ClientConstants.Token);
-            var claimsPrincipal = GetClaimsPrincipal(token);
+            bool isJwtValid = JwtHelper.IsValidJwt(token);
 
-            return new AuthenticationState(claimsPrincipal);
+            if (!string.IsNullOrEmpty(token) && isJwtValid)
+            {
+                return new AuthenticationState(GetClaimsPrincipal(token));
+            }
+
+            // when removing the jwt from local storage, notify the UI
+            await localStorageService.RemoveItemAsync(ClientConstants.Token);
+            var newAuthState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            NotifyAuthenticationStateChanged(Task.FromResult(newAuthState));
+
+            return newAuthState;
         }
 
         /// <summary>

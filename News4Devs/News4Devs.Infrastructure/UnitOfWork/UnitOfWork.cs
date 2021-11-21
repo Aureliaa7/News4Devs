@@ -11,6 +11,8 @@ namespace News4Devs.Infrastructure.UnitOfWork
     {
         private readonly ApplicationDbContext dbContext;
         private IRepositoryBase<User> usersRepository;
+        private IRepositoryBase<Article> articlesRepository;
+        private IRepositoryBase<SavedArticle> savedArticlesRepository;
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
@@ -26,6 +28,30 @@ namespace News4Devs.Infrastructure.UnitOfWork
                     usersRepository = new RepositoryBase<User>(dbContext);
                 }
                 return usersRepository;
+            }
+        }
+
+        public IRepositoryBase<Article> ArticlesRepository
+        {
+            get
+            {
+                if (articlesRepository == null)
+                {
+                    articlesRepository = new RepositoryBase<Article>(dbContext);
+                }
+                return articlesRepository;
+            }
+        }
+
+        public IRepositoryBase<SavedArticle> SavedArticlesRepository
+        {
+            get
+            {
+                if (savedArticlesRepository == null)
+                {
+                    savedArticlesRepository = new RepositoryBase<SavedArticle>(dbContext);
+                }
+                return savedArticlesRepository;
             }
         }
 

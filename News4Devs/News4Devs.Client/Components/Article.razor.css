@@ -16,6 +16,7 @@ img {
     display: inline-block;
     width: 650px;
     margin-top: 70px;
+    height: 200px;
 }
 
 .article-summary {
@@ -35,4 +36,16 @@ img {
     border-radius: 20px;
     z-index: -1;
     margin-left: 50px;
+}
+
+button {
+    background-color: whitesmoke;
+    border: none;
+}
+
+.save-article-div {
+    display: inline-block;
+    float: right;
+    margin-top: 60px;
+    margin-right: 20px;
 }

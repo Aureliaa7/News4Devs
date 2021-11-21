@@ -11,7 +11,7 @@ else
     <div>
         @foreach (var article in Articles)
         {
-            <Article ArticleDto="@article"></Article>
+            <Article ArticleDto="@article" SaveArticle="SaveArticleAsync"></Article>
         }
     </div>
 

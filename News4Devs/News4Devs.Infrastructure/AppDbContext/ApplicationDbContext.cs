@@ -9,11 +9,14 @@ namespace News4Devs.Infrastructure.AppDbContext
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<User> ApplicationUsers { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<SavedArticle> SavedArticles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             new UserConfiguration().Configure(modelBuilder.Entity<User>());
+            new ArticleConfiguration().Configure(modelBuilder.Entity<Article>());
         }
     }
 }

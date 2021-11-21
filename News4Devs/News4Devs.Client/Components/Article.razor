@@ -11,5 +11,13 @@
         <div class="article-summary">
             <p>@ArticleDto.description</p>
         </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="save-article-div">
+                    <button type="submit" @onclick="OnSaveArticle"><i class="ml-md-auto oi oi-bookmark"></i></button>
+                </div>
+            </Authorized>
+        </AuthorizeView>
     </div>
+
 </div>

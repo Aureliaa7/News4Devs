@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using News4Devs.Infrastructure.AppDbContext;
 
 namespace News4Devs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211121193657_UpdatedSavedArticleTable")]
+    partial class UpdatedSavedArticleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,15 +26,12 @@ namespace News4Devs.Infrastructure.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorWebsiteUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("DevUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PublishedAt")
                         .IsRequired()
@@ -50,8 +49,7 @@ namespace News4Devs.Infrastructure.Migrations
 
                     b.Property<string>("Tags")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -59,7 +57,26 @@ namespace News4Devs.Infrastructure.Migrations
 
                     b.HasKey("Title");
 
+                    b.HasIndex("DevUserId");
+
                     b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("News4Devs.Core.Entities.DevUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DevUsers");
                 });
 
             modelBuilder.Entity("News4Devs.Core.Entities.SavedArticle", b =>
@@ -121,6 +138,15 @@ namespace News4Devs.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationUsers");
+                });
+
+            modelBuilder.Entity("News4Devs.Core.Entities.Article", b =>
+                {
+                    b.HasOne("News4Devs.Core.Entities.DevUser", "DevUser")
+                        .WithMany()
+                        .HasForeignKey("DevUserId");
+
+                    b.Navigation("DevUser");
                 });
 
             modelBuilder.Entity("News4Devs.Core.Entities.SavedArticle", b =>
