@@ -19,8 +19,14 @@ namespace News4Devs.Core.Interfaces.Repositories
         
         Task<bool> ExistsAsync(Expression<Func<T, bool>> filter);
         
-        Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null);
+        Task<IQueryable<T>> GetAllAsync(
+            Expression<Func<T, bool>> filter = null, 
+            string includeProperties = null, 
+            int? skip = null, 
+            int? take = null);
         
         Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null);
+
+        Task<int> GetTotalRecordsAsync(Expression<Func<T, bool>> filter = null);
     }
 }

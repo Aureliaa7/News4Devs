@@ -6,8 +6,8 @@ using News4Devs.Core.Entities;
 using News4Devs.Core.Enums;
 using News4Devs.Core.Interfaces.Services;
 using News4Devs.Core.Models;
+using News4Devs.Core.Pagination;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace News4Devs.WebAPI.Controllers
@@ -55,10 +55,10 @@ namespace News4Devs.WebAPI.Controllers
         [HttpGet]
         [Authorize]
         [Route("{userId}/saved")]
-        public async Task<IActionResult> GetSavedArticles([FromRoute] Guid userId)
+        public async Task<IActionResult> GetSavedArticles([FromRoute] Guid userId, [FromQuery] PaginationFilter filter)
         {
-            var savedArticles = await articleService.GetSavedArticlesAsync(userId);
-            var savedArticlesDtos = mapper.Map<IList<ExtendedArticleDto>>(savedArticles);
+            var savedArticles = await articleService.GetSavedArticlesAsync(userId, filter);
+            var savedArticlesDtos = mapper.Map<PagedResponseDto<ExtendedArticleDto>>(savedArticles);
 
             return Ok(savedArticlesDtos);
         }
@@ -82,10 +82,10 @@ namespace News4Devs.WebAPI.Controllers
         [HttpGet]
         [Authorize]
         [Route("{userId}/favorite")]
-        public async Task<IActionResult> GetFavoriteArticles([FromRoute] Guid userId)
+        public async Task<IActionResult> GetFavoriteArticles([FromRoute] Guid userId, [FromQuery] PaginationFilter filter)
         {
-            var favoriteArticles = await articleService.GetFavoriteArticlesAsync(userId);
-            var favoriteArticlesDtos = mapper.Map<IList<ExtendedArticleDto>>(favoriteArticles);
+            var favoriteArticles = await articleService.GetFavoriteArticlesAsync(userId, filter);
+            var favoriteArticlesDtos = mapper.Map<PagedResponseDto<ExtendedArticleDto>>(favoriteArticles);
 
             return Ok(favoriteArticlesDtos);
         }

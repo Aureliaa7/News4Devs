@@ -26,7 +26,7 @@
 * Get query params from URL: https://www.syncfusion.com/faq/blazor/routing/how-do-you-get-the-query-parameter-from-the-url-using-navigationmanager-in-asp-net-core-blazor
 * Passing parameter value as query string when redirecting: https://www.c-sharpcorner.com/article/working-with-query-string-or-query-parameter-in-blazor/
 * Convert Unix timestamp to DateTime: https://stackoverflow.com/questions/249760/how-can-i-convert-a-unix-timestamp-to-datetime-and-vice-versa
-
+* Pagination: https://codewithmukesh.com/blog/pagination-in-aspnet-core-webapi/
 
 
 *** Books ***

@@ -2,7 +2,7 @@
 
 namespace News4Devs.Client.Components
 {
-    public partial class SavedArticles : ArticlesBase
+    public partial class SavedArticles : SavedArticlesBase
     {
         protected override async Task OnInitializedAsync()
         {
@@ -14,15 +14,7 @@ namespace News4Devs.Client.Components
         protected async override Task<string> GetUrlAsync()
         {
             string userId = await GetCurrentUserIdAsync();
-            return $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved";
-        }
-
-        protected override Task CheckIfThereAreMoreArticlesAsync()
-        {
-            // do nothing for now
-
-            //TODO update when adding pagination
-            return Task.Delay(10);
+            return $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved?pageNumber={pageNumber}&pageSize={ClientConstants.MaxPageSize}";
         }
     }
 }

@@ -34,7 +34,7 @@ namespace News4Devs.Client.Components
 
         protected abstract Task<string> GetUrlAsync();
 
-        protected async Task GetArticlesAsync()
+        protected virtual async Task GetArticlesAsync()
         {
             string url = await GetUrlAsync();
             var response = await HttpClientService.GetAsync<IList<ExtendedArticleDto>>(url);
@@ -61,7 +61,7 @@ namespace News4Devs.Client.Components
         // Since the Dev API does not also return the number of total pages, I need a way to show the LoadMore button
         // only if there are more articles. So, after incrementing the number of the current page, I'll make a call
         // to Dev API to get the articles, but I won't add them in the Articles list(if there are any)
-        protected virtual async Task CheckIfThereAreMoreArticlesAsync()
+        private async Task CheckIfThereAreMoreArticlesAsync()
         {
             string url = await GetUrlAsync();
             var response = await HttpClientService.GetAsync<IList<ArticleDto>>(url);

@@ -66,13 +66,27 @@ namespace News4Devs.Infrastructure.Repositories
             return Task.FromResult(Context.Set<T>().Find(id));
         }
 
-        public Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null)
+        public Task<IQueryable<T>> GetAllAsync(
+            Expression<Func<T, bool>> filter = null, 
+            string includeProperties = null,
+            int? skip = null,
+            int? take = null)
         {
             var entities = Context.Set<T>().AsNoTracking();
 
             if (filter != null)
             {
                 entities = entities.Where(filter);
+            }
+
+            if (skip != null)
+            {
+                entities = entities.Skip(skip.Value);
+            }
+
+            if (take != null)
+            {
+                entities = entities.Take(take.Value);
             }
 
             entities = GetEntitiesWithIncludedProperties(entities, includeProperties);
@@ -108,6 +122,16 @@ namespace News4Devs.Infrastructure.Repositories
             }
 
             return entities;
+        }
+
+        public Task<int> GetTotalRecordsAsync(Expression<Func<T, bool>> filter = null)
+        {
+            if (filter != null)
+            {
+                return Task.FromResult(Context.Set<T>().Where(filter).Count());
+            }
+
+            return Task.FromResult(Context.Set<T>().Count());
         }
     }
 }

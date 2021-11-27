@@ -2,6 +2,7 @@
 using News4Devs.Core.DTOs;
 using News4Devs.Core.Entities;
 using News4Devs.Core.Models;
+using News4Devs.Core.Pagination;
 
 namespace News4Devs.Infrastructure.MappingConfigurations
 {
@@ -10,7 +11,9 @@ namespace News4Devs.Infrastructure.MappingConfigurations
         public MappingConfiguration()
         {
             CreateUserMappings();
-            CreateArticlesMappings();          
+            CreateArticlesMappings();
+
+            CreateMap<PagedResponseModel<ExtendedArticleModel>, PagedResponseDto<ExtendedArticleDto>>();
         }
 
         private void CreateUserMappings()

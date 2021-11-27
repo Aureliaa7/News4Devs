@@ -10,5 +10,7 @@
         
         public const int ImageWidth = 300;
         public const int ImageHeight = 500;
+
+        public const int MaxPageSize = 10;
     }
 }

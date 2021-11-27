@@ -14,5 +14,12 @@
         public const int BadRequest = 400;
 
         public const string DevAPIBaseUrl = "https://dev.to/api/articles";
+
+        public const int DefaultPageSize = 10;
+        public const int DefaultPageNumber = 1;
+
+        public const string ArticlesAddress = "https://localhost:44347/api/articles/";
+        public const string SavedArticlesEndpoint = "saved";
+        public const string FavoriteArticlesEndpoint = "favorite";
     }
 }

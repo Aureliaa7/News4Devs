@@ -1,5 +1,6 @@
 ﻿using News4Devs.Core.Entities;
 using News4Devs.Core.Models;
+using News4Devs.Core.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace News4Devs.Core.Interfaces.Services
 
         Task<SavedArticle> SaveArticleAsFavoriteAsync(SaveArticleModel saveArticleModel);
 
-        Task<IList<ExtendedArticleModel>> GetSavedArticlesAsync(Guid userId);
+        Task<PagedResponseModel<ExtendedArticleModel>> GetSavedArticlesAsync(Guid userId, PaginationFilter paginationFilter);
 
-        Task<IList<ExtendedArticleModel>> GetFavoriteArticlesAsync(Guid userId);
+        Task<PagedResponseModel<ExtendedArticleModel>> GetFavoriteArticlesAsync(Guid userId, PaginationFilter paginationFilter);
 
         Task<string> RemoveFromSavedArticlesAsync(Guid userId, string articleTitle);
 
