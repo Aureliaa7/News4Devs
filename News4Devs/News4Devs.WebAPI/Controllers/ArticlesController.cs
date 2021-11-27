@@ -62,5 +62,32 @@ namespace News4Devs.WebAPI.Controllers
 
             return Ok(savedArticlesDtos);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("{userId}/favorite")]
+        public async Task<IActionResult> MarkArticleAsFavorite([FromRoute] Guid userId, ArticleDto articleDto)
+        {
+            var saveArticleModel = new SaveArticleModel
+            {
+                Article = mapper.Map<Article>(articleDto),
+                ArticleSavingType = ArticleSavingType.Favorite,
+                UserId = userId
+            };
+            var savedArticle = await articleService.SaveArticleAsFavoriteAsync(saveArticleModel);
+
+            return Ok(mapper.Map<SavedArticleDto>(savedArticle));
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("{userId}/favorite")]
+        public async Task<IActionResult> GetFavoriteArticles([FromRoute] Guid userId)
+        {
+            var favoriteArticles = await articleService.GetFavoriteArticlesAsync(userId);
+            var favoriteArticlesDtos = mapper.Map<IList<ExtendedArticleDto>>(favoriteArticles);
+
+            return Ok(favoriteArticlesDtos);
+        }
     }
 }

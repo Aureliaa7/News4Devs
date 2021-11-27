@@ -10,27 +10,35 @@ namespace News4Devs.Client.Components
         public ExtendedArticleDto ExtendedArticleDto { get; set; }
 
         [Parameter]
-        public EventCallback<ArticleDto> SaveArticle { get; set; }
+        public EventCallback<ExtendedArticleDto> SaveArticle { get; set; }
 
         [Parameter]
-        public EventCallback<ArticleDto> MarkAsFavorite { get; set; }
+        public EventCallback<ExtendedArticleDto> MarkAsFavorite { get; set; }
 
         [Parameter]
-        public EventCallback<string> RemoveArticle { get; set; }
+        public EventCallback<string> RemoveFromSavedArticles { get; set; }
+
+        [Parameter]
+        public EventCallback<string> RemoveFromFavoriteArticles { get; set; }
 
         private async Task OnSaveArticle()
         {
-            await SaveArticle.InvokeAsync(ExtendedArticleDto.Article);
+            await SaveArticle.InvokeAsync(ExtendedArticleDto);
         }
 
-        private async Task OnRemoveArticle()
+        private async Task OnRemoveFromSavedArticles()
         {
-            await RemoveArticle.InvokeAsync(ExtendedArticleDto.Article.title);
+            await RemoveFromSavedArticles.InvokeAsync(ExtendedArticleDto.Article.title);
+        }
+
+        private async Task OnRemoveFromFavoriteArticles()
+        {
+            await RemoveFromFavoriteArticles.InvokeAsync(ExtendedArticleDto.Article.title);
         }
 
         private async Task OnMarkArticleAsFavorite()
         {
-            await MarkAsFavorite.InvokeAsync(ExtendedArticleDto.Article);
+            await MarkAsFavorite.InvokeAsync(ExtendedArticleDto);
         }
     }
 }

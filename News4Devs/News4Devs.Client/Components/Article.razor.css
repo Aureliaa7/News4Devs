@@ -43,7 +43,7 @@ button {
     border: none;
 }
 
-.save-article-div {
+.article-actions-container {
     display: inline-block;
     float: right;
     margin-top: 60px;

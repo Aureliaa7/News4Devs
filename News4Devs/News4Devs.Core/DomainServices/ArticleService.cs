@@ -22,17 +22,15 @@ namespace News4Devs.Core.DomainServices
 
         public async Task<IList<ExtendedArticleModel>> GetSavedArticlesAsync(Guid userId)
         {
-            await CheckIfUserExistsAsync(userId);
-
-            var savedArticles = await GetArticlesByUserAndSavingType(ArticleSavingType.Saved, userId);
-
-            return savedArticles;
+            return await GetArticlesByUserAndSavingType(ArticleSavingType.Saved, userId);
         }
 
         private async Task<IList<ExtendedArticleModel>> GetArticlesByUserAndSavingType(ArticleSavingType savingType, Guid userId)
         {
+            await CheckIfUserExistsAsync(userId);
+
             var savedArticles = (await unitOfWork.SavedArticlesRepository.GetAllAsync(x => x.UserId == userId &&
-                (x.ArticleSavingType == savingType || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite), 
+                (x.ArticleSavingType == savingType || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite),
                 includeProperties: nameof(Article)))
                 .Select(x => new ExtendedArticleModel
                     {
@@ -47,40 +45,9 @@ namespace News4Devs.Core.DomainServices
 
         public async Task<SavedArticle> SaveArticleAsync(SaveArticleModel saveArticleModel)
         {
-            await CheckEntitiesExistenceAsync(saveArticleModel);
-
-            bool articleExists = await unitOfWork.ArticlesRepository.ExistsAsync(x => x.Title == saveArticleModel.Article.Title);
-            if (!articleExists)
-            {
-                await unitOfWork.ArticlesRepository.AddAsync(saveArticleModel.Article);
-                await unitOfWork.SaveChangesAsync();
-            }
-            else
-            {
-                SavedArticle favoriteArticle = await unitOfWork.SavedArticlesRepository.GetFirstOrDefaultAsync(
-                    x => x.ArticleTitle == saveArticleModel.Article.Title && x.UserId == saveArticleModel.UserId
-                    && x.ArticleSavingType == ArticleSavingType.Favorite);
-
-                if (favoriteArticle != null)
-                {
-                    favoriteArticle.ArticleSavingType = ArticleSavingType.SavedAndFavorite;
-                    var updatedSavedArticle = await unitOfWork.SavedArticlesRepository.UpdateAsync(favoriteArticle);
-                    await unitOfWork.SaveChangesAsync();
-
-                    return updatedSavedArticle;
-                }
-            }
-
-            var savedArticle = new SavedArticle
-            {
-                ArticleSavingType = ArticleSavingType.Saved,
-                ArticleTitle = saveArticleModel.Article.Title,
-                UserId = saveArticleModel.UserId
-            };
-            await unitOfWork.SavedArticlesRepository.AddAsync(savedArticle);
-            await unitOfWork.SaveChangesAsync();
-
-            return savedArticle;
+            return await SaveArticle(saveArticleModel, 
+                newArticleSavingType: ArticleSavingType.Saved, 
+                existingArticleSavingType: ArticleSavingType.Favorite);
         }
 
         private async Task CheckEntitiesExistenceAsync(SaveArticleModel saveArticleModel)
@@ -90,7 +57,8 @@ namespace News4Devs.Core.DomainServices
             bool articleWasSaved = await unitOfWork.SavedArticlesRepository.ExistsAsync(
                 x => x.Article.Title == saveArticleModel.Article.Title &&
                 x.UserId == saveArticleModel.UserId &&
-                x.ArticleSavingType == saveArticleModel.ArticleSavingType);
+                (x.ArticleSavingType == saveArticleModel.ArticleSavingType ||
+                x.ArticleSavingType == ArticleSavingType.SavedAndFavorite));
 
             if (articleWasSaved)
             {
@@ -106,6 +74,61 @@ namespace News4Devs.Core.DomainServices
             {
                 throw new EntityNotFoundException($"The user with the id {id} does not exist!");
             }
+        }
+
+        public async Task<SavedArticle> SaveArticleAsFavoriteAsync(SaveArticleModel saveArticleModel)
+        {
+            return await SaveArticle(saveArticleModel,
+                newArticleSavingType: ArticleSavingType.Favorite,
+                existingArticleSavingType: ArticleSavingType.Saved);
+        }
+
+        private async Task<SavedArticle> SaveArticle(
+            SaveArticleModel saveArticleModel,
+            ArticleSavingType newArticleSavingType,
+            ArticleSavingType existingArticleSavingType)
+        {
+            await CheckEntitiesExistenceAsync(saveArticleModel);
+
+            bool articleExists = await unitOfWork.ArticlesRepository.ExistsAsync(x => x.Title == saveArticleModel.Article.Title);
+            if (!articleExists)
+            {
+                await unitOfWork.ArticlesRepository.AddAsync(saveArticleModel.Article);
+                await unitOfWork.SaveChangesAsync();
+            }
+            else
+            {
+                SavedArticle existingArticle = await unitOfWork.SavedArticlesRepository.GetFirstOrDefaultAsync(
+                    x => x.ArticleTitle == saveArticleModel.Article.Title &&
+                    x.UserId == saveArticleModel.UserId &&
+                    x.ArticleSavingType == existingArticleSavingType ||
+                    x.ArticleSavingType == ArticleSavingType.SavedAndFavorite);
+
+                if (existingArticle != null)
+                {
+                    existingArticle.ArticleSavingType = ArticleSavingType.SavedAndFavorite;
+                    var updatedSavedArticle = await unitOfWork.SavedArticlesRepository.UpdateAsync(existingArticle);
+                    await unitOfWork.SaveChangesAsync();
+
+                    return updatedSavedArticle;
+                }
+            }
+
+            var savedArticle = new SavedArticle
+            {
+                ArticleSavingType = newArticleSavingType,
+                ArticleTitle = saveArticleModel.Article.Title,
+                UserId = saveArticleModel.UserId
+            };
+            await unitOfWork.SavedArticlesRepository.AddAsync(savedArticle);
+            await unitOfWork.SaveChangesAsync();
+
+            return savedArticle;
+        }
+
+        public async Task<IList<ExtendedArticleModel>> GetFavoriteArticlesAsync(Guid userId)
+        {
+            return await GetArticlesByUserAndSavingType(ArticleSavingType.Favorite, userId);
         }
     }
 }

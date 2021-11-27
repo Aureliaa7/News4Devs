@@ -38,13 +38,18 @@ namespace News4Devs.Client.Components
             await OnLoadMoreArticles.InvokeAsync();
         }
 
-        private async Task SaveArticleAsync(ArticleDto article)
+        private async Task SaveArticleAsync(ExtendedArticleDto extendedArticle)
         {
-            var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(article);
+            var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(extendedArticle.Article);
             string userId = await AuthService.GetCurrentUserIdAsync();
 
             var response = await HttpClientService.PostAsync<SavedArticleDto>(
                 $"{ClientConstants.BaseUrl}v1/articles/{userId}/save", byteArrayContent);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                extendedArticle.IsSaved = true;
+            }
 
             HandleResponse(response);
         }
@@ -65,14 +70,31 @@ namespace News4Devs.Client.Components
             }
         }
 
-        private Task MarkAsFavoriteAsync(ArticleDto article)
+        private async Task MarkAsFavoriteAsync(ExtendedArticleDto extendedArticle)
+        {
+            var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(extendedArticle.Article);
+            string userId = await AuthService.GetCurrentUserIdAsync();
+
+            var response = await HttpClientService.PostAsync<SavedArticleDto>(
+                $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite", byteArrayContent);
+
+            // so that the changes reflect in UI 
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                extendedArticle.IsFavorite = true;
+            }
+
+            HandleResponse(response);
+        }
+
+        private Task RemoveFromSavedArticlesAsync(string title)
         {
             //TODO to be implemented
 
             return Task.Delay(10);
         }
 
-        private Task RemoveAsync(string title)
+        private Task RemoveFromFavoriteArticlesAsync(string title)
         {
             //TODO to be implemented
 

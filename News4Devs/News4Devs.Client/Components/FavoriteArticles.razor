@@ -1,12 +1,10 @@
-﻿@page "/saved-articles"
+﻿@page "/favorite-articles"
 @attribute [Authorize]
 @inherits ArticlesBase
 
-<h3>Saved Articles</h3>
+<h3>Favorite Articles</h3>
 
-<News 
-      Articles="@Articles"
+<News Articles="@Articles"
       OnLoadMoreArticles="LoadMoreArticlesAsync"
       IsLoadMoreButtonVisible="isLoadMoreButtonVisible"
-      Loading="loading"
-/>
+      Loading="loading" />

@@ -4,6 +4,6 @@
 <h3>Newest articles</h3>
 <SearchBar OnSearch="RedirectToSearchNewsPage"/>
 <News Articles="@Articles"
-      OnLoadMoreArticles="LoadMoreFreshArticles"
+      OnLoadMoreArticles="LoadMoreArticlesAsync"
       IsLoadMoreButtonVisible="isLoadMoreButtonVisible" 
       Loading="loading"/>

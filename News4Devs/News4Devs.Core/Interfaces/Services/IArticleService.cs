@@ -10,6 +10,10 @@ namespace News4Devs.Core.Interfaces.Services
     {
         Task<SavedArticle> SaveArticleAsync(SaveArticleModel saveArticleModel);
 
+        Task<SavedArticle> SaveArticleAsFavoriteAsync(SaveArticleModel saveArticleModel);
+
         Task<IList<ExtendedArticleModel>> GetSavedArticlesAsync(Guid userId);
+
+        Task<IList<ExtendedArticleModel>> GetFavoriteArticlesAsync(Guid userId);
     }
 }

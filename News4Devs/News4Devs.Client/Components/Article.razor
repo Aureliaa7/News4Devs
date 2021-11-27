@@ -13,18 +13,27 @@
         </div>
         <AuthorizeView>
             <Authorized>
-                <div class="save-article-div">
+                <div class="article-actions-container">
                     @if (!ExtendedArticleDto.IsSaved)
                     {
-                        <button type="submit" @onclick="OnSaveArticle"><i class="ml-md-auto oi oi-bookmark"></i></button>
+                        <button type="submit" @onclick="OnSaveArticle"><i class="far fa-bookmark"></i></button>
                     }
+                    else
+                    {
+                        <button type="submit" @onclick="OnRemoveFromSavedArticles"><i class="fas fa-bookmark"></i></button>
+                    }
+
                     @if (!ExtendedArticleDto.IsFavorite)
                     {
-                        <button type="submit" @onclick="OnMarkArticleAsFavorite"><i class="ml-md-auto oi oi-star"></i></button>
+                        <button type="submit" @onclick="OnMarkArticleAsFavorite"><i class="far fa-star"></i></button>
                     }
-                    @if (ExtendedArticleDto.IsSaved || ExtendedArticleDto.IsFavorite)
+                    else
                     {
-                        <button type="submit" @onclick="OnRemoveArticle"><i class="ml-md-auto oi oi-delete"></i></button>
+                        <button type="submit" @onclick="OnRemoveFromFavoriteArticles"><i class="fas fa-star"></i></button>
+                        // <i class="far fa-bookmark"></i> unsaved
+                        // <i class="fas fa-bookmark"></i>// saved
+                        // <i class="fas fa-star"></i>  // full star
+                        // <i class="far fa-star"></i> // empty star
                     }
                 </div>
             </Authorized>

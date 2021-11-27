@@ -13,11 +13,6 @@ namespace News4Devs.Client.Components
             loading = false;
         }
 
-        private async Task LoadMoreFreshArticles()
-        {
-            await GetArticlesAsync();
-        }
-
         protected override Task<string> GetUrlAsync()
         {
             return Task.FromResult($"{ClientConstants.BaseUrl}v1/articles?page={pageNumber}&state=fresh");

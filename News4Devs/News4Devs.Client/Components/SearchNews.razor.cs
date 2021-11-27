@@ -19,11 +19,6 @@ namespace News4Devs.Client.Components
             loading = false;
         }
 
-        private async Task LoadMoreArticles()
-        {
-            await GetArticlesAsync();
-        }
-
         private void SetSearchedTags()
         {
             var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);

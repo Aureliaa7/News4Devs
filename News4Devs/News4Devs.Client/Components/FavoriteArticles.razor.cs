@@ -2,7 +2,7 @@
 
 namespace News4Devs.Client.Components
 {
-    public partial class SavedArticles : ArticlesBase
+    public partial class FavoriteArticles : ArticlesBase
     {
         protected override async Task OnInitializedAsync()
         {
@@ -14,13 +14,11 @@ namespace News4Devs.Client.Components
         protected async override Task<string> GetUrlAsync()
         {
             string userId = await GetCurrentUserIdAsync();
-            return $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved";
+            return $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite";
         }
 
         protected override Task CheckIfThereAreMoreArticlesAsync()
         {
-            // do nothing for now
-
             //TODO update when adding pagination
             return Task.Delay(10);
         }

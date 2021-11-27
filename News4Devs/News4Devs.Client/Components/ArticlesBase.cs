@@ -53,7 +53,7 @@ namespace News4Devs.Client.Components
                 {
                     isLoadMoreButtonVisible = false;
                 }
-                pageNumber += 1;
+                pageNumber++;
             }
             await CheckIfThereAreMoreArticlesAsync();
         }
@@ -75,6 +75,11 @@ namespace News4Devs.Client.Components
         protected Task<string> GetCurrentUserIdAsync()
         {
             return AuthService.GetCurrentUserIdAsync();
+        }
+
+        protected virtual async Task LoadMoreArticlesAsync()
+        {
+            await GetArticlesAsync();
         }
     }
 }
