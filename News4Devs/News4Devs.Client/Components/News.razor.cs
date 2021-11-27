@@ -87,18 +87,38 @@ namespace News4Devs.Client.Components
             HandleResponse(response);
         }
 
-        private Task RemoveFromSavedArticlesAsync(string title)
+        private async Task RemoveFromSavedArticlesAsync(ExtendedArticleDto extendedArticle)
         {
-            //TODO to be implemented
+            string userId = await AuthService.GetCurrentUserIdAsync();
+            var response = await HttpClientService.DeleteAsync<string>(
+                $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved/{extendedArticle.Article.title}");
 
-            return Task.Delay(10);
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                extendedArticle.IsSaved = false;
+                ToastService.ShowSuccess("The article was successfully removed from Saved articles list");
+            }
+            else
+            {
+                ToastService.ShowError("The article could not be removed from Saved articles list...");
+            }
         }
 
-        private Task RemoveFromFavoriteArticlesAsync(string title)
+        private async Task RemoveFromFavoriteArticlesAsync(ExtendedArticleDto extendedArticle)
         {
-            //TODO to be implemented
+            string userId = await AuthService.GetCurrentUserIdAsync();
+            var response = await HttpClientService.DeleteAsync<string>(
+                $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite/{extendedArticle.Article.title}");
 
-            return Task.Delay(10);
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                extendedArticle.IsFavorite = false;
+                ToastService.ShowSuccess("The article was successfully removed from Favorite articles list");
+            }
+            else
+            {
+                ToastService.ShowError("The article could not be removed from Favorite articles list...");
+            }
         }
     }
 }

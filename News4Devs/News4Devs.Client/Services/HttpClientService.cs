@@ -21,6 +21,13 @@ namespace News4Devs.Client.Services
             this.localStorageService = localStorageService;
         }
 
+        public async Task<ApiResponse<T>> DeleteAsync<T>(string apiEndpoint)
+        {
+            var requestMessage = await CreateHttpRequestMessageAsync(HttpMethod.Delete, apiEndpoint);
+
+            return await HandleHttpRequestAsync<T>(requestMessage);
+        }
+
         public async Task<ApiResponse<T>> GetAsync<T>(string apiEndpoint)
         {
             var requestMessage = await CreateHttpRequestMessageAsync(HttpMethod.Get, apiEndpoint);

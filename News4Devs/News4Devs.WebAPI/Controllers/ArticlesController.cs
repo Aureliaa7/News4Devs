@@ -89,5 +89,25 @@ namespace News4Devs.WebAPI.Controllers
 
             return Ok(favoriteArticlesDtos);
         }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("{userId}/saved/{articleTitle}")]
+        public async Task<IActionResult> RemoveFromSavedArticles([FromRoute] Guid userId, [FromRoute] string articleTitle)
+        {
+            await articleService.RemoveFromSavedArticlesAsync(userId, articleTitle);
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("{userId}/favorite/{articleTitle}")]
+        public async Task<IActionResult> RemoveFromFavoriteArticles([FromRoute] Guid userId, [FromRoute] string articleTitle)
+        {
+            await articleService.RemoveFromFavoriteArticlesAsync(userId, articleTitle);
+
+            return NoContent();
+        }
     }
 }

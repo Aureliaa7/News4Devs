@@ -101,8 +101,8 @@ namespace News4Devs.Core.DomainServices
                 SavedArticle existingArticle = await unitOfWork.SavedArticlesRepository.GetFirstOrDefaultAsync(
                     x => x.ArticleTitle == saveArticleModel.Article.Title &&
                     x.UserId == saveArticleModel.UserId &&
-                    x.ArticleSavingType == existingArticleSavingType ||
-                    x.ArticleSavingType == ArticleSavingType.SavedAndFavorite);
+                    (x.ArticleSavingType == existingArticleSavingType ||
+                    x.ArticleSavingType == ArticleSavingType.SavedAndFavorite));
 
                 if (existingArticle != null)
                 {
@@ -129,6 +129,60 @@ namespace News4Devs.Core.DomainServices
         public async Task<IList<ExtendedArticleModel>> GetFavoriteArticlesAsync(Guid userId)
         {
             return await GetArticlesByUserAndSavingType(ArticleSavingType.Favorite, userId);
+        }
+
+        public async Task<string> RemoveFromSavedArticlesAsync(Guid userId, string articleTitle)
+        {
+            return await RemoveArticleFromSpecificListAsync(
+                userId, 
+                articleTitle, 
+                oldSavingType: ArticleSavingType.Saved, 
+                newSavingTypeIfNeeded: ArticleSavingType.Favorite);
+        }
+
+        private async Task DeleteArticleIfNotUsedByOtherUsersAsync(Guid userIdToBeExcluded, string articleTitle)
+        {
+            bool articleIsSavedByOtherUsers = await unitOfWork.SavedArticlesRepository.ExistsAsync(
+                x => x.ArticleTitle == articleTitle && x.UserId != userIdToBeExcluded);
+            if (!articleIsSavedByOtherUsers)
+            {
+                var articleToBeDeleted = await unitOfWork.ArticlesRepository.GetFirstOrDefaultAsync(x => x.Title == articleTitle);
+                await unitOfWork.ArticlesRepository.RemoveAsync(articleToBeDeleted);
+            }
+        }
+
+        public async Task<string> RemoveFromFavoriteArticlesAsync(Guid userId, string articleTitle)
+        {
+            return await RemoveArticleFromSpecificListAsync(
+                userId, 
+                articleTitle, 
+                oldSavingType: ArticleSavingType.Favorite, 
+                newSavingTypeIfNeeded: ArticleSavingType.Saved);
+        }
+
+        private async Task<string> RemoveArticleFromSpecificListAsync(
+            Guid userId, string articleTitle, 
+            ArticleSavingType oldSavingType, 
+            ArticleSavingType newSavingTypeIfNeeded)
+        {
+            await CheckIfUserExistsAsync(userId);
+            var savedArticle = await unitOfWork.SavedArticlesRepository.GetFirstOrDefaultAsync(
+                x => x.ArticleTitle == articleTitle && x.UserId == userId &&
+                (x.ArticleSavingType == oldSavingType || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite));
+            if (savedArticle != null && savedArticle.ArticleSavingType == oldSavingType)
+            {
+                await unitOfWork.SavedArticlesRepository.RemoveAsync(savedArticle.Id);
+                await DeleteArticleIfNotUsedByOtherUsersAsync(userId, articleTitle);
+            }
+            else if (savedArticle != null && savedArticle.ArticleSavingType == ArticleSavingType.SavedAndFavorite)
+            {
+                savedArticle.ArticleSavingType = newSavingTypeIfNeeded;
+                await unitOfWork.SavedArticlesRepository.UpdateAsync(savedArticle);
+            }
+
+            await unitOfWork.SaveChangesAsync();
+
+            return articleTitle;
         }
     }
 }

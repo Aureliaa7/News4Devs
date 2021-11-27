@@ -10,46 +10,46 @@ namespace News4Devs.Infrastructure.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext dbContext;
-        private IRepositoryBase<User> usersRepository;
-        private IRepositoryBase<Article> articlesRepository;
-        private IRepositoryBase<SavedArticle> savedArticlesRepository;
+        private IRepository<User> usersRepository;
+        private IRepository<Article> articlesRepository;
+        private IRepository<SavedArticle> savedArticlesRepository;
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public IRepositoryBase<User> UsersRepository
+        public IRepository<User> UsersRepository
         {
             get
             {
                 if (usersRepository == null)
                 {
-                    usersRepository = new RepositoryBase<User>(dbContext);
+                    usersRepository = new Repository<User>(dbContext);
                 }
                 return usersRepository;
             }
         }
 
-        public IRepositoryBase<Article> ArticlesRepository
+        public IRepository<Article> ArticlesRepository
         {
             get
             {
                 if (articlesRepository == null)
                 {
-                    articlesRepository = new RepositoryBase<Article>(dbContext);
+                    articlesRepository = new Repository<Article>(dbContext);
                 }
                 return articlesRepository;
             }
         }
 
-        public IRepositoryBase<SavedArticle> SavedArticlesRepository
+        public IRepository<SavedArticle> SavedArticlesRepository
         {
             get
             {
                 if (savedArticlesRepository == null)
                 {
-                    savedArticlesRepository = new RepositoryBase<SavedArticle>(dbContext);
+                    savedArticlesRepository = new Repository<SavedArticle>(dbContext);
                 }
                 return savedArticlesRepository;
             }

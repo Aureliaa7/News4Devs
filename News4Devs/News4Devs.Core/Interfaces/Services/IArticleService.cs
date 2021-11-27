@@ -15,5 +15,9 @@ namespace News4Devs.Core.Interfaces.Services
         Task<IList<ExtendedArticleModel>> GetSavedArticlesAsync(Guid userId);
 
         Task<IList<ExtendedArticleModel>> GetFavoriteArticlesAsync(Guid userId);
+
+        Task<string> RemoveFromSavedArticlesAsync(Guid userId, string articleTitle);
+
+        Task<string> RemoveFromFavoriteArticlesAsync(Guid userId, string articleTitle);
     }
 }

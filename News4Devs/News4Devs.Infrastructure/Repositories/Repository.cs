@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Infrastructure.Repositories
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly ApplicationDbContext Context;
 
-        public RepositoryBase(ApplicationDbContext context)
+        public Repository(ApplicationDbContext context)
         {
             Context = context;
         }
@@ -38,6 +38,13 @@ namespace News4Devs.Infrastructure.Repositories
             Context.Set<T>().Remove(entityToBeDeleted);
 
             return entityToBeDeleted;
+        }
+
+        public Task<T> RemoveAsync(T entity)
+        {
+            Context.Set<T>().Remove(entity);
+
+            return Task.FromResult(entity);
         }
 
         public Task<T> UpdateAsync(T entity)

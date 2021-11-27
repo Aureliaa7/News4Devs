@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Core.Interfaces.Repositories
 {
-    public interface IRepositoryBase<T> where T : class
+    public interface IRepository<T> where T : class
     {
         Task<T> GetByIdAsync(Guid id);
 
         Task<T> AddAsync(T entity);
         
         Task<T> RemoveAsync(Guid id);
+
+        Task<T> RemoveAsync(T entity);
         
         Task<T> UpdateAsync(T entity);
         

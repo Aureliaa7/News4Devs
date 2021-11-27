@@ -12,5 +12,7 @@ namespace News4Devs.Client.Services.Interfaces
         Task<ApiResponse<T>> PostAsync<T>(string apiEndpoint, ByteArrayContent content);
 
         Task<HttpStatusCode> PutAsync(string apiEndpoint, ByteArrayContent content);
+
+        Task<ApiResponse<T>> DeleteAsync<T>(string apiEndpoint);
     }
 }

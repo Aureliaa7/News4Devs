@@ -6,11 +6,11 @@ namespace News4Devs.Core.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IRepositoryBase<User> UsersRepository{ get; }
+        IRepository<User> UsersRepository{ get; }
 
-        IRepositoryBase<Article> ArticlesRepository { get; }
+        IRepository<Article> ArticlesRepository { get; }
 
-        IRepositoryBase<SavedArticle> SavedArticlesRepository { get; }
+        IRepository<SavedArticle> SavedArticlesRepository { get; }
 
         Task SaveChangesAsync();
     }
