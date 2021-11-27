@@ -13,6 +13,6 @@ namespace News4Devs.Core.Interfaces.Services
         /// <param name="devApiQueryParamsModel">A model containing
         /// all the query params that can be used when calling Dev API</param>
         /// <returns>A list of articles</returns>
-        Task<IList<ArticleDto>> GetArticlesAsync(DevApiQueryParamsModel devApiQueryParamsModel);
+        Task<IList<ExtendedArticleDto>> GetArticlesAsync(DevApiQueryParamsModel devApiQueryParamsModel);
     }
 }

@@ -1,23 +1,33 @@
 ﻿<div class="article-container">
     <div class="media-container">
-        <img src="@ArticleDto.social_image" alt="image" />
+        <img src="@ExtendedArticleDto.Article.social_image" alt="image" />
     </div>
     <div class="article-details-container">
-        <a href="@ArticleDto.url" target="_blank"><h3>@ArticleDto.title</h3></a>
-        <h5>@ArticleDto.user.name</h5>
-        <h6>@ArticleDto.readable_publish_date</h6>
-        <h6>Reading time: @ArticleDto.reading_time_minutes minutes</h6>
-        <h6>Tags: @ArticleDto.tags</h6>
+        <a href="@ExtendedArticleDto.Article.url" target="_blank"><h3>@ExtendedArticleDto.Article.title</h3></a>
+        <h5>@ExtendedArticleDto.Article.user.name</h5>
+        <h6>@ExtendedArticleDto.Article.readable_publish_date</h6>
+        <h6>Reading time: @ExtendedArticleDto.Article.reading_time_minutes minutes</h6>
+        <h6>Tags: @ExtendedArticleDto.Article.tags</h6>
         <div class="article-summary">
-            <p>@ArticleDto.description</p>
+            <p>@ExtendedArticleDto.Article.description</p>
         </div>
         <AuthorizeView>
             <Authorized>
                 <div class="save-article-div">
-                    <button type="submit" @onclick="OnSaveArticle"><i class="ml-md-auto oi oi-bookmark"></i></button>
+                    @if (!ExtendedArticleDto.IsSaved)
+                    {
+                        <button type="submit" @onclick="OnSaveArticle"><i class="ml-md-auto oi oi-bookmark"></i></button>
+                    }
+                    @if (!ExtendedArticleDto.IsFavorite)
+                    {
+                        <button type="submit" @onclick="OnMarkArticleAsFavorite"><i class="ml-md-auto oi oi-star"></i></button>
+                    }
+                    @if (ExtendedArticleDto.IsSaved || ExtendedArticleDto.IsFavorite)
+                    {
+                        <button type="submit" @onclick="OnRemoveArticle"><i class="ml-md-auto oi oi-delete"></i></button>
+                    }
                 </div>
             </Authorized>
         </AuthorizeView>
     </div>
-
 </div>

@@ -22,7 +22,7 @@ namespace News4Devs.Client.Components
         protected IAuthenticationService AuthService { get; set; }
 
         [Parameter]
-        public List<ArticleDto> Articles { get; set; }
+        public List<ExtendedArticleDto> Articles { get; set; }
 
         [Parameter]
         public EventCallback OnLoadMoreArticles { get; set; }
@@ -63,6 +63,20 @@ namespace News4Devs.Client.Components
             {
                 ToastService.ShowError("The article could not be saved...");
             }
+        }
+
+        private Task MarkAsFavoriteAsync(ArticleDto article)
+        {
+            //TODO to be implemented
+
+            return Task.Delay(10);
+        }
+
+        private Task RemoveAsync(string title)
+        {
+            //TODO to be implemented
+
+            return Task.Delay(10);
         }
     }
 }

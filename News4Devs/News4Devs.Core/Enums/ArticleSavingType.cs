@@ -3,6 +3,7 @@
     public enum ArticleSavingType
     {
         Saved,
-        Favorite
+        Favorite,
+        SavedAndFavorite
     }
 }

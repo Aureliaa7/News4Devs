@@ -4,6 +4,9 @@ using News4Devs.Core.Exceptions;
 using News4Devs.Core.Interfaces.Services;
 using News4Devs.Core.Interfaces.UnitOfWork;
 using News4Devs.Core.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace News4Devs.Core.DomainServices
@@ -17,6 +20,31 @@ namespace News4Devs.Core.DomainServices
             this.unitOfWork = unitOfWork;
         }
 
+        public async Task<IList<ExtendedArticleModel>> GetSavedArticlesAsync(Guid userId)
+        {
+            await CheckIfUserExistsAsync(userId);
+
+            var savedArticles = await GetArticlesByUserAndSavingType(ArticleSavingType.Saved, userId);
+
+            return savedArticles;
+        }
+
+        private async Task<IList<ExtendedArticleModel>> GetArticlesByUserAndSavingType(ArticleSavingType savingType, Guid userId)
+        {
+            var savedArticles = (await unitOfWork.SavedArticlesRepository.GetAllAsync(x => x.UserId == userId &&
+                (x.ArticleSavingType == savingType || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite), 
+                includeProperties: nameof(Article)))
+                .Select(x => new ExtendedArticleModel
+                    {
+                        Article = x.Article,
+                        IsSaved = x.ArticleSavingType == ArticleSavingType.Saved || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite,
+                        IsFavorite = x.ArticleSavingType == ArticleSavingType.Favorite || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite,
+                    })
+                .ToList();
+
+            return savedArticles;
+        }
+
         public async Task<SavedArticle> SaveArticleAsync(SaveArticleModel saveArticleModel)
         {
             await CheckEntitiesExistenceAsync(saveArticleModel);
@@ -26,6 +54,21 @@ namespace News4Devs.Core.DomainServices
             {
                 await unitOfWork.ArticlesRepository.AddAsync(saveArticleModel.Article);
                 await unitOfWork.SaveChangesAsync();
+            }
+            else
+            {
+                SavedArticle favoriteArticle = await unitOfWork.SavedArticlesRepository.GetFirstOrDefaultAsync(
+                    x => x.ArticleTitle == saveArticleModel.Article.Title && x.UserId == saveArticleModel.UserId
+                    && x.ArticleSavingType == ArticleSavingType.Favorite);
+
+                if (favoriteArticle != null)
+                {
+                    favoriteArticle.ArticleSavingType = ArticleSavingType.SavedAndFavorite;
+                    var updatedSavedArticle = await unitOfWork.SavedArticlesRepository.UpdateAsync(favoriteArticle);
+                    await unitOfWork.SaveChangesAsync();
+
+                    return updatedSavedArticle;
+                }
             }
 
             var savedArticle = new SavedArticle
@@ -42,11 +85,7 @@ namespace News4Devs.Core.DomainServices
 
         private async Task CheckEntitiesExistenceAsync(SaveArticleModel saveArticleModel)
         {
-            bool userExists = await unitOfWork.UsersRepository.ExistsAsync(x => x.Id == saveArticleModel.UserId);
-            if (!userExists)
-            {
-                throw new EntityNotFoundException($"The user with the id {saveArticleModel.UserId} does not exist!");
-            }
+            await CheckIfUserExistsAsync(saveArticleModel.UserId);
 
             bool articleWasSaved = await unitOfWork.SavedArticlesRepository.ExistsAsync(
                 x => x.Article.Title == saveArticleModel.Article.Title &&
@@ -57,6 +96,15 @@ namespace News4Devs.Core.DomainServices
             {
                 throw new DuplicateEntityException($"The article named {saveArticleModel.Article.Title} was already saved " +
                     $"by the user with the id {saveArticleModel.UserId}");
+            }
+        }
+
+        private async Task CheckIfUserExistsAsync(Guid id)
+        {
+            bool userExists = await unitOfWork.UsersRepository.ExistsAsync(x => x.Id == id);
+            if (!userExists)
+            {
+                throw new EntityNotFoundException($"The user with the id {id} does not exist!");
             }
         }
     }

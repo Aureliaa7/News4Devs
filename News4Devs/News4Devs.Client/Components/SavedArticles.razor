@@ -1,3 +1,12 @@
-﻿<h3>Saved Articles</h3>
+﻿@page "/saved-articles"
+@attribute [Authorize]
+@inherits ArticlesBase
 
-@*TO BE IMPLEMENTED*@
+<h3>Saved Articles</h3>
+
+<News 
+      Articles="@Articles"
+      OnLoadMoreArticles="LoadMoreSavedArticles"
+      IsLoadMoreButtonVisible="isLoadMoreButtonVisible"
+      Loading="loading"
+/>

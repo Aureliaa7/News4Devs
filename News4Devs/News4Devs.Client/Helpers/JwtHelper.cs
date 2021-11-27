@@ -57,9 +57,9 @@ namespace News4Devs.Client.Helpers
             if (long.TryParse(expValue, out long unixTimeSeconds))
             {
                 DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTimeSeconds);
-                var expirationDate = dateTimeOffset.DateTime;
+                var expirationDate = dateTimeOffset.ToUniversalTime();
 
-                return expirationDate > DateTime.Now;
+                return expirationDate > DateTime.UtcNow;
             }
 
             return false;

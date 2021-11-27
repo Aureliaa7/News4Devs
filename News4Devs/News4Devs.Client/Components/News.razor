@@ -11,7 +11,12 @@ else
     <div>
         @foreach (var article in Articles)
         {
-            <Article ArticleDto="@article" SaveArticle="SaveArticleAsync"></Article>
+            <Article
+                     ExtendedArticleDto="@article" 
+                     SaveArticle="SaveArticleAsync"
+                     MarkAsFavorite="MarkAsFavoriteAsync"
+                     RemoveArticle="RemoveAsync"
+            ></Article>
         }
     </div>
 

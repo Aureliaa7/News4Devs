@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Client.Components
 {
-    public abstract class NewsBase : ComponentBase
+    public abstract class ArticlesBase : ComponentBase
     {
         [Inject]
         protected IHttpClientService HttpClientService { get; set; }
@@ -20,7 +20,11 @@ namespace News4Devs.Client.Components
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
-        protected List<ArticleDto> Articles = new List<ArticleDto>();
+
+        [Inject]
+        protected IAuthenticationService AuthService { get; set; }
+
+        protected List<ExtendedArticleDto> Articles = new();
 
         protected int pageNumber = 1;
 
@@ -28,16 +32,16 @@ namespace News4Devs.Client.Components
        
         protected bool loading = false;
 
-        protected abstract string GetUrl();
+        protected abstract Task<string> GetUrlAsync();
 
         protected async Task GetArticlesAsync()
         {
-            string url = GetUrl();
-            var response = await HttpClientService.GetAsync<IList<ArticleDto>>(url);
+            string url = await GetUrlAsync();
+            var response = await HttpClientService.GetAsync<IList<ExtendedArticleDto>>(url);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                ToastService.ShowError("An unexpected error occured during retrieving the news");
+                ToastService.ShowError("An unexpected error occured during retrieving the articles");
             }
             else
             {
@@ -57,15 +61,20 @@ namespace News4Devs.Client.Components
         // Since the Dev API does not also return the number of total pages, I need a way to show the LoadMore button
         // only if there are more articles. So, after incrementing the number of the current page, I'll make a call
         // to Dev API to get the articles, but I won't add them in the Articles list(if there are any)
-        private async Task CheckIfThereAreMoreArticlesAsync()
+        protected virtual async Task CheckIfThereAreMoreArticlesAsync()
         {
-            string url = GetUrl();
+            string url = await GetUrlAsync();
             var response = await HttpClientService.GetAsync<IList<ArticleDto>>(url);
             var articles = response.Data;
             if (!articles.Any())
             {
                 isLoadMoreButtonVisible = false;
             }
+        }
+
+        protected Task<string> GetCurrentUserIdAsync()
+        {
+            return AuthService.GetCurrentUserIdAsync();
         }
     }
 }

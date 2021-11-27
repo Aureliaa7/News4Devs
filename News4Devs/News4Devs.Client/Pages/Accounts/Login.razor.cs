@@ -29,7 +29,7 @@ namespace News4Devs.Client.Pages.Accounts
             }
             else
             {
-                NavigationManager.NavigateTo($"/profile/{userId}");
+                NavigationManager.NavigateTo("/");
             }
 
             loginModel = new();

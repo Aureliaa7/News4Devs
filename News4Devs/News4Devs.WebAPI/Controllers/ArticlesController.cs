@@ -7,6 +7,7 @@ using News4Devs.Core.Enums;
 using News4Devs.Core.Interfaces.Services;
 using News4Devs.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace News4Devs.WebAPI.Controllers
@@ -49,6 +50,17 @@ namespace News4Devs.WebAPI.Controllers
             var savedArticle = await articleService.SaveArticleAsync(saveArticleModel);
 
             return Ok(mapper.Map<SavedArticleDto>(savedArticle));
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("{userId}/saved")]
+        public async Task<IActionResult> GetSavedArticles([FromRoute] Guid userId)
+        {
+            var savedArticles = await articleService.GetSavedArticlesAsync(userId);
+            var savedArticlesDtos = mapper.Map<IList<ExtendedArticleDto>>(savedArticles);
+
+            return Ok(savedArticlesDtos);
         }
     }
 }

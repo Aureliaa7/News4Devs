@@ -3,6 +3,7 @@ using News4Devs.Core.DTOs;
 using News4Devs.Core.Interfaces.Services;
 using News4Devs.Core.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -17,15 +18,21 @@ namespace News4Devs.Infrastructure.Services
             this.apiService = apiService;
         }
 
-        public async Task<IList<ArticleDto>> GetArticlesAsync(DevApiQueryParamsModel devApiQueryParamsModel)
+        public async Task<IList<ExtendedArticleDto>> GetArticlesAsync(DevApiQueryParamsModel devApiQueryParamsModel)
         {
             var queryParams = GetQueryParams(devApiQueryParamsModel);
 
-            var apiResponse = await apiService.GetAsync<IList<ArticleDto>>(
+            var articlesDtos = await apiService.GetAsync<IList<ArticleDto>>(
                 Constants.DevAPIBaseUrl,
                 queryParams);
 
-            return apiResponse;
+            var extendedArticlesDtos = new List<ExtendedArticleDto>();
+            if (articlesDtos?.Any() == true)
+            {
+                articlesDtos.ToList().ForEach(x => extendedArticlesDtos.Add(new ExtendedArticleDto { Article = x }));
+            }
+
+            return extendedArticlesDtos;
         }
 
         private IDictionary<string, string> GetQueryParams(DevApiQueryParamsModel devApiQueryParamsModel)
