@@ -15,6 +15,7 @@
 
         public const string DevAPIBaseUrl = "https://dev.to/api/articles";
         public const string ITBookstoreAPIUrl = "https://api.itbook.store/1.0/";
+        public const string QuotableAPIUrl = "https://api.quotable.io";
 
         public const int DefaultPageSize = 10;
         public const int DefaultPageNumber = 1;

@@ -6,3 +6,4 @@
 * APIs:
 	dev.to API: https://developers.forem.com/api
 	IT Bookstore API: https://api.itbook.store/
+	Quotable: https://github.com/lukePeavey/quotable

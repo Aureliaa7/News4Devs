@@ -4,6 +4,7 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.WebUtilities;
+@using News4Devs.Client.Components.Quotes; 
 
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
@@ -27,6 +28,7 @@
                     <a href="/login" class="ml-md-auto">Login</a>
                 </NotAuthorized>
                 <Authorized>
+                    <Quote />
                     <a href="/logout" class="ml-md-auto oi oi-account-logout"></a>
                 </Authorized>
             </AuthorizeView>
