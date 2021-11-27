@@ -49,7 +49,6 @@ namespace News4Devs.Core.DomainServices
                 Constants.FavoriteArticlesEndpoint;
 
             int totalRecords = await unitOfWork.SavedArticlesRepository.GetTotalRecordsAsync(filter);
-
             var totalPages = ((double)totalRecords / (double)paginationFilter.PageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 

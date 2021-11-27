@@ -13,13 +13,13 @@ namespace News4Devs.Client.Components
     public partial class News
     {
         [Inject]
-        protected IHttpClientService HttpClientService { get; set; }
+        private IHttpClientService HttpClientService { get; set; }
 
         [Inject]
-        protected IToastService ToastService { get; set; }
+        private IToastService ToastService { get; set; }
 
         [Inject]
-        protected IAuthenticationService AuthService { get; set; }
+        private IAuthenticationService AuthService { get; set; }
 
         [Parameter]
         public List<ExtendedArticleDto> Articles { get; set; }

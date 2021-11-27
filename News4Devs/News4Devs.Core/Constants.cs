@@ -14,11 +14,12 @@
         public const int BadRequest = 400;
 
         public const string DevAPIBaseUrl = "https://dev.to/api/articles";
+        public const string ITBookstoreAPIUrl = "https://api.itbook.store/1.0/";
 
         public const int DefaultPageSize = 10;
         public const int DefaultPageNumber = 1;
 
-        public const string ArticlesAddress = "https://localhost:44347/api/articles/";
+        public const string ArticlesAddress = "https://localhost:44347/api/v1/articles/";
         public const string SavedArticlesEndpoint = "saved";
         public const string FavoriteArticlesEndpoint = "favorite";
     }

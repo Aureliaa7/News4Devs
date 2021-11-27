@@ -1,0 +1,22 @@
+﻿@page "/new-it-books"
+@attribute [Authorize]
+
+<h3>Books</h3>
+
+@if (!loading && !Books.Any())
+{
+    <NoArticlesFound />
+}
+else if (loading)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <div>
+        @foreach (var book in Books)
+        {
+            <Book BookDto="@book"/>
+        }
+    </div>
+}
