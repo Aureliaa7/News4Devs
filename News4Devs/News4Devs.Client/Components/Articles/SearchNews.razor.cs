@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace News4Devs.Client.Components
+namespace News4Devs.Client.Components.Articles
 {
     public partial class SearchNews : ArticlesBase
     {

@@ -5,10 +5,11 @@ using News4Devs.Client.Models;
 using News4Devs.Client.Services.Interfaces;
 using News4Devs.Core.DTOs;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace News4Devs.Client.Components
+namespace News4Devs.Client.Components.Articles
 {
     public partial class News
     {
@@ -87,15 +88,16 @@ namespace News4Devs.Client.Components
             HandleResponse(response);
         }
 
-        private async Task RemoveFromSavedArticlesAsync(ExtendedArticleDto extendedArticle)
+        private async Task RemoveFromSavedArticlesAsync(string articleTitle)
         {
             string userId = await AuthService.GetCurrentUserIdAsync();
             var response = await HttpClientService.DeleteAsync<string>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved/{extendedArticle.Article.title}");
+                $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved/{articleTitle}");
 
             if (response.StatusCode == HttpStatusCode.NoContent)
             {
-                extendedArticle.IsSaved = false;
+                Articles = Articles.Except(Articles.Where(x => x.Article.title == articleTitle)).ToList();
+                // or simply remove it from list
                 ToastService.ShowSuccess("The article was successfully removed from Saved articles list");
             }
             else
@@ -104,15 +106,15 @@ namespace News4Devs.Client.Components
             }
         }
 
-        private async Task RemoveFromFavoriteArticlesAsync(ExtendedArticleDto extendedArticle)
+        private async Task RemoveFromFavoriteArticlesAsync(string articleTitle)
         {
             string userId = await AuthService.GetCurrentUserIdAsync();
             var response = await HttpClientService.DeleteAsync<string>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite/{extendedArticle.Article.title}");
+                $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite/{articleTitle}");
 
             if (response.StatusCode == HttpStatusCode.NoContent)
             {
-                extendedArticle.IsFavorite = false;
+                Articles = Articles.Except(Articles.Where(x => x.Article.title == articleTitle)).ToList();
                 ToastService.ShowSuccess("The article was successfully removed from Favorite articles list");
             }
             else

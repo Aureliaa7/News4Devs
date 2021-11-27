@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace News4Devs.Client.Components
+namespace News4Devs.Client.Components.Articles
 {
     public abstract class SavedArticlesBase : ArticlesBase
     {

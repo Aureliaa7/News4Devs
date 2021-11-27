@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace News4Devs.Client.Components
+namespace News4Devs.Client.Components.Articles
 {
-    public partial class SavedArticles : SavedArticlesBase
+    public partial class FavoriteArticles : SavedArticlesBase
     {
         protected override async Task OnInitializedAsync()
         {
@@ -14,7 +14,7 @@ namespace News4Devs.Client.Components
         protected async override Task<string> GetUrlAsync()
         {
             string userId = await GetCurrentUserIdAsync();
-            return $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved?pageNumber={pageNumber}&pageSize={ClientConstants.MaxPageSize}";
+            return $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite?pageNumber={pageNumber}&pageSize={ClientConstants.MaxPageSize}";
         }
     }
 }

@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Components\NoArticlesFound.razor.css" />
     <Content Include="Shared\Footer.razor.css" />
   </ItemGroup>
 

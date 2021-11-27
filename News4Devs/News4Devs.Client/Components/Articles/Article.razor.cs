@@ -2,7 +2,7 @@
 using News4Devs.Core.DTOs;
 using System.Threading.Tasks;
 
-namespace News4Devs.Client.Components
+namespace News4Devs.Client.Components.Articles
 {
     public partial class Article
     {
@@ -15,12 +15,11 @@ namespace News4Devs.Client.Components
         [Parameter]
         public EventCallback<ExtendedArticleDto> MarkAsFavorite { get; set; }
 
-        // send the whole object(even if only the title is needed) to avoid making another request in order to update the UI
         [Parameter]
-        public EventCallback<ExtendedArticleDto> RemoveFromSavedArticles { get; set; }
+        public EventCallback<string> RemoveFromSavedArticles { get; set; }
 
         [Parameter]
-        public EventCallback<ExtendedArticleDto> RemoveFromFavoriteArticles { get; set; }
+        public EventCallback<string> RemoveFromFavoriteArticles { get; set; }
 
         private async Task OnSaveArticle()
         {
@@ -29,12 +28,12 @@ namespace News4Devs.Client.Components
 
         private async Task OnRemoveFromSavedArticles()
         {
-            await RemoveFromSavedArticles.InvokeAsync(ExtendedArticleDto);
+            await RemoveFromSavedArticles.InvokeAsync(ExtendedArticleDto.Article.title);
         }
 
         private async Task OnRemoveFromFavoriteArticles()
         {
-            await RemoveFromFavoriteArticles.InvokeAsync(ExtendedArticleDto);
+            await RemoveFromFavoriteArticles.InvokeAsync(ExtendedArticleDto.Article.title);
         }
 
         private async Task OnMarkArticleAsFavorite()
