@@ -96,8 +96,6 @@ namespace News4Devs.Infrastructure.Repositories
 
         public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null)
         {
-            // Not setting AsNoTracking() crashed the app. 
-            // TODO investigate why that happenned.
             IQueryable<T> entities = Context.Set<T>().AsNoTracking(); 
 
             if (filter != null)

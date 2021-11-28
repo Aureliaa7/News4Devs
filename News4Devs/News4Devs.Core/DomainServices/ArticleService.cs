@@ -78,7 +78,7 @@ namespace News4Devs.Core.DomainServices
             };
         }
 
-        private string GetPreviousPage(ArticleSavingType savingType, int pageNumber, int pageSize)
+        private static string GetPreviousPage(ArticleSavingType savingType, int pageNumber, int pageSize)
         {
             string endpoint = savingType == ArticleSavingType.Saved ?
                 Constants.SavedArticlesEndpoint : Constants.FavoriteArticlesEndpoint;
@@ -86,7 +86,7 @@ namespace News4Devs.Core.DomainServices
             return pageNumber > 1 ? GetPageAddress(endpoint, pageNumber-1, pageSize) : null;
         }
 
-        private string GetNextPage(ArticleSavingType savingType, int pageNumber, int pageSize, int totalPages)
+        private static string GetNextPage(ArticleSavingType savingType, int pageNumber, int pageSize, int totalPages)
         {
             bool isLastPage = pageNumber == totalPages;
             if (isLastPage)
@@ -101,7 +101,7 @@ namespace News4Devs.Core.DomainServices
             return GetPageAddress(Constants.FavoriteArticlesEndpoint, ++pageNumber, pageSize);
         }
 
-        private string GetPageAddress(string endpoint, int pageNumber, int pageSize)
+        private static string GetPageAddress(string endpoint, int pageNumber, int pageSize)
         {
             return $"{Constants.ArticlesAddress}{endpoint}?pageNumber={pageNumber}&pageSize={pageSize}";
         }

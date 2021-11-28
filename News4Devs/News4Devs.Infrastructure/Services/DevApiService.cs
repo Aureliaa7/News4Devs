@@ -1,5 +1,4 @@
-﻿using News4Devs.Core;
-using News4Devs.Core.DTOs;
+﻿using News4Devs.Core.DTOs;
 using News4Devs.Core.Interfaces.Services;
 using News4Devs.Core.Models;
 using System.Collections.Generic;
@@ -11,6 +10,8 @@ namespace News4Devs.Infrastructure.Services
 {
     public class DevApiService : IDevApiService
     {
+        private readonly string devAPIBaseUrl = "https://dev.to/api/articles";
+
         private readonly IApiService apiService;
 
         public DevApiService(IApiService apiService)
@@ -23,7 +24,7 @@ namespace News4Devs.Infrastructure.Services
             var queryParams = GetQueryParams(devApiQueryParamsModel);
 
             var articlesDtos = await apiService.GetAsync<IList<ArticleDto>>(
-                Constants.DevAPIBaseUrl,
+                devAPIBaseUrl,
                 queryParams);
 
             var extendedArticlesDtos = new List<ExtendedArticleDto>();
@@ -35,7 +36,7 @@ namespace News4Devs.Infrastructure.Services
             return extendedArticlesDtos;
         }
 
-        private IDictionary<string, string> GetQueryParams(DevApiQueryParamsModel devApiQueryParamsModel)
+        private static IDictionary<string, string> GetQueryParams(DevApiQueryParamsModel devApiQueryParamsModel)
         {
             var queryParams = new Dictionary<string, string>();
 

@@ -2,7 +2,7 @@
 
 namespace News4Devs.Core.DTOs
 {
-    public class ITBookstoreAPIResponseDto
+    public class ItBookstoreApiResponseDto
     {
         public IList<BookDto> books { get; set; }
     }

@@ -1,5 +1,4 @@
-﻿using News4Devs.Core;
-using News4Devs.Core.DTOs;
+﻿using News4Devs.Core.DTOs;
 using News4Devs.Core.Interfaces.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,6 +7,8 @@ namespace News4Devs.Infrastructure.Services
 {
     public class ITBookstoreService : IITBookstoreService
     {
+        private readonly string ITBookstoreAPIUrl = "https://api.itbook.store/1.0/";
+
         private readonly IApiService apiService;
 
         public ITBookstoreService(IApiService apiService)
@@ -17,7 +18,7 @@ namespace News4Devs.Infrastructure.Services
 
         public async Task<IList<BookDto>> GetNewBooksAsync()
         {
-            var apiResponse = await apiService.GetAsync<ITBookstoreAPIResponseDto>(Constants.ITBookstoreAPIUrl+"new");
+            var apiResponse = await apiService.GetAsync<ItBookstoreApiResponseDto>(ITBookstoreAPIUrl+"new");
             if (apiResponse != null)
             {
                 return apiResponse.books;

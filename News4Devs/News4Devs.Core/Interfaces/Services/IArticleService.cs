@@ -2,7 +2,6 @@
 using News4Devs.Core.Models;
 using News4Devs.Core.Pagination;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace News4Devs.Core.Interfaces.Services

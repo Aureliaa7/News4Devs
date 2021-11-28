@@ -7,6 +7,8 @@ namespace News4Devs.Infrastructure.Services
 {
     public class QuotableService : IQuotableService
     {
+        private readonly string quotableAPIUrl = "https://api.quotable.io";
+
         private readonly IApiService apiService;
 
         public QuotableService(IApiService apiService)
@@ -16,7 +18,7 @@ namespace News4Devs.Infrastructure.Services
 
         public async Task<QuotableApiResponseDto> GetRandomQuoteAsync()
         {
-            return await apiService.GetAsync<QuotableApiResponseDto>($"{Constants.QuotableAPIUrl}/random");
+            return await apiService.GetAsync<QuotableApiResponseDto>($"{quotableAPIUrl}/random");
         }
     }
 }
