@@ -1,0 +1,23 @@
+﻿using News4Devs.Core.Pagination;
+using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+namespace News4Devs.Core.Interfaces.Services
+{
+    public interface IPaginationService<T, U>
+    {
+        Task<PagedResponseModel<T>> GetPagedResponseAsync(
+            string address,
+            PaginationFilter paginationFilter,
+            Expression<Func<U, bool>> filter = null);
+
+        string GetPreviousPage(string address, int pageNumber, int pageSize, int noPages);
+
+        string GetNextPage(string address, int pageNumber, int pageSize, int noPages);
+
+        string GetPageAddress(string address, int pageNumber, int pageSize, int noPages);
+
+        int GetRoundedTotalPages(int totalRecords, int pageSize);
+    }
+}

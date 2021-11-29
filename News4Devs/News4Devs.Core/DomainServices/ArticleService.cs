@@ -6,7 +6,6 @@ using News4Devs.Core.Interfaces.UnitOfWork;
 using News4Devs.Core.Models;
 using News4Devs.Core.Pagination;
 using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -15,10 +14,12 @@ namespace News4Devs.Core.DomainServices
     public class ArticleService : IArticleService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IArticlePaginationService paginationService;
 
-        public ArticleService(IUnitOfWork unitOfWork)
+        public ArticleService(IUnitOfWork unitOfWork, IArticlePaginationService paginationService)
         {
             this.unitOfWork = unitOfWork;
+            this.paginationService = paginationService;
         }
 
         public async Task<PagedResponseModel<ExtendedArticleModel>> GetSavedArticlesAsync(Guid userId, PaginationFilter paginationFilter)
@@ -28,7 +29,7 @@ namespace News4Devs.Core.DomainServices
 
         private async Task<PagedResponseModel<ExtendedArticleModel>> GetArticlesByUserAndSavingType(
             ArticleSavingType savingType, 
-            Guid userId, 
+            Guid userId,
             PaginationFilter paginationFilter)
         {
             await CheckIfUserExistsAsync(userId);
@@ -36,74 +37,14 @@ namespace News4Devs.Core.DomainServices
             Expression<Func<SavedArticle, bool>> filter = x => x.UserId == userId &&
                 (x.ArticleSavingType == savingType || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite);
 
-            return await GetPagedResponseModelAsync(savingType, paginationFilter, filter);
-        }
-
-        private async Task<PagedResponseModel<ExtendedArticleModel>> GetPagedResponseModelAsync(
-            ArticleSavingType savingType,
-            PaginationFilter paginationFilter,
-            Expression<Func<SavedArticle, bool>> filter)
-        {
-            string apiEndpoint = savingType == ArticleSavingType.Saved ?
-                Constants.SavedArticlesEndpoint :
-                Constants.FavoriteArticlesEndpoint;
-
-            int totalRecords = await unitOfWork.SavedArticlesRepository.GetTotalRecordsAsync(filter);
-            var totalPages = ((double)totalRecords / (double)paginationFilter.PageSize);
-            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
-
-            var savedArticles = (await unitOfWork.SavedArticlesRepository.GetAllAsync(filter,
-                includeProperties: nameof(Article),
-                skip: (paginationFilter.PageNumber - 1) * paginationFilter.PageSize,
-                take: paginationFilter.PageSize))
-                .Select(x => new ExtendedArticleModel
-                {
-                    Article = x.Article,
-                    IsSaved = x.ArticleSavingType == ArticleSavingType.Saved || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite,
-                    IsFavorite = x.ArticleSavingType == ArticleSavingType.Favorite || x.ArticleSavingType == ArticleSavingType.SavedAndFavorite,
-                })
-                .ToList();
-            
-            return new PagedResponseModel<ExtendedArticleModel>
-            {
-                Data = savedArticles,
-                TotalPages = roundedTotalPages,
-                PageNumber = paginationFilter.PageNumber,
-                PageSize = paginationFilter.PageSize,
-                PreviousPage = GetPreviousPage(savingType, paginationFilter.PageNumber, paginationFilter.PageSize),
-                NextPage = GetNextPage(savingType, paginationFilter.PageNumber, paginationFilter.PageSize, roundedTotalPages),
-                FirstPage = GetPageAddress(apiEndpoint, 1, paginationFilter.PageSize),
-                LastPage = GetPageAddress(apiEndpoint, roundedTotalPages, paginationFilter.PageSize),
-                TotalRecords = totalRecords
-            };
-        }
-
-        private static string GetPreviousPage(ArticleSavingType savingType, int pageNumber, int pageSize)
-        {
-            string endpoint = savingType == ArticleSavingType.Saved ?
-                Constants.SavedArticlesEndpoint : Constants.FavoriteArticlesEndpoint;
-
-            return pageNumber > 1 ? GetPageAddress(endpoint, pageNumber-1, pageSize) : null;
-        }
-
-        private static string GetNextPage(ArticleSavingType savingType, int pageNumber, int pageSize, int totalPages)
-        {
-            bool isLastPage = pageNumber == totalPages;
-            if (isLastPage)
-            {
-                return null;
-            }
-
             if (savingType == ArticleSavingType.Saved)
             {
-                return GetPageAddress(Constants.SavedArticlesEndpoint, ++pageNumber, pageSize);
+                return await paginationService.GetPagedResponseAsync(
+                    $"{Constants.ArticlesAddress}{Constants.SavedArticlesEndpoint}", paginationFilter, filter);
             }
-            return GetPageAddress(Constants.FavoriteArticlesEndpoint, ++pageNumber, pageSize);
-        }
 
-        private static string GetPageAddress(string endpoint, int pageNumber, int pageSize)
-        {
-            return $"{Constants.ArticlesAddress}{endpoint}?pageNumber={pageNumber}&pageSize={pageSize}";
+            return await paginationService.GetPagedResponseAsync(
+                $"{Constants.ArticlesAddress}{Constants.FavoriteArticlesEndpoint}", paginationFilter, filter);
         }
 
         public async Task<SavedArticle> SaveArticleAsync(SaveArticleModel saveArticleModel)
@@ -190,7 +131,7 @@ namespace News4Devs.Core.DomainServices
         }
 
         public async Task<PagedResponseModel<ExtendedArticleModel>> GetFavoriteArticlesAsync(
-            Guid userId, 
+            Guid userId,
             PaginationFilter paginationFilter)
         {
             return await GetArticlesByUserAndSavingType(ArticleSavingType.Favorite, userId, paginationFilter);
@@ -199,9 +140,9 @@ namespace News4Devs.Core.DomainServices
         public async Task<string> RemoveFromSavedArticlesAsync(Guid userId, string articleTitle)
         {
             return await RemoveArticleFromSpecificListAsync(
-                userId, 
-                articleTitle, 
-                oldSavingType: ArticleSavingType.Saved, 
+                userId,
+                articleTitle,
+                oldSavingType: ArticleSavingType.Saved,
                 newSavingTypeIfNeeded: ArticleSavingType.Favorite);
         }
 
@@ -219,15 +160,15 @@ namespace News4Devs.Core.DomainServices
         public async Task<string> RemoveFromFavoriteArticlesAsync(Guid userId, string articleTitle)
         {
             return await RemoveArticleFromSpecificListAsync(
-                userId, 
-                articleTitle, 
-                oldSavingType: ArticleSavingType.Favorite, 
+                userId,
+                articleTitle,
+                oldSavingType: ArticleSavingType.Favorite,
                 newSavingTypeIfNeeded: ArticleSavingType.Saved);
         }
 
         private async Task<string> RemoveArticleFromSpecificListAsync(
-            Guid userId, string articleTitle, 
-            ArticleSavingType oldSavingType, 
+            Guid userId, string articleTitle,
+            ArticleSavingType oldSavingType,
             ArticleSavingType newSavingTypeIfNeeded)
         {
             await CheckIfUserExistsAsync(userId);

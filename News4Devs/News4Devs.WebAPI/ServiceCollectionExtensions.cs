@@ -77,6 +77,7 @@ namespace News4Devs.WebAPI
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IITBookstoreService, ITBookstoreService>();
             services.AddScoped<IQuotableService, QuotableService>();
+            services.AddScoped<IArticlePaginationService, ArticlePaginationService>();
         }
     }
 }
