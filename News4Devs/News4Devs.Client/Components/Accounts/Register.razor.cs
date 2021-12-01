@@ -8,7 +8,7 @@ using System.Net;
 using News4Devs.Client.Services.Interfaces;
 using News4Devs.Client.Helpers;
 
-namespace News4Devs.Client.Pages.Accounts
+namespace News4Devs.Client.Components.Accounts
 { 
     public partial class Register
     {

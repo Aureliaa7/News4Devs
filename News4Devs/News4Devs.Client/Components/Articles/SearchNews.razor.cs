@@ -18,10 +18,8 @@ namespace News4Devs.Client.Components.Articles
 
         protected override async Task OnInitializedAsync()
         {
-            System.Console.WriteLine("SearchNews initialized...");
             loading = true;
             SetSearchedTags();
-
             await GetArticlesAsync();
             loading = false;
         }
@@ -91,7 +89,7 @@ namespace News4Devs.Client.Components.Articles
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("searchedWords", out var searchedWords))
             {
                 searchedTags = searchedWords;
-                tags = searchedWords.ToString().Split(' ', ',');
+                tags = searchedWords.ToString().Split(' ', ',', '.');
             }
         }
 
