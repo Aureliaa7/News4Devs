@@ -1,7 +1,3 @@
-* Images:
-	https://unsplash.com/backgrounds/art/simple
-	https://www.pexels.com/search/simple%20background/
-
 
 * APIs:
 	dev.to API: https://developers.forem.com/api

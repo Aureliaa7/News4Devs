@@ -5,7 +5,6 @@ using News4Devs.Client.Models;
 using News4Devs.Client.Services.Interfaces;
 using News4Devs.Core.DTOs;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -34,6 +33,10 @@ namespace News4Devs.Client.Components.Articles
         [Parameter]
         public bool Loading { get; set; }
 
+        private readonly string savedArticlesEndpoint = "saved";
+        private readonly string favoriteArticlesEndpoint = "favorite";
+        private readonly string saveArticleEndpoint = "save";
+
         private async Task LoadMoreArticles()
         {
             await OnLoadMoreArticles.InvokeAsync();
@@ -41,15 +44,32 @@ namespace News4Devs.Client.Components.Articles
 
         private async Task SaveArticleAsync(ExtendedArticleDto extendedArticle)
         {
+            await MarkAsSavedOrFavoriteArticleAsync(extendedArticle, saveArticleEndpoint);
+        }
+
+        private async Task MarkAsFavoriteAsync(ExtendedArticleDto extendedArticle)
+        {
+            await MarkAsSavedOrFavoriteArticleAsync(extendedArticle, favoriteArticlesEndpoint);
+        }
+
+        private async Task MarkAsSavedOrFavoriteArticleAsync(ExtendedArticleDto extendedArticle, string endpoint)
+        {
             var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(extendedArticle.Article);
             string userId = await AuthService.GetCurrentUserIdAsync();
 
             var response = await HttpClientService.PostAsync<SavedArticleDto>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/save", byteArrayContent);
+                $"{ClientConstants.BaseUrl}v1/articles/{userId}/{endpoint}", byteArrayContent);
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                extendedArticle.IsSaved = true;
+                if (endpoint == saveArticleEndpoint)
+                {
+                    extendedArticle.IsSaved = true;
+                }
+                else
+                {
+                    extendedArticle.IsFavorite = true;
+                }
             }
 
             HandleResponse(response);
@@ -71,55 +91,42 @@ namespace News4Devs.Client.Components.Articles
             }
         }
 
-        private async Task MarkAsFavoriteAsync(ExtendedArticleDto extendedArticle)
+        private async Task RemoveFromSavedArticlesAsync(ExtendedArticleDto extendedArticle)
         {
-            var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(extendedArticle.Article);
-            string userId = await AuthService.GetCurrentUserIdAsync();
-
-            var response = await HttpClientService.PostAsync<SavedArticleDto>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite", byteArrayContent);
-
-            // so that the changes reflect in UI 
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                extendedArticle.IsFavorite = true;
-            }
-
-            HandleResponse(response);
+            await RemoveArticleAsync(extendedArticle, savedArticlesEndpoint);
         }
 
-        private async Task RemoveFromSavedArticlesAsync(string articleTitle)
+        private async Task RemoveFromFavoriteArticlesAsync(ExtendedArticleDto extendedArticle)
+        {
+            await RemoveArticleAsync(extendedArticle, favoriteArticlesEndpoint);
+        }
+
+        private async Task RemoveArticleAsync(ExtendedArticleDto extendedArticle, string endpoint)
         {
             string userId = await AuthService.GetCurrentUserIdAsync();
+            var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(
+             new DeleteSavedArticleDto
+             {
+                 ArticleTitle = extendedArticle.Article.title
+             });
+
             var response = await HttpClientService.DeleteAsync<string>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved/{articleTitle}");
+                $"{ClientConstants.BaseUrl}v1/articles/{userId}/{endpoint}", byteArrayContent);
 
             if (response.StatusCode == HttpStatusCode.NoContent)
             {
-                Articles = Articles.Except(Articles.Where(x => x.Article.title == articleTitle)).ToList();
-                // or simply remove it from list
-                ToastService.ShowSuccess("The article was successfully removed from Saved articles list");
+                if (endpoint == savedArticlesEndpoint)
+                {
+                    extendedArticle.IsSaved = false;
+                }
+                else
+                {
+                    extendedArticle.IsFavorite = false;
+                }
             }
             else
             {
-                ToastService.ShowError("The article could not be removed from Saved articles list...");
-            }
-        }
-
-        private async Task RemoveFromFavoriteArticlesAsync(string articleTitle)
-        {
-            string userId = await AuthService.GetCurrentUserIdAsync();
-            var response = await HttpClientService.DeleteAsync<string>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/favorite/{articleTitle}");
-
-            if (response.StatusCode == HttpStatusCode.NoContent)
-            {
-                Articles = Articles.Except(Articles.Where(x => x.Article.title == articleTitle)).ToList();
-                ToastService.ShowSuccess("The article was successfully removed from Favorite articles list");
-            }
-            else
-            {
-                ToastService.ShowError("The article could not be removed from Favorite articles list...");
+                ToastService.ShowError("The article could not be removed from list...");
             }
         }
     }

@@ -92,20 +92,20 @@ namespace News4Devs.WebAPI.Controllers
 
         [HttpDelete]
         [Authorize]
-        [Route("{userId}/saved/{articleTitle}")]
-        public async Task<IActionResult> RemoveFromSavedArticles([FromRoute] Guid userId, [FromRoute] string articleTitle)
+        [Route("{userId}/saved")]
+        public async Task<IActionResult> RemoveFromSavedArticles([FromRoute] Guid userId, [FromBody] DeleteSavedArticleDto savedArticleDto)
         {
-            await articleService.RemoveFromSavedArticlesAsync(userId, articleTitle);
+            await articleService.RemoveFromSavedArticlesAsync(userId, savedArticleDto.ArticleTitle);
 
             return NoContent();
         }
 
         [HttpDelete]
         [Authorize]
-        [Route("{userId}/favorite/{articleTitle}")]
-        public async Task<IActionResult> RemoveFromFavoriteArticles([FromRoute] Guid userId, [FromRoute] string articleTitle)
+        [Route("{userId}/favorite")]
+        public async Task<IActionResult> RemoveFromFavoriteArticles([FromRoute] Guid userId, [FromBody] DeleteSavedArticleDto savedArticleDto)
         {
-            await articleService.RemoveFromFavoriteArticlesAsync(userId, articleTitle);
+            await articleService.RemoveFromFavoriteArticlesAsync(userId, savedArticleDto.ArticleTitle);
 
             return NoContent();
         }
