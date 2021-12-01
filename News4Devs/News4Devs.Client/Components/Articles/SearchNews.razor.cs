@@ -70,7 +70,7 @@ namespace News4Devs.Client.Components.Articles
 
             foreach (var tag in tags)
             {
-                string url = $"{ClientConstants.BaseUrl}v1/articles?page={pageNumber}&tag={tag}";
+                string url = $"{ClientConstants.BaseUrl}/articles?page={pageNumber}&tag={tag}";
                 var response = await HttpClientService.GetAsync<IList<ExtendedArticleDto>>(url);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -116,7 +116,7 @@ namespace News4Devs.Client.Components.Articles
 
         protected override Task<string> GetUrlAsync()
         {
-            return Task.FromResult($"{ClientConstants.BaseUrl}v1/articles?page={pageNumber}&tag={searchedTags}");
+            return Task.FromResult($"{ClientConstants.BaseUrl}/articles?page={pageNumber}&tag={searchedTags}");
         }
     }
 }

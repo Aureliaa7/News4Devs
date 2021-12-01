@@ -2,9 +2,9 @@
 {
     public static class ClientConstants
     {
-        public const string BaseUrl = "https://localhost:44347/api/";
+        public const string BaseUrl = "https://localhost:44347/api/v1";
         public const string ContentType = "application/json";
-        public const string ProfileImagesDirector = "/profile-photos/"; // <img src="/profile-photos/guid.png"/>
+        public const string ProfileImagesDirector = "/profile-photos/";
         public const string Token = "token";
         public const string ExpirationDateKey = "exp";
         

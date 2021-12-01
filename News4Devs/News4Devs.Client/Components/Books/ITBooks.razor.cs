@@ -23,7 +23,7 @@ namespace News4Devs.Client.Components.Books
         protected override async Task OnInitializedAsync()
         {
             loading = true;
-            var apiResponse = await HttpClientService.GetAsync<IList<BookDto>>($"{ClientConstants.BaseUrl}v1/books/new");
+            var apiResponse = await HttpClientService.GetAsync<IList<BookDto>>($"{ClientConstants.BaseUrl}/books/new");
             if (apiResponse.StatusCode == HttpStatusCode.OK)
             {
                 Books = apiResponse.Data;

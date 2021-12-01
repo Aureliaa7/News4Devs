@@ -58,7 +58,7 @@ namespace News4Devs.Client.Components.Articles
             string userId = await AuthService.GetCurrentUserIdAsync();
 
             var response = await HttpClientService.PostAsync<SavedArticleDto>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/{endpoint}", byteArrayContent);
+                $"{ClientConstants.BaseUrl}/articles/{userId}/{endpoint}", byteArrayContent);
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -111,7 +111,7 @@ namespace News4Devs.Client.Components.Articles
              });
 
             var response = await HttpClientService.DeleteAsync<string>(
-                $"{ClientConstants.BaseUrl}v1/articles/{userId}/{endpoint}", byteArrayContent);
+                $"{ClientConstants.BaseUrl}/articles/{userId}/{endpoint}", byteArrayContent);
 
             if (response.StatusCode == HttpStatusCode.NoContent)
             {

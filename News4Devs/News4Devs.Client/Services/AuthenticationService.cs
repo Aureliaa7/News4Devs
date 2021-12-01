@@ -41,7 +41,7 @@ namespace News4Devs.Client.Services
         public async Task<string> LoginAsync(LoginDto loginModel)
         {
             var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(loginModel);
-            var result = await httpClientService.PostAsync<JwtToken>("v1/accounts/login", byteArrayContent);
+            var result = await httpClientService.PostAsync<JwtToken>($"{ClientConstants.BaseUrl}/accounts/login", byteArrayContent);
 
             if (result.StatusCode == HttpStatusCode.OK)
             {

@@ -14,7 +14,7 @@ namespace News4Devs.Client.Components.Articles
         protected async override Task<string> GetUrlAsync()
         {
             string userId = await GetCurrentUserIdAsync();
-            return $"{ClientConstants.BaseUrl}v1/articles/{userId}/saved?pageNumber={pageNumber}&pageSize={ClientConstants.MaxPageSize}";
+            return $"{ClientConstants.BaseUrl}/articles/{userId}/saved?pageNumber={pageNumber}&pageSize={ClientConstants.MaxPageSize}";
         }
     }
 }

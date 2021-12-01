@@ -1,7 +1,8 @@
-﻿.my-card {
+﻿.register-card {
     width: 50%;
     margin-left: 25%;
     background-color: #BCD4E6;
+    border-radius: 20px;
 }
 
 .card-title, label {

@@ -33,7 +33,7 @@ namespace News4Devs.Client.Components.Accounts
             }
 
             var byteArrayContent = ByteArrayContentHelper.ConvertToByteArrayContent(registerModel);
-            var apiResponse = await HttpClientService.PostAsync<UserDto>("v1/accounts/register", byteArrayContent);
+            var apiResponse = await HttpClientService.PostAsync<UserDto>($"{ClientConstants.BaseUrl}/accounts/register", byteArrayContent);
 
             if (apiResponse.StatusCode == HttpStatusCode.Created)
             {
