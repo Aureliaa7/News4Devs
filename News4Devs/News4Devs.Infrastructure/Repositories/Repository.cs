@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class, new()
     {
         protected readonly ApplicationDbContext Context;
 

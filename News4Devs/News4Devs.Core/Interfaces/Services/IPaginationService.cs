@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Core.Interfaces.Services
 {
-    public interface IPaginationService<T, U>
+    public interface IPaginationService<T, U> where T: class, new()
     {
         Task<PagedResponseModel<T>> GetPagedResponseAsync(
             string address,

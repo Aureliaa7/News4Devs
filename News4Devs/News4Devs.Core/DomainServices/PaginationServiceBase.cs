@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Core.DomainServices
 {
-    public abstract class PaginationServiceBase<T, U> : IPaginationService<T, U>
+    public abstract class PaginationServiceBase<T, U> : IPaginationService<T, U> where T: class, new()
     {
         public string GetNextPage(string address, int pageNumber, int pageSize, int noPages)
         {

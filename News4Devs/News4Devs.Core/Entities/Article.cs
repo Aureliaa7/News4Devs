@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace News4Devs.Core.Entities
+﻿namespace News4Devs.Core.Entities
 {
     public class Article
     {
-        [Key]
         public string Title { get; set; }
 
         public string Description { get; set; }

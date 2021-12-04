@@ -2,7 +2,7 @@
 
 namespace News4Devs.Core.Pagination
 {
-    public class PagedResponseModel<T>
+    public class PagedResponseModel<T> where T: class, new()
     {
         public int PageNumber { get; set; }
 

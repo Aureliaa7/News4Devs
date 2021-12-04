@@ -75,14 +75,22 @@ namespace News4Devs.Client.Services
         private async Task<ApiResponse<T>> HandleHttpRequestAsync<T>(HttpRequestMessage requestMessage)
         {
             var response = await httpClient.SendAsync(requestMessage);
-            var content = await response.Content.ReadAsStringAsync();
-            var result = new ApiResponse<T>
+            if (response.IsSuccessStatusCode)
             {
-                Data = JsonConvert.DeserializeObject<T>(content),
+                var content = await response.Content.ReadAsStringAsync();
+                var result = new ApiResponse<T>
+                {
+                    Data = JsonConvert.DeserializeObject<T>(content),
+                    StatusCode = response.StatusCode
+                };
+
+                return result;
+            }
+
+            return new ApiResponse<T>
+            {
                 StatusCode = response.StatusCode
             };
-
-            return result;
         }
     }
 }
