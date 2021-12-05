@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\News4Devs.Infrastructure\News4Devs.Infrastructure.csproj" />
     <ProjectReference Include="..\Client\News4Devs.Client.csproj" />
+    <ProjectReference Include="..\Infrastructure\News4Devs.Infrastructure.csproj" />
     <ProjectReference Include="..\Shared\News4Devs.Shared.csproj" />
   </ItemGroup>
 
