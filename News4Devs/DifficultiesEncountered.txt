@@ -1,4 +1,0 @@
-
-
-** Couldn't save the users' profile images in wwwroot director or in any other director(I tried to do this from a Blazor component):
-	-> and here's why: https://stackoverflow.com/questions/61007882/blazor-not-able-to-save-file-in-folder-wwwroot-img
