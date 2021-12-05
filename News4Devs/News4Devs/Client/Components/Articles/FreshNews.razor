@@ -1,0 +1,9 @@
+﻿@page "/"
+@inherits ArticlesBase
+
+<h3>Newest articles</h3>
+<SearchBar OnSearch="RedirectToSearchNewsPage"/>
+<News Articles="@Articles"
+      OnLoadMoreArticles="LoadMoreArticlesAsync"
+      IsLoadMoreButtonVisible="isLoadMoreButtonVisible" 
+      Loading="loading"/>

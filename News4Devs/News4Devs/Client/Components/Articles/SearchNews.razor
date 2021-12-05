@@ -1,0 +1,13 @@
+﻿@page "/search-news"
+@inherits ArticlesBase
+
+@if (!loading && Articles.Any())
+{
+    <h3>Found articles</h3>
+}
+
+<SearchBar OnSearch="SearchArticles" />
+<News Articles="@Articles"
+      OnLoadMoreArticles="LoadMoreArticlesAsync"
+      IsLoadMoreButtonVisible="isLoadMoreButtonVisible" 
+      Loading="loading"/>

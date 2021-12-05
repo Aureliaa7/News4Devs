@@ -1,0 +1,20 @@
+﻿<div class="search-container">
+    <div class="show-text-show-icon">
+            <button type="submit" class="btn btn-primary hide-btn @(showHideText ?"show" : "hide")"
+                    @onclick="ShowHideText">
+                Hide
+            </button>
+            <button type="submit" class="btn btn-primary @(showSearchIcon ? "show" : "hide")"
+                    @onclick="ShowSearchBox">
+                <i class="fa fa-search"></i>
+            </button>
+    </div>
+
+    <div class="search @(isSearchBoxVisible ? "show" : "hide")">
+        <input type="text" placeholder="Search something..." @bind-value="@searchedWords" />
+        <button type="submit" class="btn btn-primary" @onclick="SearchNews">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+
