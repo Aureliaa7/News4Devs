@@ -1,9 +1,9 @@
-﻿using News4Devs.Core.Pagination;
+﻿using News4Devs.Shared.Pagination;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.Interfaces.Services
+namespace News4Devs.Shared.Interfaces.Services
 {
     public interface IPaginationService<T, U> where T: class, new()
     {

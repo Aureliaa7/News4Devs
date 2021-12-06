@@ -1,9 +1,9 @@
-﻿using News4Devs.Core.Interfaces.Services;
+﻿using News4Devs.Shared.Interfaces.Services;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.DomainServices
+namespace News4Devs.Shared.DomainServices
 {
     public class ImageService : IImageService
     {

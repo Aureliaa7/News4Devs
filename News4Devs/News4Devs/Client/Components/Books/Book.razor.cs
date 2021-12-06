@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using News4Devs.Core.DTOs;
+using News4Devs.Shared.DTOs;
 
 namespace News4Devs.Client.Components.Books
 {

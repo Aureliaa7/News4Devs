@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace News4Devs.Core.DTOs
+namespace News4Devs.Shared.DTOs
 {
     public class PagedResponseDto<T>
     {

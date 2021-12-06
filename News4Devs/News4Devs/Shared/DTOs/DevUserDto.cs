@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core.DTOs
+﻿namespace News4Devs.Shared.DTOs
 {
     // Model used to catch data from Dev.to API.
     public class DevUserDto

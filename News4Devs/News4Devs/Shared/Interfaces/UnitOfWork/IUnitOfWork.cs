@@ -1,8 +1,8 @@
-﻿using News4Devs.Core.Entities;
-using News4Devs.Core.Interfaces.Repositories;
+﻿using News4Devs.Shared.Entities;
+using News4Devs.Shared.Interfaces.Repositories;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.Interfaces.UnitOfWork
+namespace News4Devs.Shared.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork
     {

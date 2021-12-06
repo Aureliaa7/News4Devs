@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace News4Devs.Core.DTOs
+namespace News4Devs.Shared.DTOs
 {
     // Model used to catch data from Dev API.
     // The property names must be the same as those used by the Dev.to API.

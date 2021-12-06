@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core.Pagination
+﻿namespace News4Devs.Shared.Pagination
 {
     public class PaginationFilter
     {

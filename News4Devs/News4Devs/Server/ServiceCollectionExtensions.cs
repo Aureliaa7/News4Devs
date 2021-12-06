@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using News4Devs.Core;
-using News4Devs.Core.DomainServices;
-using News4Devs.Core.Interfaces.Services;
-using News4Devs.Core.Interfaces.UnitOfWork;
+using News4Devs.Shared;
+using News4Devs.Shared.DomainServices;
+using News4Devs.Shared.Interfaces.Services;
+using News4Devs.Shared.Interfaces.UnitOfWork;
 using News4Devs.Infrastructure.AppDbContext;
 using News4Devs.Infrastructure.Services;
 using News4Devs.Infrastructure.UnitOfWork;

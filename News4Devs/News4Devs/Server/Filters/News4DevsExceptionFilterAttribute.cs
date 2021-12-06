@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using News4Devs.Core.Exceptions;
+using News4Devs.Shared.Exceptions;
 
 namespace News4Devs.WebAPI.Filters
 {

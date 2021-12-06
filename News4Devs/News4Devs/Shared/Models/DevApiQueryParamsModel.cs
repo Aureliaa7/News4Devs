@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core.Models
+﻿namespace News4Devs.Shared.Models
 {
     // A model containing all the query params that can be used when calling Dev API
     public class DevApiQueryParamsModel

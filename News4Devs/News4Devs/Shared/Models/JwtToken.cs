@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core.Models
+﻿namespace News4Devs.Shared.Models
 {
     public class JwtToken
     {

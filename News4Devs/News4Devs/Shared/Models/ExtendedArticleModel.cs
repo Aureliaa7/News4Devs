@@ -1,6 +1,6 @@
-﻿using News4Devs.Core.Entities;
+﻿using News4Devs.Shared.Entities;
 
-namespace News4Devs.Core.Models
+namespace News4Devs.Shared.Models
 {
     public class ExtendedArticleModel
     {

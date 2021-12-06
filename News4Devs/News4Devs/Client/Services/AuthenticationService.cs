@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using News4Devs.Client.Helpers;
 using News4Devs.Client.Services.Interfaces;
-using News4Devs.Core;
-using News4Devs.Core.DTOs;
-using News4Devs.Core.Models;
+using News4Devs.Shared;
+using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Models;
 using System.Net;
 using System.Threading.Tasks;
 

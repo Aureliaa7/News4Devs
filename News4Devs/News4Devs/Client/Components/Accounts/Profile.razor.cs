@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using News4Devs.Client.Services.Interfaces;
-using News4Devs.Core.DTOs;
+using News4Devs.Shared.DTOs;
 using System.Threading.Tasks;
 
 namespace News4Devs.Client.Components.Accounts

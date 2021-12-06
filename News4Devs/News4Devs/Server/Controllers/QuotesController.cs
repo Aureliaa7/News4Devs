@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using News4Devs.Core.Interfaces.Services;
+using News4Devs.Shared.Interfaces.Services;
 using System.Threading.Tasks;
 
 namespace News4Devs.WebAPI.Controllers

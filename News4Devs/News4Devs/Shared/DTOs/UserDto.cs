@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace News4Devs.Core.DTOs
+namespace News4Devs.Shared.DTOs
 {
     public class UserDto
     {

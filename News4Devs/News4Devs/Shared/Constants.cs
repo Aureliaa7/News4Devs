@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core
+﻿namespace News4Devs.Shared
 {
     public static class Constants
     {

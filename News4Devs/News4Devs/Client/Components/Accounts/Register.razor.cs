@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
-using News4Devs.Core.DTOs;
+using News4Devs.Shared.DTOs;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
 using System.Net;

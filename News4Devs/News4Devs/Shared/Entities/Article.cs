@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core.Entities
+﻿namespace News4Devs.Shared.Entities
 {
     public class Article
     {

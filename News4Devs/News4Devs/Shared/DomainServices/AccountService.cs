@@ -1,13 +1,13 @@
-﻿using News4Devs.Core.DTOs;
-using News4Devs.Core.Entities;
-using News4Devs.Core.Exceptions;
-using News4Devs.Core.Helpers;
-using News4Devs.Core.Interfaces.Services;
-using News4Devs.Core.Interfaces.UnitOfWork;
+﻿using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Entities;
+using News4Devs.Shared.Exceptions;
+using News4Devs.Shared.Helpers;
+using News4Devs.Shared.Interfaces.Services;
+using News4Devs.Shared.Interfaces.UnitOfWork;
 using System;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.DomainServices
+namespace News4Devs.Shared.DomainServices
 {
     public class AccountService : IAccountService
     {

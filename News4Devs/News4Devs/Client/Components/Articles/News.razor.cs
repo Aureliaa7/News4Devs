@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using News4Devs.Client.Helpers;
 using News4Devs.Client.Models;
 using News4Devs.Client.Services.Interfaces;
-using News4Devs.Core.DTOs;
+using News4Devs.Shared.DTOs;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;

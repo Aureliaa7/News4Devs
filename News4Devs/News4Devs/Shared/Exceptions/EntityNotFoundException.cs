@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace News4Devs.Core.Exceptions
+namespace News4Devs.Shared.Exceptions
 { 
     [Serializable]
     public class EntityNotFoundException : Exception

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 
-namespace News4Devs.Core.DTOs
+namespace News4Devs.Shared.DTOs
 {
     public class RegisterDto
     {

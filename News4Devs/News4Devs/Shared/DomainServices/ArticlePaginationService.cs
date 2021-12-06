@@ -1,15 +1,15 @@
-﻿using News4Devs.Core.Entities;
-using News4Devs.Core.Enums;
-using News4Devs.Core.Interfaces.Services;
-using News4Devs.Core.Interfaces.UnitOfWork;
-using News4Devs.Core.Models;
-using News4Devs.Core.Pagination;
+﻿using News4Devs.Shared.Entities;
+using News4Devs.Shared.Enums;
+using News4Devs.Shared.Interfaces.Services;
+using News4Devs.Shared.Interfaces.UnitOfWork;
+using News4Devs.Shared.Models;
+using News4Devs.Shared.Pagination;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.DomainServices
+namespace News4Devs.Shared.DomainServices
 {
     public class ArticlePaginationService : PaginationServiceBase<ExtendedArticleModel, SavedArticle>, IArticlePaginationService
     {

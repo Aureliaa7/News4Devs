@@ -1,6 +1,6 @@
-﻿using News4Devs.Core;
-using News4Devs.Core.DTOs;
-using News4Devs.Core.Interfaces.Services;
+﻿using News4Devs.Shared;
+using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Interfaces.Services;
 using System.Threading.Tasks;
 
 namespace News4Devs.Infrastructure.Services

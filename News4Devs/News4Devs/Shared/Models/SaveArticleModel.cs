@@ -1,8 +1,8 @@
-﻿using News4Devs.Core.Entities;
-using News4Devs.Core.Enums;
+﻿using News4Devs.Shared.Entities;
+using News4Devs.Shared.Enums;
 using System;
 
-namespace News4Devs.Core.Models
+namespace News4Devs.Shared.Models
 {
     public class SaveArticleModel
     {

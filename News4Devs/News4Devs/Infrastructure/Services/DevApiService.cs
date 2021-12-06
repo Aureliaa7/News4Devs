@@ -1,6 +1,6 @@
-﻿using News4Devs.Core.DTOs;
-using News4Devs.Core.Interfaces.Services;
-using News4Devs.Core.Models;
+﻿using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Interfaces.Services;
+using News4Devs.Shared.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

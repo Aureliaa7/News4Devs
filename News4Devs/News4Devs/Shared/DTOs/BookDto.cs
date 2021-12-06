@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core.DTOs
+﻿namespace News4Devs.Shared.DTOs
 {
     // Model used to get data from ITBookstore API
     public class BookDto

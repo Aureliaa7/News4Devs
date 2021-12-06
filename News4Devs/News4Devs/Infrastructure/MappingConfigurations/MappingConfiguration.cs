@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using News4Devs.Core.DTOs;
-using News4Devs.Core.Entities;
-using News4Devs.Core.Models;
-using News4Devs.Core.Pagination;
+using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Entities;
+using News4Devs.Shared.Models;
+using News4Devs.Shared.Pagination;
 
 namespace News4Devs.Infrastructure.MappingConfigurations
 {

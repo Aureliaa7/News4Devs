@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace News4Devs.Core.Helpers
+namespace News4Devs.Shared.Helpers
 {
     public static class PasswordHelper
     {

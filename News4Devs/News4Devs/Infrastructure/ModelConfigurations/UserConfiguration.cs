@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using News4Devs.Core.Entities;
+using News4Devs.Shared.Entities;
 
 namespace News4Devs.Infrastructure.ModelConfigurations
 {

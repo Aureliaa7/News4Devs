@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using News4Devs.Core;
-using News4Devs.Core.DTOs;
-using News4Devs.Core.Exceptions;
-using News4Devs.Core.Helpers;
-using News4Devs.Core.Interfaces.Services;
-using News4Devs.Core.Interfaces.UnitOfWork;
+using News4Devs.Shared;
+using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Exceptions;
+using News4Devs.Shared.Helpers;
+using News4Devs.Shared.Interfaces.Services;
+using News4Devs.Shared.Interfaces.UnitOfWork;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

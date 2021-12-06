@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.Interfaces.Repositories
+namespace News4Devs.Shared.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {

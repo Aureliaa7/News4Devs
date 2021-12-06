@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
-using News4Devs.Core.Interfaces.Services;
+using News4Devs.Shared.Interfaces.Services;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;

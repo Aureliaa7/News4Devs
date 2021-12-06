@@ -1,4 +1,4 @@
-﻿namespace News4Devs.Core.Enums
+﻿namespace News4Devs.Shared.Enums
 {
     public enum ArticleSavingType
     {

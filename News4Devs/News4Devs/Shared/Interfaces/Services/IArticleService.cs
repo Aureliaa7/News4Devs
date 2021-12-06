@@ -1,10 +1,10 @@
-﻿using News4Devs.Core.Entities;
-using News4Devs.Core.Models;
-using News4Devs.Core.Pagination;
+﻿using News4Devs.Shared.Entities;
+using News4Devs.Shared.Models;
+using News4Devs.Shared.Pagination;
 using System;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.Interfaces.Services
+namespace News4Devs.Shared.Interfaces.Services
 {
     public interface IArticleService
     {

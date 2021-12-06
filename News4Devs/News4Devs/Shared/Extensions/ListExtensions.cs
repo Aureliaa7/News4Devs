@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace News4Devs.Core.Extensions
+namespace News4Devs.Shared.Extensions
 {
     public static class ListExtensions
     {

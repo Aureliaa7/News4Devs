@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using News4Devs.Core.Entities;
+using News4Devs.Shared.Entities;
 using News4Devs.Infrastructure.ModelConfigurations;
 
 namespace News4Devs.Infrastructure.AppDbContext

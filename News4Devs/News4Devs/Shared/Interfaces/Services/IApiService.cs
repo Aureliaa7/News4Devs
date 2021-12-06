@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace News4Devs.Core.Interfaces.Services
+namespace News4Devs.Shared.Interfaces.Services
 {
     public interface IApiService
     {

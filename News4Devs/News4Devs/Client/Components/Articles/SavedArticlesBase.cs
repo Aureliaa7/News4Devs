@@ -1,4 +1,4 @@
-﻿using News4Devs.Core.DTOs;
+﻿using News4Devs.Shared.DTOs;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;

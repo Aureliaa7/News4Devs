@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
-using News4Devs.Core.DTOs;
-using News4Devs.Core.Extensions;
+using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;

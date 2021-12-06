@@ -1,7 +1,7 @@
-﻿using News4Devs.Core.Enums;
+﻿using News4Devs.Shared.Enums;
 using System;
 
-namespace News4Devs.Core.DTOs
+namespace News4Devs.Shared.DTOs
 {
     public class SavedArticleDto
     {

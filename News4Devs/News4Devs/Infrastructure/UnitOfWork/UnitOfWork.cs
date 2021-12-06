@@ -1,6 +1,6 @@
-﻿using News4Devs.Core.Entities;
-using News4Devs.Core.Interfaces.Repositories;
-using News4Devs.Core.Interfaces.UnitOfWork;
+﻿using News4Devs.Shared.Entities;
+using News4Devs.Shared.Interfaces.Repositories;
+using News4Devs.Shared.Interfaces.UnitOfWork;
 using News4Devs.Infrastructure.AppDbContext;
 using News4Devs.Infrastructure.Repositories;
 using System.Threading.Tasks;

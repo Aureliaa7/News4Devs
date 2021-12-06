@@ -1,5 +1,5 @@
-﻿using News4Devs.Core.DTOs;
-using News4Devs.Core.Interfaces.Services;
+﻿using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Interfaces.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using News4Devs.Core.DTOs;
-using News4Devs.Core.Entities;
-using News4Devs.Core.Enums;
-using News4Devs.Core.Interfaces.Services;
-using News4Devs.Core.Models;
-using News4Devs.Core.Pagination;
+using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Entities;
+using News4Devs.Shared.Enums;
+using News4Devs.Shared.Interfaces.Services;
+using News4Devs.Shared.Models;
+using News4Devs.Shared.Pagination;
 using System;
 using System.Threading.Tasks;
 

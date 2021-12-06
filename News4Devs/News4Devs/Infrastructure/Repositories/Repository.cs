@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using News4Devs.Core.Interfaces.Repositories;
+using News4Devs.Shared.Interfaces.Repositories;
 using News4Devs.Infrastructure.AppDbContext;
 using System;
 using System.Linq;
