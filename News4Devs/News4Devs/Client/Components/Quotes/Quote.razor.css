@@ -1,5 +1,8 @@
 ﻿.quote-container {
-    height: 30px;
+    height: 85%;
+    width: 95%;
+    padding: 10px 0;
+    text-align: center;
 }
 
 q {

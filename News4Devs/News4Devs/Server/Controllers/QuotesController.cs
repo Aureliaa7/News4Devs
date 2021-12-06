@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using News4Devs.Shared.Interfaces.Services;
+using News4Devs.Shared.Models;
 using System.Threading.Tasks;
 
 namespace News4Devs.WebAPI.Controllers
@@ -15,9 +16,9 @@ namespace News4Devs.WebAPI.Controllers
 
         [HttpGet]
         [Route("random")]
-        public async Task<IActionResult> GetRandomQuote()
+        public async Task<IActionResult> GetRandomQuote([FromQuery] QuotableApiQueryParamsModel queryParamsModel)
         {
-            var randomQuote = await quotableService.GetRandomQuoteAsync();
+            var randomQuote = await quotableService.GetRandomQuoteAsync(queryParamsModel);
             return Ok(randomQuote);
         }
     }

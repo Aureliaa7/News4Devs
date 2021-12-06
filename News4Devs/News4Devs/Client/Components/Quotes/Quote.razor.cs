@@ -15,7 +15,8 @@ namespace News4Devs.Client.Components.Quotes
 
         protected override async Task OnInitializedAsync()
         {
-            var apiResponse = await HttpClientService.GetAsync<QuotableApiResponseDto>($"{ClientConstants.BaseUrl}/quotes/random");
+            var apiResponse = await HttpClientService.GetAsync<QuotableApiResponseDto>(
+                $"{ClientConstants.BaseUrl}/quotes/random?maxLength=190");
             if (apiResponse.StatusCode == HttpStatusCode.OK)
             {
                 quoteDto = apiResponse.Data;
