@@ -3,8 +3,8 @@
     public static class Constants
     {
         public const string MigrationsAssembly = "News4Devs.Infrastructure";
-        public const string APIAssembly = "News4Devs.WebAPI";
-        public const string ClientAssembly = "News4Devs.Client";
+        public const string APIAssembly = "Server";
+        public const string ClientAssembly = "Client";
 
         public const string UserId = "UserId";
         
