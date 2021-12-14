@@ -1,6 +1,7 @@
 ﻿using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Pagination;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -38,6 +39,23 @@ namespace News4Devs.Shared.DomainServices
         {
             var totalPages = ((double)totalRecords / pageSize);
             return Convert.ToInt32(Math.Ceiling(totalPages));
+        }
+
+        public PagedResponseModel<T> GetPagedResponseModel(IList<T> data, string address, int totalRecords, PaginationFilter paginationFilter)
+        {
+            int roundedTotalPages = GetRoundedTotalPages(totalRecords, paginationFilter.PageSize);
+            return new PagedResponseModel<T>
+            {
+                Data = data,
+                TotalPages = roundedTotalPages,
+                PageNumber = paginationFilter.PageNumber,
+                PageSize = paginationFilter.PageSize,
+                PreviousPage = GetPreviousPage(address, paginationFilter.PageNumber, paginationFilter.PageSize, roundedTotalPages),
+                NextPage = GetNextPage(address, paginationFilter.PageNumber, paginationFilter.PageSize, roundedTotalPages),
+                FirstPage = GetPageAddress(address, 1, paginationFilter.PageSize, roundedTotalPages),
+                LastPage = GetPageAddress(address, roundedTotalPages, paginationFilter.PageSize, roundedTotalPages),
+                TotalRecords = totalRecords
+            };
         }
     }
 }

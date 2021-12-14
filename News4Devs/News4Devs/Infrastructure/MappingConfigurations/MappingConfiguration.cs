@@ -14,12 +14,16 @@ namespace News4Devs.Infrastructure.MappingConfigurations
             CreateArticlesMappings();
 
             CreateMap<PagedResponseModel<ExtendedArticleModel>, PagedResponseDto<ExtendedArticleDto>>();
+
+            CreateMap<ChatMessage, ChatMessageDto>().ReverseMap();
+            CreateMap<PagedResponseModel<ChatMessage>, PagedResponseDto<ChatMessageDto>>();
         }
 
         private void CreateUserMappings()
         {
             CreateMap<RegisterDto, User>();
             CreateMap<User, UserDto>();
+            CreateMap<PagedResponseModel<User>, PagedResponseDto<UserDto>>();
         }
 
         private void CreateArticlesMappings()

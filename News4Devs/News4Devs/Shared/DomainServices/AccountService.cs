@@ -4,6 +4,7 @@ using News4Devs.Shared.Exceptions;
 using News4Devs.Shared.Helpers;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
+using News4Devs.Shared.Pagination;
 using System;
 using System.Threading.Tasks;
 
@@ -14,12 +15,18 @@ namespace News4Devs.Shared.DomainServices
         private readonly IUnitOfWork unitOfWork;
         private readonly IJwtService jwtService;
         private readonly IImageService imageService;
+        private readonly IAccountPaginationService accountPaginationService;
 
-        public AccountService(IUnitOfWork unitOfWork, IJwtService jwtService, IImageService imageService)
+        public AccountService(
+            IUnitOfWork unitOfWork,
+            IJwtService jwtService,
+            IImageService imageService,
+            IAccountPaginationService accountPaginationService)
         {
             this.unitOfWork = unitOfWork;
             this.jwtService = jwtService;
             this.imageService = imageService;
+            this.accountPaginationService = accountPaginationService;
         }
 
         public async Task<string> LoginAsync(LoginDto loginDto)
@@ -69,5 +76,12 @@ namespace News4Devs.Shared.DomainServices
 
             return searchedUser;
         }
+
+        public async Task<PagedResponseModel<User>> GetAllAsync(PaginationFilter paginationFilter)
+        {
+            var pagedResponse = await accountPaginationService.GetPagedResponseAsync(Constants.AccountsAddress, paginationFilter);
+
+            return pagedResponse;
+        } 
     }
 }

@@ -17,6 +17,11 @@ namespace News4Devs.WebAPI.Filters
             {
                 context.Result = new NotFoundResult();
             }
+            else if (context.Exception is FailedHttpRequestException)
+            {
+                //TODO do smth
+                System.Console.WriteLine(context.Exception.Message);
+            }
         }
     }
 }

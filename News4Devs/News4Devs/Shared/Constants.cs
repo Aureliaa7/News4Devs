@@ -15,11 +15,14 @@
         public const int Conflict = 409;
         public const int BadRequest = 400;
 
-        public const int DefaultPageSize = 10;
+        public const int DefaultPageSize = 20;
         public const int DefaultPageNumber = 1;
 
-        public const string ArticlesAddress = "https://localhost:44347/api/v1/articles/";
+        public const string ArticlesAddress = "https://localhost:44395/api/v1/articles/";
         public const string SavedArticlesEndpoint = "saved";
         public const string FavoriteArticlesEndpoint = "favorite";
+
+        public const string ChatAddress = "https://localhost:44395/api/v1/chat/";
+        public const string AccountsAddress = "https://localhost:44395/api/v1/accounts";
     }
 }

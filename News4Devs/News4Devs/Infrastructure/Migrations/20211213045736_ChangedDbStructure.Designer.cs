@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using News4Devs.Infrastructure.AppDbContext;
 
 namespace News4Devs.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211213045736_ChangedDbStructure")]
+    partial class ChangedDbStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,13 +74,13 @@ namespace News4Devs.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("FromUserId")
+                    b.Property<Guid>("FromUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ToUserId")
+                    b.Property<Guid>("ToUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -156,12 +158,14 @@ namespace News4Devs.Infrastructure.Migrations
                     b.HasOne("News4Devs.Shared.Entities.User", "FromUser")
                         .WithMany("MessagesFromUsers")
                         .HasForeignKey("FromUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("News4Devs.Shared.Entities.User", "ToUser")
                         .WithMany("MessagesToUsers")
                         .HasForeignKey("ToUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("FromUser");
 

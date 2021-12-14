@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace News4Devs.Shared.Entities
 {
@@ -21,5 +22,15 @@ namespace News4Devs.Shared.Entities
 
         // the password in plaintext; it won't be mapped to DB
         public string Password { get; set; }
+
+        public virtual ICollection<ChatMessage> MessagesFromUsers { get; set; }
+
+        public virtual ICollection<ChatMessage> MessagesToUsers { get; set; }
+
+        public User()
+        {
+            MessagesFromUsers = new HashSet<ChatMessage>();
+            MessagesToUsers = new HashSet<ChatMessage>();
+        }
     }
 }

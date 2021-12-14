@@ -1,5 +1,6 @@
 ﻿using News4Devs.Shared.Pagination;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -19,5 +20,7 @@ namespace News4Devs.Shared.Interfaces.Services
         string GetPageAddress(string address, int pageNumber, int pageSize, int noPages);
 
         int GetRoundedTotalPages(int totalRecords, int pageSize);
+
+        PagedResponseModel<T> GetPagedResponseModel(IList<T> data, string address, int totalRecords, PaginationFilter paginationFilter);
     }
 }

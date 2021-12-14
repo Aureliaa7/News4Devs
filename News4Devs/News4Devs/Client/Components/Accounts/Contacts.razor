@@ -1,0 +1,36 @@
+﻿@page "/contacts"
+@*@page "/"*@
+@attribute [Authorize]
+
+<h3>Contacts</h3>
+
+@if (isLoading)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <div class="col-md-8 people-container">
+        @foreach (var user in Users)
+        {
+            <div>
+                <a href="/chat/@user.Id"
+                   class="list-group-item list-group-item-action flex-column align-items-start contact-list-item">
+                    @if (user?.FirstName != null)
+                    {
+                        <span> @user.FirstName @user.LastName </span>
+                    }
+                    else
+                    {
+                        @user.Email
+                    }
+                </a>
+            </div>
+        }
+
+        @if (isLoadMoreButtonVisible)
+        {
+            <button class="btn btn-primary" @onclick="OnLoadMore">Load more</button>
+        }
+    </div>
+}

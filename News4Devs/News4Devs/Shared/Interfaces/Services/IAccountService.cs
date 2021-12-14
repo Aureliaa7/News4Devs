@@ -1,5 +1,6 @@
 ﻿using News4Devs.Shared.DTOs;
 using News4Devs.Shared.Entities;
+using News4Devs.Shared.Pagination;
 using System;
 using System.Threading.Tasks;
 
@@ -28,5 +29,7 @@ namespace News4Devs.Shared.Interfaces.Services
         /// <param name="id">The user's id</param>
         /// <returns>An object containing the user's account details</returns>
         Task<User> GetByIdAsync(Guid id);
+
+        Task<PagedResponseModel<User>> GetAllAsync(PaginationFilter paginationFilter);
     }
 }

@@ -13,6 +13,7 @@ namespace News4Devs.Infrastructure.UnitOfWork
         private IRepository<User> usersRepository;
         private IRepository<Article> articlesRepository;
         private IRepository<SavedArticle> savedArticlesRepository;
+        private IRepository<ChatMessage> messagesRepository;
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
@@ -52,6 +53,18 @@ namespace News4Devs.Infrastructure.UnitOfWork
                     savedArticlesRepository = new Repository<SavedArticle>(dbContext);
                 }
                 return savedArticlesRepository;
+            }
+        }
+
+        public IRepository<ChatMessage> MessagesRepository
+        {
+            get
+            {
+                if (messagesRepository == null)
+                {
+                    messagesRepository = new Repository<ChatMessage>(dbContext);
+                }
+                return messagesRepository;
             }
         }
 

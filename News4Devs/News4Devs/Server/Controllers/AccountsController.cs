@@ -5,6 +5,7 @@ using News4Devs.Shared.DTOs;
 using News4Devs.Shared.Entities;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Models;
+using News4Devs.Shared.Pagination;
 using System;
 using System.Threading.Tasks;
 
@@ -58,6 +59,16 @@ namespace News4Devs.WebAPI.Controllers
         {
             var user = await accountService.GetByIdAsync(id);
             return Ok(mapper.Map<UserDto>(user));
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetAllAccounts([FromQuery] PaginationFilter paginationFilter)
+        {
+            var users = await accountService.GetAllAsync(paginationFilter);
+            var result = mapper.Map<PagedResponseDto<UserDto>>(users);
+
+            return Ok(result);
         }
     }
 }

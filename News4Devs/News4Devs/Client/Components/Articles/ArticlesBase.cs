@@ -66,7 +66,7 @@ namespace News4Devs.Client.Components.Articles
             string url = await GetUrlAsync();
             var response = await HttpClientService.GetAsync<IList<ArticleDto>>(url);
             var articles = response.Data;
-            if (!articles.Any())
+            if (articles != null && !articles.Any())
             {
                 isLoadMoreButtonVisible = false;
             }

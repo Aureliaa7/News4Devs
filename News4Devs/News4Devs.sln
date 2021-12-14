@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News4Devs.Server", "News4De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News4Devs.Client", "News4Devs\Client\News4Devs.Client.csproj", "{27B82038-9552-4939-9542-414961587B9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News4Devs.Shared", "News4Devs\Shared\News4Devs.Shared.csproj", "{6EFCB85B-4E01-4052-ABDB-C7E1438BF15F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News4Devs.Shared", "News4Devs\Shared\News4Devs.Shared.csproj", "{6EFCB85B-4E01-4052-ABDB-C7E1438BF15F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{D4FABFA4-4750-4789-B7FC-F31B823BBF38}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 		..\..\..\..\..\..\from News4Devs\References.txt = ..\..\..\..\..\..\from News4Devs\References.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News4Devs.Infrastructure", "News4Devs\Infrastructure\News4Devs.Infrastructure.csproj", "{9E2F6C8B-C494-4784-8F72-6B591FB0D16E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News4Devs.Infrastructure", "News4Devs\Infrastructure\News4Devs.Infrastructure.csproj", "{9E2F6C8B-C494-4784-8F72-6B591FB0D16E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

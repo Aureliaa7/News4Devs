@@ -12,6 +12,8 @@ namespace News4Devs.Shared.Interfaces.UnitOfWork
 
         IRepository<SavedArticle> SavedArticlesRepository { get; }
 
+        IRepository<ChatMessage> MessagesRepository { get; }
+
         Task SaveChangesAsync();
     }
 }

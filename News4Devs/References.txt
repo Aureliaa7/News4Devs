@@ -27,6 +27,9 @@
 * Passing parameter value as query string when redirecting: https://www.c-sharpcorner.com/article/working-with-query-string-or-query-parameter-in-blazor/
 * Convert Unix timestamp to DateTime: https://stackoverflow.com/questions/249760/how-can-i-convert-a-unix-timestamp-to-datetime-and-vice-versa
 * Pagination: https://codewithmukesh.com/blog/pagination-in-aspnet-core-webapi/
+* SignalR: https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor?view=aspnetcore-6.0&tabs=visual-studio&pivots=webassembly
+	https://codewithmukesh.com/blog/realtime-chat-application-with-blazor/
+* Detect scroll direction: https://gist.github.com/cedricbeau/d8dcb3dcf33141bcfda83bae4ae7dc99
 
 
 *** Books ***

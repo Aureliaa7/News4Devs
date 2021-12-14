@@ -26,7 +26,6 @@ namespace News4Devs.Shared.DomainServices
             Expression<Func<SavedArticle, bool>> filter = null)
         {
             int totalRecords = await unitOfWork.SavedArticlesRepository.GetTotalRecordsAsync(filter);
-            int roundedTotalPages = GetRoundedTotalPages(totalRecords, paginationFilter.PageSize);
 
             var savedArticles = (await unitOfWork.SavedArticlesRepository.GetAllAsync(filter,
                 includeProperties: nameof(Article),
@@ -40,18 +39,8 @@ namespace News4Devs.Shared.DomainServices
                 })
                 .ToList();
 
-            return new PagedResponseModel<ExtendedArticleModel>
-            {
-                Data = savedArticles,
-                TotalPages = roundedTotalPages,
-                PageNumber = paginationFilter.PageNumber,
-                PageSize = paginationFilter.PageSize,
-                PreviousPage = GetPreviousPage(address, paginationFilter.PageNumber, paginationFilter.PageSize, roundedTotalPages),
-                NextPage = GetNextPage(address, paginationFilter.PageNumber, paginationFilter.PageSize, roundedTotalPages),
-                FirstPage = GetPageAddress(address, 1, paginationFilter.PageSize, roundedTotalPages),
-                LastPage = GetPageAddress(address, roundedTotalPages, paginationFilter.PageSize, roundedTotalPages),
-                TotalRecords = totalRecords
-            };
+            var pagedResponse = GetPagedResponseModel(savedArticles, address, totalRecords, paginationFilter);
+            return pagedResponse;
         }
     }
 }

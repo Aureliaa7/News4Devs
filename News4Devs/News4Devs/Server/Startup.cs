@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using News4Devs.Infrastructure.MappingConfigurations;
+using News4Devs.Server.Hubs;
 using News4Devs.WebAPI;
+using System.Linq;
 
 namespace News4Devs.Server
 {
@@ -20,7 +23,7 @@ namespace News4Devs.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSignalR();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -44,6 +47,11 @@ namespace News4Devs.Server
 
             services.ConfigureCors();
 
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -72,6 +80,7 @@ namespace News4Devs.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chatHub");   // create an endpoint for this hub
                 endpoints.MapFallbackToFile("index.html");
             });
         }

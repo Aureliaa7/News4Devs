@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
+using News4Devs.Shared.Exceptions;
 using News4Devs.Shared.Interfaces.Services;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -26,10 +27,15 @@ namespace News4Devs.Infrastructure.Services
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, modifiedUrl);
 
             var response = await httpClient.SendAsync(requestMessage);
-            var content = await response.Content.ReadAsStringAsync();
-            var apiResponse = JsonSerializer.Deserialize<T>(content);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonSerializer.Deserialize<T>(content);
 
-            return apiResponse;
+                return apiResponse;
+            }
+
+            throw new FailedHttpRequestException($"Failed HttpRequest. Reason: {response.ReasonPhrase}");
         }
     }
 }
