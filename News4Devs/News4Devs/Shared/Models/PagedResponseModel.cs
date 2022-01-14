@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace News4Devs.Shared.Pagination
+namespace News4Devs.Shared.Models
 {
     public class PagedResponseModel<T> where T: class, new()
     {

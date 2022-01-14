@@ -19,5 +19,7 @@ namespace News4Devs.Client.Services.Interfaces
         Task LogoutAsync();
 
         Task<string> GetCurrentUserIdAsync();
+
+        Task<string> GetCurrentUserFullNameAsync();
     }
 }

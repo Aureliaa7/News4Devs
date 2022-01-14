@@ -2,7 +2,7 @@
 using News4Devs.Shared.Exceptions;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
-using News4Devs.Shared.Pagination;
+using News4Devs.Shared.Models;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -42,10 +42,10 @@ namespace News4Devs.Shared.DomainServices
 
             message.CreatedDate = DateTime.Now;
 
-            await unitOfWork.MessagesRepository.AddAsync(message);
+            var savedMessage = await unitOfWork.MessagesRepository.AddAsync(message);
             await unitOfWork.SaveChangesAsync();
 
-            return message;
+            return savedMessage;
         }
     }
 }

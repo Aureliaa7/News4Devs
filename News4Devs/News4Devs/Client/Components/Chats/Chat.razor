@@ -13,33 +13,27 @@
         {
             @foreach (var message in chatMessages)
             {
-                @if (message.FromUserId.ToString() == currentUserId)
-                {
-                    <div class="row sent-container">
-                        <div class="col-md-10 col-xs-10">
-                            <div class="message-container sent-message">
-                                <p>@message.Message</p>
-                            </div>
+                bool isSent = message.FromUserId.ToString() == currentUserId;
+
+                <div class="row @(isSent ? "sent-container" : "received-container")">
+                    <div class="col-md-10 col-xs-10">
+                        <div class="message-container @(isSent ? "sent-message" : "received-message")" 
+                                @onmouseover="() => OnMouseOver(message.Id)" @onmouseout="() => OnMouseOut()">
+                            <p >@message.Message</p>
+                            @if (showDateTime && currentHoveredMessageId == message.Id)
+                            {
+                                <p class="message-date">@message.CreatedDate.ToString("MM/dd/yyyy h:mm tt")</p>
+                            }
                         </div>
                     </div>
-                }
-                else
-                {
-                    <div class="row received-container">
-                        <div class="col-md-10 col-xs-10">
-                            <div class="message-container received-message">
-                                <p>@message.Message</p>
-                            </div>
-                        </div>
-                    </div>
-                }
+                </div>
             }
         }
-        </div>
+    </div>
     <div class="col-md-10 new-message-container">
-            <input @bind="messageText" size="50" id="message-box" @onkeydown="OnKeyDown" class="col-md-9 message-box-style"/>
-            <button @onclick="Send" disabled="@(!IsConnected)" class="message-box-style">
-                <i class="far fa-paper-plane"></i>
-            </button>
+        <input @bind="messageText" size="50" id="message-box" @onkeydown="OnKeyDown" class="col-md-9 message-box-style"/>
+        <button @onclick="Send" disabled="@(!IsConnected)" class="message-box-style">
+            <i class="far fa-paper-plane"></i>
+        </button>
     </div>
 </div>

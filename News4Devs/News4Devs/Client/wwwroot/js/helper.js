@@ -2,17 +2,13 @@
 var isUpScrolling = false;
 
 export function handleScrollEvent() {
-    //debugger;
     var messagesContainer = document.getElementById("messages-container");
 
     messagesContainer.addEventListener('scroll', (event) => {
-        console.log("event: ", event);
         var scrollTop = window.pageYOffset || messagesContainer.scrollTop;
         if (scrollTop > lastScrollTop) {
-            console.log("down...");
             isUpScrolling = false;
         } else {
-            console.log("up...");
             isUpScrolling = true;
         }
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
@@ -41,7 +37,6 @@ export function getMessage() {
 }
 
 export function scrollToBottom() {
-    //debugger;
     var messagesContainer = document.getElementById("messages-container");
 
     if ((messagesContainer.scrollHeight - messagesContainer.clientHeight) > 0) {

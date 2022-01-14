@@ -4,8 +4,9 @@ using News4Devs.Shared.Exceptions;
 using News4Devs.Shared.Helpers;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
-using News4Devs.Shared.Pagination;
+using News4Devs.Shared.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace News4Devs.Shared.DomainServices
@@ -82,6 +83,6 @@ namespace News4Devs.Shared.DomainServices
             var pagedResponse = await accountPaginationService.GetPagedResponseAsync(Constants.AccountsAddress, paginationFilter);
 
             return pagedResponse;
-        } 
+        }
     }
 }

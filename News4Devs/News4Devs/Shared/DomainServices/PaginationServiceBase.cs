@@ -1,5 +1,5 @@
 ﻿using News4Devs.Shared.Interfaces.Services;
-using News4Devs.Shared.Pagination;
+using News4Devs.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;

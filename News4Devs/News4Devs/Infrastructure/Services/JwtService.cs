@@ -47,7 +47,7 @@ namespace News4Devs.Infrastructure.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Email, loginDto.Email),
-                    new Claim(ClaimTypes.Name, string.Concat(user.FirstName, " ", user.LastName)),
+                    new Claim(Constants.UserFullName, string.Concat(user.FirstName, " ", user.LastName)),
                     new Claim(Constants.UserId, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),

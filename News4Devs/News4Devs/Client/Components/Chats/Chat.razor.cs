@@ -14,7 +14,6 @@ namespace News4Devs.Client.Components.Chats
 {
     public partial class Chat
     {
-        private HubConnection hubConnection;
         private UserDto toUser;
         private List<ChatMessageDto> chatMessages = new();
         private string currentUserId;
@@ -22,6 +21,11 @@ namespace News4Devs.Client.Components.Chats
         private IJSObjectReference jSObjectReference;
         private int pageNumber = 1;
         private bool isLoading;
+        private bool showDateTime;
+        private long currentHoveredMessageId;
+
+        [CascadingParameter]
+        private HubConnection hubConnection { get; set; }
 
         [Inject]
         private IHttpClientService HttpService { get; set; }
@@ -30,10 +34,10 @@ namespace News4Devs.Client.Components.Chats
         private IAuthenticationService AuthService { get; set; }
 
         [Inject]
-        private NavigationManager NavigationManager { get; set; }
+        private IJSRuntime JsRuntime { get; set; }
 
         [Inject]
-        private IJSRuntime jsRuntime { get; set; }
+        private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public string Id { get; set; }
@@ -42,13 +46,13 @@ namespace News4Devs.Client.Components.Chats
         {
             isLoading = true;
             currentUserId = await AuthService.GetCurrentUserIdAsync();
-            jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/helper.js");
+            jSObjectReference = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/helper.js");
 
             await SetUpSignalR();
 
             if (Id != null)
             {
-                await SetToUserAsync();
+                toUser = await GetUserAsync(Id);
                 await GetMessagesAsync();
             }
 
@@ -60,27 +64,45 @@ namespace News4Devs.Client.Components.Chats
 
         private async Task SetUpSignalR()
         {
-            hubConnection = new HubConnectionBuilder()
-                .WithUrl(NavigationManager.ToAbsoluteUri("/chatHub"))
-                .Build();
-
-            hubConnection.On<ChatMessageDto>("ReceiveMessage", async (message) =>
+            if (hubConnection == null)
             {
-                chatMessages.Add(message);
-                await jSObjectReference.InvokeVoidAsync("scrollToBottom");
-                StateHasChanged();
-            });
+                hubConnection = new HubConnectionBuilder()
+                   .WithUrl(NavigationManager.ToAbsoluteUri("/chatHub"))
+                   .Build();
+            }
+            if (hubConnection.State == HubConnectionState.Disconnected)
+            {
+                await hubConnection.StartAsync();
+            }
 
-            await hubConnection.StartAsync();
+            HandleReceivedMessage();
         }
 
-        private async Task SetToUserAsync()
+        private void HandleReceivedMessage()
         {
-            var response = await HttpService.GetAsync<UserDto>($"{ClientConstants.BaseUrl}/accounts/{Id}");
+            hubConnection.On<ChatMessageDto>("ReceiveMessage", async (message) =>
+            {
+                // update the messages list for both sender and receiver
+                Console.WriteLine("on receiveMessage...");
+                if ((message.FromUserId.ToString() == Id && currentUserId == message.ToUserId.ToString()) ||
+                 (message.FromUserId.ToString() == currentUserId && message.ToUserId.ToString() == Id))
+                {
+                    chatMessages.Add(message);
+                    StateHasChanged();
+                    await jSObjectReference.InvokeVoidAsync("scrollToBottom");
+                }
+            });
+        }
+
+        private async Task<UserDto> GetUserAsync(string id)
+        {
+            var response = await HttpService.GetAsync<UserDto>($"{ClientConstants.BaseUrl}/accounts/{id}");
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                toUser = response.Data;
+                return response.Data;
             }
+
+            return new UserDto();
         }
 
         private async Task GetMessagesAsync()
@@ -106,7 +128,12 @@ namespace News4Devs.Client.Components.Chats
                     Message = messageText
                 };
 
-                await hubConnection.SendAsync("SendMessage", message);
+                await hubConnection.SendAsync("SendMessageAsync", message);
+                if (currentUserId == message.FromUserId.ToString())
+                {
+                    await hubConnection.SendAsync("NotifyAsync", message.Message, Id, currentUserId);
+                }
+
                 messageText = string.Empty;
 
                 var requestContent = ByteArrayContentHelper.ConvertToByteArrayContent(message);
@@ -146,6 +173,18 @@ namespace News4Devs.Client.Components.Chats
             {
                 await GetMessagesAsync();
             }
+        }
+
+        private void OnMouseOver(long messageId)
+        {
+            showDateTime = true;
+            currentHoveredMessageId = messageId;
+        }
+
+        private void OnMouseOut()
+        {
+            showDateTime = false;
+            currentHoveredMessageId = 0;
         }
     }
 }

@@ -4,7 +4,6 @@ using News4Devs.Shared.Exceptions;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
 using News4Devs.Shared.Models;
-using News4Devs.Shared.Pagination;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;

@@ -1,7 +1,7 @@
 ﻿using News4Devs.Shared.Entities;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
-using News4Devs.Shared.Pagination;
+using News4Devs.Shared.Models;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

@@ -3,7 +3,6 @@ using News4Devs.Shared.Enums;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
 using News4Devs.Shared.Models;
-using News4Devs.Shared.Pagination;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -39,8 +38,7 @@ namespace News4Devs.Shared.DomainServices
                 })
                 .ToList();
 
-            var pagedResponse = GetPagedResponseModel(savedArticles, address, totalRecords, paginationFilter);
-            return pagedResponse;
+            return GetPagedResponseModel(savedArticles, address, totalRecords, paginationFilter);
         }
     }
 }

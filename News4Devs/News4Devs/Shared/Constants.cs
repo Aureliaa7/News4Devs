@@ -7,6 +7,7 @@
         public const string ClientAssembly = "Client";
 
         public const string UserId = "UserId";
+        public const string UserFullName = "UserFullName";
         
         public const string ImageExtension = ".png";
         public const string ProfilePhotosDirectory = "wwwroot\\profile-photos";
@@ -24,5 +25,7 @@
 
         public const string ChatAddress = "https://localhost:44395/api/v1/chat/";
         public const string AccountsAddress = "https://localhost:44395/api/v1/accounts";
+
+        public const string BaseUrl = "https://localhost:44395/api/v1/";
     }
 }

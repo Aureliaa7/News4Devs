@@ -6,6 +6,7 @@ namespace News4Devs.WebAPI.Filters
 {
     public class News4DevsExceptionFilterAttribute : ExceptionFilterAttribute
     {
+        //TODO log these exceptions
         public override void OnException(ExceptionContext context)
         {
             if (context.Exception is DuplicateEmailException ||

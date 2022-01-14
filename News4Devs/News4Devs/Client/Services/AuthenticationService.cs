@@ -6,6 +6,7 @@ using News4Devs.Shared;
 using News4Devs.Shared.DTOs;
 using News4Devs.Shared.Models;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace News4Devs.Client.Services
@@ -26,7 +27,17 @@ namespace News4Devs.Client.Services
             this.authStateProvider = authStateProvider;
         }
 
+        public async Task<string> GetCurrentUserFullNameAsync()
+        {
+            return await GetClaimByNameAsync(Constants.UserFullName);
+        }
+
         public async Task<string> GetCurrentUserIdAsync()
+        {
+            return await GetClaimByNameAsync(Constants.UserId);
+        }
+
+        private async Task<string> GetClaimByNameAsync(string name)
         {
             var token = await localStorageService.GetItemAsStringAsync(ClientConstants.Token);
 
@@ -35,7 +46,7 @@ namespace News4Devs.Client.Services
                 return string.Empty;
             }
 
-            return JwtHelper.GetClaimValueByName(token, Constants.UserId);
+            return JwtHelper.GetClaimValueByName(token, name);
         }
 
         public async Task<string> LoginAsync(LoginDto loginModel)

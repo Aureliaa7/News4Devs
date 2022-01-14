@@ -1,4 +1,4 @@
-﻿using News4Devs.Client.Models;
+﻿using News4Devs.Shared.Models;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;

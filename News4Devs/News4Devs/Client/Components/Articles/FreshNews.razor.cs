@@ -6,10 +6,11 @@ namespace News4Devs.Client.Components.Articles
 {
     public partial class FreshNews : ArticlesBase
     {
+        //TODO uncomment
         protected override async Task OnInitializedAsync()
         {
             loading = true;
-            await GetArticlesAsync();
+            //await GetArticlesAsync();
             loading = false;
         }
 

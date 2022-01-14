@@ -9,6 +9,7 @@ using News4Devs.Infrastructure.MappingConfigurations;
 using News4Devs.Server.Hubs;
 using News4Devs.WebAPI;
 using System.Linq;
+using Microsoft.OpenApi.Models;
 
 namespace News4Devs.Server
 {
@@ -52,6 +53,11 @@ namespace News4Devs.Server
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "News4Devs.WebAPI", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -60,6 +66,8 @@ namespace News4Devs.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "News4Devs.WebAPI v1"));
             }
             else
             {

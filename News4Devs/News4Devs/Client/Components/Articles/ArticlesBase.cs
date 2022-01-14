@@ -41,17 +41,13 @@ namespace News4Devs.Client.Components.Articles
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                ToastService.ShowError("An unexpected error occured during retrieving the articles");
+                ToastService.ShowError("An unexpected error occurred during retrieving the articles");
             }
             else
             {
                 if (response.Data.Any())
                 {
                     Articles.AddRange(response.Data);
-                }
-                else
-                {
-                    isLoadMoreButtonVisible = false;
                 }
                 pageNumber++;
             }

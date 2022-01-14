@@ -1,6 +1,6 @@
 ﻿using News4Devs.Shared.DTOs;
 using News4Devs.Shared.Entities;
-using News4Devs.Shared.Pagination;
+using News4Devs.Shared.Models;
 using System;
 using System.Threading.Tasks;
 

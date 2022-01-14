@@ -12,5 +12,7 @@
         public const int ImageHeight = 500;
 
         public const int MaxPageSize = 15;
+
+        public const int MaxQuoteLength = 65;
     }
 }

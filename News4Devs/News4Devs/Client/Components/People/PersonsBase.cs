@@ -6,22 +6,21 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace News4Devs.Client.Components.Accounts
+namespace News4Devs.Client.Components.People
 {
-    public partial class Contacts
+    public abstract class PersonsBase: ComponentBase
     {
         [Inject]
-        private IHttpClientService HttpService { get; set; }
+        protected IHttpClientService HttpService { get; set; }
 
         [Inject]
         protected IAuthenticationService AuthService { get; set; }
 
-        private bool isLoadMoreButtonVisible = false;
-        private int currentPage = 1;
-        private string currentUserId;
-        private bool isLoading = false;
-
-        private List<UserDto> Users { get; set; } = new List<UserDto>();
+        protected bool isLoadMoreButtonVisible = false;
+        protected int currentPage = 1;
+        protected string currentUserId;
+        protected bool isLoading;
+        protected List<UserDto> users = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -31,19 +30,14 @@ namespace News4Devs.Client.Components.Accounts
             isLoading = false;
         }
 
-        private async Task OnLoadMore()
+        protected async Task GetUsersAsync(string currentUserId)
         {
-            await GetUsersAsync(currentUserId);
-        }
-
-        private async Task GetUsersAsync(string currentUserId)
-        {
-            var response = await HttpService.GetAsync<PagedResponseDto<UserDto>>(
-                $"{ClientConstants.BaseUrl}/accounts?pageNumber={currentPage}&pageSize={ClientConstants.MaxPageSize}");
+            string url = GetUrl();
+            var response = await HttpService.GetAsync<PagedResponseDto<UserDto>>(url);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var pagedResponse = response.Data;
-                Users.AddRange(pagedResponse.Data.Where(x => x.Id.ToString() != currentUserId));
+                users.AddRange(pagedResponse.Data.Where(x => x.Id.ToString() != currentUserId));
                 isLoadMoreButtonVisible = pagedResponse.NextPage != null;
 
                 if (currentPage < pagedResponse.TotalPages)
@@ -52,5 +46,12 @@ namespace News4Devs.Client.Components.Accounts
                 }
             }
         }
+
+        protected async Task LoadMoreUsers()
+        {
+            await GetUsersAsync(currentUserId);
+        }
+
+        protected abstract string GetUrl();
     }
 }

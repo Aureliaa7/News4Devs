@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace News4Devs.Client.Models
+namespace News4Devs.Shared.Models
 {
     public class ApiResponse<T>
     {

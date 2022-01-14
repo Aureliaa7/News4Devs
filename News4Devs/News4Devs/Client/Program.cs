@@ -25,7 +25,7 @@ namespace News4Devs.Client
 
         private static void RegisterServices(WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(ClientConstants.BaseUrl) });
+            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(ClientConstants.BaseUrl) });
 
             builder.Services.AddBlazoredToast();
             builder.Services.AddBlazoredLocalStorage();

@@ -2,7 +2,6 @@
 using News4Devs.Shared.DTOs;
 using News4Devs.Shared.Entities;
 using News4Devs.Shared.Models;
-using News4Devs.Shared.Pagination;
 
 namespace News4Devs.Infrastructure.MappingConfigurations
 {
@@ -12,11 +11,7 @@ namespace News4Devs.Infrastructure.MappingConfigurations
         {
             CreateUserMappings();
             CreateArticlesMappings();
-
-            CreateMap<PagedResponseModel<ExtendedArticleModel>, PagedResponseDto<ExtendedArticleDto>>();
-
-            CreateMap<ChatMessage, ChatMessageDto>().ReverseMap();
-            CreateMap<PagedResponseModel<ChatMessage>, PagedResponseDto<ChatMessageDto>>();
+            CreateMessagesMappings();
         }
 
         private void CreateUserMappings()
@@ -42,6 +37,13 @@ namespace News4Devs.Infrastructure.MappingConfigurations
                 .ForPath(dest => dest.Article.user.website_url, opt => opt.MapFrom(src => src.Article.AuthorWebsiteUrl));
 
             CreateMap<ExtendedArticleModel, ExtendedArticleDto>();
+            CreateMap<PagedResponseModel<ExtendedArticleModel>, PagedResponseDto<ExtendedArticleDto>>();
+        }
+
+        private void CreateMessagesMappings()
+        {
+            CreateMap<ChatMessage, ChatMessageDto>().ReverseMap();
+            CreateMap<PagedResponseModel<ChatMessage>, PagedResponseDto<ChatMessageDto>>();
         }
     }
 }
