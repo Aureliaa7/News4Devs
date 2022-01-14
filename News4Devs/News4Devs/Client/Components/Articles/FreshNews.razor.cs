@@ -10,7 +10,7 @@ namespace News4Devs.Client.Components.Articles
         protected override async Task OnInitializedAsync()
         {
             loading = true;
-            //await GetArticlesAsync();
+            await GetArticlesAsync();
             loading = false;
         }
 

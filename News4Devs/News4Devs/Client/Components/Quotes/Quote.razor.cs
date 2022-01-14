@@ -16,16 +16,16 @@ namespace News4Devs.Client.Components.Quotes
         //TODO uncomment
         protected override async Task OnInitializedAsync()
         {
-            //var apiResponse = await HttpClientService.GetAsync<QuotableApiResponseDto>(
-            //    $"{ClientConstants.BaseUrl}/quotes/random?maxLength={ClientConstants.MaxQuoteLength}");
-            //if (apiResponse.StatusCode == HttpStatusCode.OK)
-            //{
-            //    quoteDto = apiResponse.Data;
-            //}
-            //else
-            //{
-            //    quoteDto = new QuotableApiResponseDto { author = string.Empty, content = string.Empty };
-            //}
+            var apiResponse = await HttpClientService.GetAsync<QuotableApiResponseDto>(
+                $"{ClientConstants.BaseUrl}/quotes/random?maxLength={ClientConstants.MaxQuoteLength}");
+            if (apiResponse.StatusCode == HttpStatusCode.OK)
+            {
+                quoteDto = apiResponse.Data;
+            }
+            else
+            {
+                quoteDto = new QuotableApiResponseDto { author = string.Empty, content = string.Empty };
+            }
         }
     }
 }

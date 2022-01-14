@@ -81,3 +81,21 @@ button {
     font-size: 12px;
     margin-top: -32px;
 }
+
+.show {
+    visibility: visible;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.sent {
+    float: right;
+    margin-top: 23px;
+}
+
+.received {
+    float: left;
+    margin-top: 23px;
+}

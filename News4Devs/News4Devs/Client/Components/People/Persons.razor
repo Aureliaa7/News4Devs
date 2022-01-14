@@ -1,18 +1,12 @@
-﻿<div class="col-md-8 people-container">
-    @foreach (var user in Users)
+﻿<div class="people-container">
+    @for (int i = 0; i < Users.Count; i+=2)
     {
-        <div>
-            <a href="/chat/@user.Id"
-                class="list-group-item list-group-item-action flex-column align-items-start contact-list-item">
-                @if (user?.FirstName != null)
-                {
-                    <span> @user.FirstName @user.LastName </span>
-                }
-                else
-                {
-                    @user.Email
-                }
-            </a>
+        <div class="row">
+            <div class="col-5"> <Person User="Users[i]"></Person></div>
+            @if (i+1 < Users.Count)
+            {
+                <div class="col-5"> <Person User="Users[i+1]"></Person></div>
+            }  
         </div>
     }
 

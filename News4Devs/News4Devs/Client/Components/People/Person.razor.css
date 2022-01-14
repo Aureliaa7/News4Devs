@@ -1,0 +1,25 @@
+﻿img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.user-image,
+.user-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-name {
+    margin-left: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+a {
+    text-decoration: none;
+}
+
+.contact-list-item {
+    height: 80px;
+}
