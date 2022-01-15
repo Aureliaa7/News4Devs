@@ -13,7 +13,6 @@ namespace News4Devs.Client.Components.Quotes
 
         private QuotableApiResponseDto quoteDto { get; set; }
 
-        //TODO uncomment
         protected override async Task OnInitializedAsync()
         {
             var apiResponse = await HttpClientService.GetAsync<QuotableApiResponseDto>(

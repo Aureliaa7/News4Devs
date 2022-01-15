@@ -1,19 +1,24 @@
 ﻿img {
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
 }
 
 .user-image,
 .user-name {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: bottom;
+}
+
+.user-image {
+    width: 30%;
 }
 
 .user-name {
-    margin-left: 20px;
+    margin-left: auto;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 65%;
 }
 
 a {

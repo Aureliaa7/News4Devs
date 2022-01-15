@@ -28,7 +28,6 @@ namespace News4Devs.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            System.Console.WriteLine("initialized mainLayout....");
             currentUserId = await AuthService.GetCurrentUserIdAsync();
           
             await SetUpSignalR();
@@ -36,7 +35,6 @@ namespace News4Devs.Client.Shared
 
         private async Task SetUpSignalR()
         {
-            System.Console.WriteLine("SetUpSignalR...-- main layout comp");
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/chatHub"))
                 .Build();
@@ -45,8 +43,6 @@ namespace News4Devs.Client.Shared
 
             hubConnection.On<string, string, string>("NewMessageNotification", async (message, receiverId, senderId) =>
             {
-                System.Console.WriteLine("NewMessageNotification...");
-
                 var response = await HttpService.GetAsync<UserDto>($"{ClientConstants.BaseUrl}/users/{senderId}");
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -58,16 +54,16 @@ namespace News4Devs.Client.Shared
                     ToastService.ShowInfo(message, $"{senderUser.FirstName} {senderUser.LastName}",
                         () =>
                         {
-                            // TODO solve: if i open a conversation with x and in the same time I get a msg from y and I try to navigate to 
-                            // the conversation with y, only the url changes but I can still see the conversation with x
-                            NavigationManager.NavigateTo($"/chat/{senderId}");
-                            StateHasChanged();
+                            // Since calling StateHasChanged() has no effect, force component reloading
+                            string newUri = $"https://localhost:44397/chat/{senderId}";
+                            if (NavigationManager.Uri != newUri)
+                            {
+                                NavigationManager.NavigateTo(newUri, true);
+
+                            }
                         });
                 }
             });
-
-            //TODO let the user navigate to a profile page
-            //TODO: to be solved:  the user should get the toast with new message, no matter the current component---> SOLVED
         }
     }
 }

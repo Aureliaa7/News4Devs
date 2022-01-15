@@ -10,10 +10,12 @@ namespace News4Devs.Client.Components.Accounts
         private IAuthenticationService AuthService { get; set; }
 
         private string currentUserName;
+        private string currentUserId;
 
         protected override async Task OnInitializedAsync()
         {
             currentUserName = await AuthService.GetCurrentUserFullNameAsync();
+            currentUserId = await AuthService.GetCurrentUserIdAsync();
         }
     }
 }

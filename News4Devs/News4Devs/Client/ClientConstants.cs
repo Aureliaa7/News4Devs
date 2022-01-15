@@ -13,6 +13,6 @@
 
         public const int MaxPageSize = 15;
 
-        public const int MaxQuoteLength = 65;
+        public const int MaxQuoteLength = 45;
     }
 }

@@ -32,10 +32,14 @@
             }
         }
     </div>
-    <div class="col-md-10 new-message-container">
-        <input @bind="messageText" size="50" id="message-box" @onkeydown="OnKeyDown" class="col-md-9 message-box-style" />
-        <button @onclick="Send" disabled="@(!IsConnected)" class="message-box-style">
-            <i class="far fa-paper-plane"></i>
-        </button>
+    <div class="row new-message-container">
+        <div class="new-message-container__input">
+            <input @bind="messageText" id="message-box" @onkeydown="OnKeyDown" class="message-box-style" />
+        </div>
+        <div class="new-message-container__button">
+            <button @onclick="Send" disabled="@(!IsConnected)">
+                <i class="far fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
 </div>

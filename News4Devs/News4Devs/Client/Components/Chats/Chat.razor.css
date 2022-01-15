@@ -63,18 +63,30 @@ input {
 }
 
 .message-box-style {
-    display: inline-block;
+    width: 100%;
+    border-color: gray;
 }
 
 button {
     background-color: whitesmoke;
     border: none;
-    margin-left: 0;
 }
 
 .new-message-container {
     padding: 20px;
     margin: auto;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-message-container__input {
+    width: 85%;
+}
+
+.new-message-container__button {
+    width: 15%;
+    margin-left: 0;
 }
 
 .message-date {
