@@ -10,5 +10,7 @@ namespace News4Devs.Shared.Interfaces.Services
         Task<User> GetByIdAsync(Guid id);
 
         Task<PagedResponseModel<User>> GetAllAsync(PaginationFilter paginationFilter);
+
+        Task<PagedResponseModel<User>> GetContactsAsync(Guid userId, PaginationFilter paginationFilter);
     }
 }

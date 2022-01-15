@@ -71,5 +71,15 @@ namespace News4Devs.WebAPI.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("contacts/{userId}")]
+        [Authorize]
+        public async Task<IActionResult> GetContacts([FromRoute] Guid userId, [FromQuery] PaginationFilter paginationFilter)
+        {
+            var users = await userService.GetContactsAsync(userId, paginationFilter);
+            var result = mapper.Map<PagedResponseDto<UserDto>>(users);
+
+            return Ok(result);
+        }
     }
 }

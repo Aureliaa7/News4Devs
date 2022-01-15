@@ -4,6 +4,7 @@ using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
 using News4Devs.Shared.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace News4Devs.Shared.DomainServices
@@ -35,6 +36,21 @@ namespace News4Devs.Shared.DomainServices
             var pagedResponse = await userPaginationService.GetPagedResponseAsync(Constants.UsersAddress, paginationFilter);
 
             return pagedResponse;
+        }
+
+        public async Task<PagedResponseModel<User>> GetContactsAsync(Guid userId, PaginationFilter paginationFilter)
+        {
+            var usersIds = (await unitOfWork.MessagesRepository
+                    .GetAllAsync(x => x.FromUserId == userId && x.ToUserId.HasValue))
+                    .GroupBy(x => x.ToUserId)
+                    .Select(x => x.Key.Value)
+                .Union((await unitOfWork.MessagesRepository
+                    .GetAllAsync(x => x.ToUserId == userId && x.FromUserId.HasValue))
+                    .GroupBy(x => x.FromUserId)
+                    .Select(x => x.Key.Value))
+                    .ToList();
+
+            return await userPaginationService.GetPagedResponseAsync(Constants.UsersAddress, paginationFilter, x => usersIds.Contains(x.Id));
         }
     }
 }

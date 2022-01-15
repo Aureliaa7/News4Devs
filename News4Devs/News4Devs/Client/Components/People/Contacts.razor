@@ -1,0 +1,16 @@
+﻿@page "/contacts"
+@inherits PersonsBase
+@attribute [Authorize]
+
+@if (isLoading)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <h3>Contacts</h3>
+    <hr />
+    <Persons Users="users"
+         isLoadMoreButtonVisible="isLoadMoreButtonVisible"
+         LoadMore="LoadMoreUsers" />
+}
