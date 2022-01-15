@@ -11,15 +11,17 @@ using System.Threading.Tasks;
 namespace News4Devs.WebAPI.Controllers
 {
     [ApiVersion("1.0")]
-    public class AccountsController : News4DevsController
+    public class UsersController : News4DevsController
     {
         private readonly IAccountService accountService;
+        private readonly IUserService userService;
         private readonly IMapper mapper;
 
-        public AccountsController(IAccountService accountService, IMapper mapper)
+        public UsersController(IAccountService accountService, IMapper mapper, IUserService userService)
         {
             this.accountService = accountService;
             this.mapper = mapper;
+            this.userService = userService;
         }
 
         [HttpPost]
@@ -56,7 +58,7 @@ namespace News4Devs.WebAPI.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetAccountInfoAsync([FromRoute] Guid id)
         {
-            var user = await accountService.GetByIdAsync(id);
+            var user = await userService.GetByIdAsync(id);
             return Ok(mapper.Map<UserDto>(user));
         }
 
@@ -64,7 +66,7 @@ namespace News4Devs.WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> GetAllAccounts([FromQuery] PaginationFilter paginationFilter)
         {
-            var users = await accountService.GetAllAsync(paginationFilter);
+            var users = await userService.GetAllAsync(paginationFilter);
             var result = mapper.Map<PagedResponseDto<UserDto>>(users);
 
             return Ok(result);

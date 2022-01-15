@@ -80,7 +80,8 @@ namespace News4Devs.WebAPI
             services.AddScoped<IArticlePaginationService, ArticlePaginationService>();
             services.AddScoped<IMessagePaginationService, MessagePaginationService>();
             services.AddScoped<IMessageService, MessageService>();
-            services.AddScoped<IAccountPaginationService, AccountPaginationService>();
+            services.AddScoped<IUserPaginationService, UserPaginationService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

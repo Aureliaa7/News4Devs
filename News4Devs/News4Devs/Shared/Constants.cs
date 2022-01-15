@@ -24,7 +24,7 @@
         public const string FavoriteArticlesEndpoint = "favorite";
 
         public const string ChatAddress = "https://localhost:44395/api/v1/chat/";
-        public const string AccountsAddress = "https://localhost:44395/api/v1/accounts";
+        public const string UsersAddress = "https://localhost:44395/api/v1/users";
 
         public const string BaseUrl = "https://localhost:44395/api/v1/";
     }

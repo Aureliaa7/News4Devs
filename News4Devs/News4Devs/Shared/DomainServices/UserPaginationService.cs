@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace News4Devs.Shared.DomainServices
 {
-    public class AccountPaginationService : PaginationServiceBase<User, User>, IAccountPaginationService
+    public class UserPaginationService : PaginationServiceBase<User, User>, IUserPaginationService
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public AccountPaginationService(IUnitOfWork unitOfWork)
+        public UserPaginationService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

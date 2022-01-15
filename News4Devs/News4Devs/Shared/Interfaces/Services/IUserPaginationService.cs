@@ -2,7 +2,7 @@
 
 namespace News4Devs.Shared.Interfaces.Services
 {
-    public interface IAccountPaginationService : IPaginationService<User, User>
+    public interface IUserPaginationService : IPaginationService<User, User>
     {
     }
 }

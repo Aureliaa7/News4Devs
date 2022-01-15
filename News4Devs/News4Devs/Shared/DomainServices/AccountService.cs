@@ -4,9 +4,6 @@ using News4Devs.Shared.Exceptions;
 using News4Devs.Shared.Helpers;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Interfaces.UnitOfWork;
-using News4Devs.Shared.Models;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace News4Devs.Shared.DomainServices
@@ -16,18 +13,15 @@ namespace News4Devs.Shared.DomainServices
         private readonly IUnitOfWork unitOfWork;
         private readonly IJwtService jwtService;
         private readonly IImageService imageService;
-        private readonly IAccountPaginationService accountPaginationService;
 
         public AccountService(
             IUnitOfWork unitOfWork,
             IJwtService jwtService,
-            IImageService imageService,
-            IAccountPaginationService accountPaginationService)
+            IImageService imageService)
         {
             this.unitOfWork = unitOfWork;
             this.jwtService = jwtService;
             this.imageService = imageService;
-            this.accountPaginationService = accountPaginationService;
         }
 
         public async Task<string> LoginAsync(LoginDto loginDto)
@@ -65,24 +59,6 @@ namespace News4Devs.Shared.DomainServices
             await unitOfWork.SaveChangesAsync();
 
             return newUser;
-        }
-
-        public async Task<User> GetByIdAsync(Guid id)
-        {
-            var searchedUser = await unitOfWork.UsersRepository.GetByIdAsync(id);
-            if (searchedUser == null)
-            {
-                throw new EntityNotFoundException($"The user with the id {id} was not found!");
-            }
-
-            return searchedUser;
-        }
-
-        public async Task<PagedResponseModel<User>> GetAllAsync(PaginationFilter paginationFilter)
-        {
-            var pagedResponse = await accountPaginationService.GetPagedResponseAsync(Constants.AccountsAddress, paginationFilter);
-
-            return pagedResponse;
         }
     }
 }

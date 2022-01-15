@@ -96,7 +96,7 @@ namespace News4Devs.Client.Components.Chats
 
         private async Task<UserDto> GetUserAsync(string id)
         {
-            var response = await HttpService.GetAsync<UserDto>($"{ClientConstants.BaseUrl}/accounts/{id}");
+            var response = await HttpService.GetAsync<UserDto>($"{ClientConstants.BaseUrl}/users/{id}");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 return response.Data;

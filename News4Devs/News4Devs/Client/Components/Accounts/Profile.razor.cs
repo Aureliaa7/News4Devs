@@ -19,7 +19,7 @@ namespace News4Devs.Client.Components.Accounts
 
         protected override async Task OnInitializedAsync()
         {
-            var response = await HttpClientService.GetAsync<UserDto>($"v1/accounts/{Id}");
+            var response = await HttpClientService.GetAsync<UserDto>($"v1/users/{Id}");
             userDetails = response.Data;
             fullName = $"{userDetails.FirstName} {userDetails.LastName}";
             // since I cannot use IWebHostEnvironment to get the wwwroot path, create the image path this way

@@ -47,7 +47,7 @@ namespace News4Devs.Client.Shared
             {
                 System.Console.WriteLine("NewMessageNotification...");
 
-                var response = await HttpService.GetAsync<UserDto>($"{ClientConstants.BaseUrl}/accounts/{senderId}");
+                var response = await HttpService.GetAsync<UserDto>($"{ClientConstants.BaseUrl}/users/{senderId}");
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     senderUser = response.Data;
