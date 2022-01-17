@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using News4Devs.Shared.Exceptions;
 
@@ -6,7 +7,6 @@ namespace News4Devs.WebAPI.Filters
 {
     public class News4DevsExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        //TODO log these exceptions
         public override void OnException(ExceptionContext context)
         {
             if (context.Exception is DuplicateEmailException ||
@@ -20,8 +20,7 @@ namespace News4Devs.WebAPI.Filters
             }
             else if (context.Exception is FailedHttpRequestException)
             {
-                //TODO do smth
-                System.Console.WriteLine(context.Exception.Message);
+                context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
     }

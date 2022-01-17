@@ -2,7 +2,7 @@
 using News4Devs.Client.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace News4Devs.Client.Components.Accounts
+namespace News4Devs.Client.Components.People
 {
     public partial class CurrentUser
     {

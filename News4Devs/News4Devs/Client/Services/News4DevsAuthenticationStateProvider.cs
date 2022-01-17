@@ -19,7 +19,6 @@ namespace News4Devs.Client.Services
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            Console.WriteLine("GetAuthenticationStateAsync()...");
             string token = await localStorageService.GetItemAsStringAsync(ClientConstants.Token);
             bool isJwtValid = JwtHelper.IsValidJwt(token);
 

@@ -82,8 +82,6 @@ namespace News4Devs.Client.Components.Chats
         {
             hubConnection.On<ChatMessageDto>("ReceiveMessage", async (message) =>
             {
-                // update the messages list for both sender and receiver
-                Console.WriteLine("on receiveMessage...");
                 if ((message.FromUserId.ToString() == Id && currentUserId == message.ToUserId.ToString()) ||
                  (message.FromUserId.ToString() == currentUserId && message.ToUserId.ToString() == Id))
                 {
