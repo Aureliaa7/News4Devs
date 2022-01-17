@@ -18,6 +18,7 @@ namespace News4Devs.Client.Components.People
 
         protected bool isLoadMoreButtonVisible = false;
         protected int currentPage = 1;
+        protected int maxPageSize = 8;
         protected string currentUserId;
         protected bool isLoading;
         protected List<UserDto> users = new();
@@ -26,18 +27,18 @@ namespace News4Devs.Client.Components.People
         {
             isLoading = true;
             currentUserId = await AuthService.GetCurrentUserIdAsync();
-            await GetUsersAsync(currentUserId);
+            await GetUsersAsync();
             isLoading = false;
         }
 
-        protected async Task GetUsersAsync(string currentUserId)
+        protected async Task GetUsersAsync()
         {
             string url = GetUrl();
             var response = await HttpService.GetAsync<PagedResponseDto<UserDto>>(url);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var pagedResponse = response.Data;
-                users.AddRange(pagedResponse.Data.Where(x => x.Id.ToString() != currentUserId));
+                users.AddRange(pagedResponse.Data);
                 isLoadMoreButtonVisible = pagedResponse.NextPage != null;
 
                 if (currentPage < pagedResponse.TotalPages)
@@ -49,7 +50,7 @@ namespace News4Devs.Client.Components.People
 
         protected async Task LoadMoreUsers()
         {
-            await GetUsersAsync(currentUserId);
+            await GetUsersAsync();
         }
 
         protected abstract string GetUrl();

@@ -31,9 +31,12 @@ namespace News4Devs.Shared.DomainServices
             return searchedUser;
         }
 
-        public async Task<PagedResponseModel<User>> GetAllAsync(PaginationFilter paginationFilter)
+        public async Task<PagedResponseModel<User>> GetAllAsync(PaginationFilter paginationFilter, Guid? excludedUserId)
         {
-            var pagedResponse = await userPaginationService.GetPagedResponseAsync(Constants.UsersAddress, paginationFilter);
+            var pagedResponse = await userPaginationService.GetPagedResponseAsync(
+                Constants.UsersAddress, 
+                paginationFilter, 
+                x => x.Id != excludedUserId);
 
             return pagedResponse;
         }

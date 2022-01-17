@@ -37,11 +37,6 @@ namespace News4Devs.Client.Components.Articles
         private readonly string favoriteArticlesEndpoint = "favorite";
         private readonly string saveArticleEndpoint = "save";
 
-        private async Task LoadMoreArticles()
-        {
-            await OnLoadMoreArticles.InvokeAsync();
-        }
-
         private async Task SaveArticleAsync(ExtendedArticleDto extendedArticle)
         {
             await MarkAsSavedOrFavoriteArticleAsync(extendedArticle, saveArticleEndpoint);

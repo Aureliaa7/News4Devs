@@ -1,9 +1,16 @@
 ﻿.text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 footer {
     height: 60px;
-    position: relative;
+    position: fixed;
     bottom: 0;
+    width: 100%;
+    align-content: center;
+}
+
+p {
+   width: 700px;
+   margin-left: 200px;
 }

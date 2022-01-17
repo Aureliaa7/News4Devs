@@ -4,7 +4,7 @@
     {
         protected override string GetUrl()
         {
-            return $"{ClientConstants.BaseUrl}/users/contacts/{currentUserId}?pageNumber={currentPage}&pageSize={ClientConstants.MaxPageSize}";
+            return $"{ClientConstants.BaseUrl}/users/contacts/{currentUserId}?pageNumber={currentPage}&pageSize={maxPageSize}";
         }
     }
 }

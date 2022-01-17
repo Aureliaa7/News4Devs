@@ -2,21 +2,25 @@
 @attribute [Authorize]
 
 <h3>Books</h3>
+<hr/>
 
-@if (!loading && !Books.Any())
-{
-    <NoBooksFound />
-}
-else if (loading)
-{
-    <LoadingSpinner />
-}
-else
-{
-    <div>
-        @foreach (var book in Books)
-        {
-            <Book BookDto="@book"/>
-        }
-    </div>
-}
+<div class="books-container">
+
+    @if (!loading && !Books.Any())
+    {
+        <NotFound Message="Sorry, no books were found..."></NotFound>
+    }
+    else if (loading)
+    {
+        <LoadingSpinner />
+    }
+    else
+    {
+        <div>
+            @foreach (var book in Books)
+            {
+                <Book BookDto="@book" />
+            }
+        </div>
+    }
+</div>

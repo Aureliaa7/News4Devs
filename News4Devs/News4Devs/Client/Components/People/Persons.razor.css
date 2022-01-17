@@ -1,6 +1,7 @@
 ﻿.people-container {
     align-items: center;
     justify-content: center;
+    margin-bottom: 70px;
 }
 
 .row {

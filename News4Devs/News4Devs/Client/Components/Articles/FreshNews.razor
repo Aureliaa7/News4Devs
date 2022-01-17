@@ -2,8 +2,11 @@
 @inherits ArticlesBase
 
 <h3>Newest articles</h3>
+<hr/>
+
 <SearchBar OnSearch="RedirectToSearchNewsPage"/>
 <News Articles="@Articles"
       OnLoadMoreArticles="LoadMoreArticlesAsync"
       IsLoadMoreButtonVisible="isLoadMoreButtonVisible" 
-      Loading="loading"/>
+      Loading="loading">
+</News>

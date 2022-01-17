@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using News4Devs.Shared.DTOs;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace News4Devs.Client.Components.People
 {
@@ -14,11 +13,6 @@ namespace News4Devs.Client.Components.People
         public bool isLoadMoreButtonVisible { get; set; }
 
         [Parameter]
-        public EventCallback<ExtendedArticleDto> LoadMore { get; set; }
-
-        private async Task OnLoadMore()
-        {
-            await LoadMore.InvokeAsync();
-        }
+        public EventCallback LoadMore { get; set; }
     }
 }

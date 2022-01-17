@@ -1,28 +1,28 @@
-﻿@if (!Loading && !Articles.Any())
-{
-    <NoArticlesFound/>
-}
-else if (Loading)
-{
-    <LoadingSpinner />
-}
-else
-{
-    <div>
-        @foreach (var article in Articles)
-        {
-            <Article
-                     ExtendedArticleDto="@article" 
-                     SaveArticle="SaveArticleAsync"
-                     MarkAsFavorite="MarkAsFavoriteAsync"
-                     RemoveFromSavedArticles="RemoveFromSavedArticlesAsync"
-                     RemoveFromFavoriteArticles="RemoveFromFavoriteArticlesAsync"
-            ></Article>
-        }
-    </div>
+﻿<div style="margin-bottom: 70px">
 
-    if (IsLoadMoreButtonVisible)
+    @if (!Loading && !Articles.Any())
     {
-        <button class="btn btn-primary" @onclick="LoadMoreArticles">Load more</button>
+        <NotFound Message="Sorry, no articles were found..."></NotFound>
     }
-}
+    else if (Loading)
+    {
+        <LoadingSpinner />
+    }
+    else
+    {
+        <div>
+            @foreach (var article in Articles)
+            {
+                <Article ExtendedArticleDto="@article"
+                 SaveArticle="SaveArticleAsync"
+                 MarkAsFavorite="MarkAsFavoriteAsync"
+                 RemoveFromSavedArticles="RemoveFromSavedArticlesAsync"
+                 RemoveFromFavoriteArticles="RemoveFromFavoriteArticlesAsync"></Article>
+            }
+        </div>
+
+        <LoadMoreButton IsLoadMoreButtonVisible="IsLoadMoreButtonVisible"
+                    OnLoadMore="OnLoadMoreArticles">
+        </LoadMoreButton>
+    }
+</div>
