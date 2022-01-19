@@ -64,9 +64,9 @@ namespace News4Devs.WebAPI.Controllers
 
         [HttpGet("exclude={userId}")]
         [Authorize]
-        public async Task<IActionResult> GetAllAccounts([FromRoute] Guid excludedUserId, [FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllAccounts([FromRoute] Guid userId, [FromQuery] PaginationFilter paginationFilter)
         {
-            var users = await userService.GetAllAsync(paginationFilter, excludedUserId);
+            var users = await userService.GetAllAsync(paginationFilter, userId);
             var result = mapper.Map<PagedResponseDto<UserDto>>(users);
 
             return Ok(result);
