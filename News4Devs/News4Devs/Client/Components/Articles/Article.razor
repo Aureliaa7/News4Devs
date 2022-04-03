@@ -1,15 +1,14 @@
 ﻿<div class="article-container">
     <div class="media-container">
-        <img src="@ExtendedArticleDto.Article.social_image" alt="image" />
+        <img src="@ExtendedArticleDto.Article.urlToImage" alt="image" />
     </div>
     <div class="article-details-container">
         <a href="@ExtendedArticleDto.Article.url" target="_blank"><h3>@ExtendedArticleDto.Article.title</h3></a>
-        <h5>@ExtendedArticleDto.Article.user.name</h5>
-        <h6>@ExtendedArticleDto.Article.readable_publish_date</h6>
-        <h6>Reading time: @ExtendedArticleDto.Article.reading_time_minutes minutes</h6>
-        <h6>Tags: @ExtendedArticleDto.Article.tags</h6>
+        <h5>@ExtendedArticleDto.Article.author</h5>
+        <h6>@ExtendedArticleDto.Article.publishedAt</h6>
         <div class="article-summary">
             <p>@ExtendedArticleDto.Article.description</p>
+            <p>@ExtendedArticleDto.Article.content</p>
         </div>
         <AuthorizeView>
             <Authorized>

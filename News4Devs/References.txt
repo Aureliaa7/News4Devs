@@ -30,6 +30,8 @@
 * SignalR: https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-blazor?view=aspnetcore-6.0&tabs=visual-studio&pivots=webassembly
 	https://codewithmukesh.com/blog/realtime-chat-application-with-blazor/
 * Detect scroll direction: https://gist.github.com/cedricbeau/d8dcb3dcf33141bcfda83bae4ae7dc99
+* How to manage user secrets: https://www.infoworld.com/article/3576292/how-to-work-with-user-secrets-in-asp-net-core.html
+
 
 
 *** Books ***

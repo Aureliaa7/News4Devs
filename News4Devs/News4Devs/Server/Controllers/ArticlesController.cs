@@ -6,7 +6,11 @@ using News4Devs.Shared.Entities;
 using News4Devs.Shared.Enums;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Models;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace News4Devs.WebAPI.Controllers
@@ -14,25 +18,35 @@ namespace News4Devs.WebAPI.Controllers
     [ApiVersion("1.0")]
     public class ArticlesController : News4DevsController
     {
-        private readonly IDevApiService devApiService;
+        private readonly INewsApiService newsApiService;
         private readonly IArticleService articleService;
         private readonly IMapper mapper;
 
         public ArticlesController(
-            IDevApiService devApiService,
+            INewsApiService newsApiService,
             IArticleService articleService,
             IMapper mapper)
         {
-            this.devApiService = devApiService;
+            this.newsApiService = newsApiService;
             this.articleService = articleService;
             this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetArticles([FromQuery] DevApiQueryParamsModel devApiQueryParamsModel)
+        public async Task<IActionResult> GetArticles(/*[FromQuery] NewsApiQueryParamsModel queryParamsModel*/)
         {
-            var result = await devApiService.GetArticlesAsync(devApiQueryParamsModel);
-            return Ok(result);
+            // used only for testing purposes in order to avoid making too many requests to News API
+            await Task.Delay(0);
+            StreamReader sr = new StreamReader(@"C:\Users\Aura.LAPTOP-GLQOS0K8\Desktop\facultate\Master\Anul1\Sem2\ModelareaSiEvaluareaPerformantelor\proiect\News4Devs\News4Devs\News4Devs\Server\newsDataForTesting.json");
+            var jsonData = sr.ReadToEnd();
+            var testData = JsonConvert.DeserializeObject<NewsApiResponseDto>(jsonData);
+            var extendedArticles = new List<ExtendedArticleDto>();  
+            testData.articles.ToList()
+                    .ForEach(x => extendedArticles.Add(new ExtendedArticleDto { Article = x }));
+            return Ok(extendedArticles);
+
+            //var result = await newsApiService.GetArticlesAsync(queryParamsModel);
+            //return Ok(result);
         }
 
         [HttpPost]

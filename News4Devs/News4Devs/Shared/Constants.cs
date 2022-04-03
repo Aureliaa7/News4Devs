@@ -27,5 +27,7 @@
         public const string UsersAddress = "https://localhost:44395/api/v1/users";
 
         public const string BaseUrl = "https://localhost:44395/api/v1/";
+
+        public const string NewsApiKey = "NewsApiKey";
     }
 }

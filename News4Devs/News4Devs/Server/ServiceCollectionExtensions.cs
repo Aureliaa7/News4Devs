@@ -73,7 +73,7 @@ namespace News4Devs.WebAPI
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IImageService, ImageService>();
-            services.AddScoped<IDevApiService, DevApiService>();
+            services.AddScoped<INewsApiService, NewsApiService>();
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IITBookstoreService, ITBookstoreService>();
             services.AddScoped<IQuotableService, QuotableService>();

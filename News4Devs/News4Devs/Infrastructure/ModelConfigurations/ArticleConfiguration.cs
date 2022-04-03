@@ -19,14 +19,10 @@ namespace News4Devs.Infrastructure.ModelConfigurations
             builder.Property(a => a.PublishedAt)
              .IsRequired();
 
-            builder.Property(a => a.ReadablePublishDate)
+            builder.Property(a => a.PublishedAt)
              .IsRequired();
 
-            builder.Property(a => a.ReadingTimeMinutes)
-             .IsRequired();
-
-            builder.Property(a => a.Tags)
-             .HasMaxLength(80)
+            builder.Property(a => a.Content)
              .IsRequired();
         }
     }
