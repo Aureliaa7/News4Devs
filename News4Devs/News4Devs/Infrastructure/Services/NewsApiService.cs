@@ -26,7 +26,7 @@ namespace News4Devs.Infrastructure.Services
         public async Task<IList<ExtendedArticleDto>> GetArticlesAsync(NewsApiQueryParamsModel queryParamsModel)
         {
             // Note: The API key is a mandatory query param
-            queryParamsModel.apiKey = configuration.GetConnectionString(Constants.NewsApiKey);
+            queryParamsModel.apiKey = configuration.GetSection(Constants.NewsApiKey).Value;
 
             var queryParams = QueryParamsHelper.GetQueryParams(queryParamsModel);
 
