@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using News4Devs.Client.Services.Interfaces;
 using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -30,14 +31,16 @@ namespace News4Devs.Client.Components.Articles
 
         protected bool isLoadMoreButtonVisible = true;
        
-        protected bool loading = false;
+        protected bool loading;
+
+        private int totalArticles;
 
         protected abstract Task<string> GetUrlAsync();
 
         protected virtual async Task GetArticlesAsync()
         {
             string url = await GetUrlAsync();
-            var response = await HttpClientService.GetAsync<IList<ExtendedArticleDto>>(url);
+            var response = await HttpClientService.GetAsync<NewsApiResponseModel>(url);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
@@ -45,27 +48,19 @@ namespace News4Devs.Client.Components.Articles
             }
             else
             {
-                if (response.Data.Any())
+                totalArticles = response.Data.TotalResults;
+                if (response.Data.Articles.Any())
                 {
-                    Articles.AddRange(response.Data);
+                    Articles.AddRange(response.Data.Articles);
                 }
                 pageNumber++;
             }
-            await CheckIfThereAreMoreArticlesAsync();
+            CheckIfThereAreMoreArticles();
         }
 
-        // Since the Dev API does not also return the number of total pages, I need a way to show the LoadMore button
-        // only if there are more articles. So, after incrementing the number of the current page, I'll make a call
-        // to Dev API to get the articles, but I won't add them in the Articles list(if there are any)
-        private async Task CheckIfThereAreMoreArticlesAsync()
+        private void CheckIfThereAreMoreArticles()
         {
-            string url = await GetUrlAsync();
-            var response = await HttpClientService.GetAsync<IList<ArticleDto>>(url);
-            var articles = response.Data;
-            if (articles != null && !articles.Any())
-            {
-                isLoadMoreButtonVisible = false;
-            }
+            isLoadMoreButtonVisible = pageNumber * ClientConstants.MaxPageSize < totalArticles;
         }
 
         protected Task<string> GetCurrentUserIdAsync()

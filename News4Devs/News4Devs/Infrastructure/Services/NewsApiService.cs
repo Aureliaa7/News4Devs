@@ -2,6 +2,7 @@
 using News4Devs.Infrastructure.Helpers;
 using News4Devs.Shared;
 using News4Devs.Shared.DTOs;
+using News4Devs.Shared.Exceptions;
 using News4Devs.Shared.Interfaces.Services;
 using News4Devs.Shared.Models;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace News4Devs.Infrastructure.Services
             this.configuration = configuration;
         }
 
-        public async Task<IList<ExtendedArticleDto>> GetArticlesAsync(NewsApiQueryParamsModel queryParamsModel)
+        public async Task<NewsApiResponseModel> GetArticlesAsync(NewsApiQueryParamsModel queryParamsModel)
         {
             // Note: The API key is a mandatory query param
             queryParamsModel.apiKey = configuration.GetSection(Constants.NewsApiKey).Value;
@@ -34,15 +35,22 @@ namespace News4Devs.Infrastructure.Services
                 newsAPIBaseUrl,
                 queryParams);
 
-            var extendedArticlesDtos = new List<ExtendedArticleDto>();
             if (apiResponse.status == "ok")
             {
-                apiResponse?.articles
+                var extendedArticles = new List<ExtendedArticleDto>();
+                apiResponse.articles
                     .ToList()
-                    .ForEach(x => extendedArticlesDtos.Add(new ExtendedArticleDto { Article = x }));
+                    .ForEach(x => extendedArticles.Add(new ExtendedArticleDto { Article = x }));
+
+                return new NewsApiResponseModel
+                {
+                    Status = apiResponse.status,
+                    TotalResults = apiResponse.totalResults,
+                    Articles = extendedArticles
+                };
             }
 
-            return extendedArticlesDtos;
+            throw new FailedHttpRequestException(apiResponse.status);
         }
     }
 }

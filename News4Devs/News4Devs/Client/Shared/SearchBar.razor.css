@@ -36,6 +36,7 @@ input {
 
 .show {
     display: block;
+    z-index: 2;
 }
 
 .hide {

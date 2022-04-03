@@ -15,7 +15,7 @@ namespace News4Devs.Client.Components.Articles
 
         protected override Task<string> GetUrlAsync()
         {
-            return Task.FromResult($"{ClientConstants.BaseUrl}/articles?page={pageNumber}&state=fresh");
+            return Task.FromResult($"{ClientConstants.BaseUrl}/articles?page={pageNumber}&q=programming+or+coding+or+tech&sortby=publishedAt");
         }
 
         private void RedirectToSearchNewsPage(string searchedWords)
