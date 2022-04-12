@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Net.Http;
 
 namespace News4Devs.Shared.DTOs
 {

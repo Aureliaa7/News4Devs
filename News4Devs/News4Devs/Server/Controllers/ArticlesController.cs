@@ -35,30 +35,31 @@ namespace News4Devs.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetArticles([FromQuery] NewsApiQueryParamsModel queryParamsModel)
         {
-            // used only for testing purposes in order to avoid making too many requests to News API
-            //await Task.Delay(0);
-            //StreamReader sr = new StreamReader(@"C:\Users\Aura.LAPTOP-GLQOS0K8\Desktop\facultate\Master\Anul1\Sem2\ModelareaSiEvaluareaPerformantelor\proiect\News4Devs\News4Devs\News4Devs\Server\newsDataForTesting.json");
-            //var jsonData = sr.ReadToEnd();
-            //var testData = JsonConvert.DeserializeObject<NewsApiResponseDto>(jsonData);
-            //var extendedArticles = new List<ExtendedArticleDto>();  
-            //testData.articles.ToList()
-            //        .ForEach(x => extendedArticles.Add(new ExtendedArticleDto { Article = x }));
+            //used only for testing purposes in order to avoid making too many requests to News API
 
-            //var res = new NewsApiResponseModel
-            //{
-            //    Status = testData.status,
-            //    TotalResults = testData.totalResults,
-            //    Articles = extendedArticles
-            //};
+           await Task.Delay(0);
+            StreamReader sr = new StreamReader(@"C:\Users\Aura.LAPTOP-GLQOS0K8\Desktop\facultate\Master\Anul1\Sem2\ModelareaSiEvaluareaPerformantelor\proiect\News4Devs\News4Devs\News4Devs\Server\newsDataForTesting.json");
+            var jsonData = sr.ReadToEnd();
+            var testData = JsonConvert.DeserializeObject<NewsApiResponseDto>(jsonData);
+            var extendedArticles = new List<ExtendedArticleDto>();
+            testData.articles.ToList()
+                    .ForEach(x => extendedArticles.Add(new ExtendedArticleDto { Article = x }));
 
-            //return Ok(res);
+            var res = new NewsApiResponseModel
+            {
+                Status = testData.status,
+                TotalResults = testData.totalResults,
+                Articles = extendedArticles
+            };
 
-            var result = await newsApiService.GetArticlesAsync(queryParamsModel);
-            return Ok(result);
+            return Ok(res);
+
+            //var result = await newsApiService.GetArticlesAsync(queryParamsModel);
+            //return Ok(result);
         }
 
         [HttpPost]
-        [Authorize]
+      // [Authorize]
         [Route("{userId}/save")]
         public async Task<IActionResult> MarkArticleAsSaved([FromRoute] Guid userId, ArticleDto articleDto)
         {

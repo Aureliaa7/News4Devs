@@ -16,7 +16,7 @@ namespace News4Devs.Infrastructure.MappingConfigurations
 
         private void CreateUserMappings()
         {
-            CreateMap<RegisterDto, User>();
+            CreateMap<RegisterDto, User>().ForMember(x => x.ProfilePhotoName, opt => opt.Ignore());
             CreateMap<User, UserDto>();
             CreateMap<PagedResponseModel<User>, PagedResponseDto<UserDto>>();
         }
