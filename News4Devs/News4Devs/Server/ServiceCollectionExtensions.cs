@@ -11,6 +11,8 @@ using News4Devs.Infrastructure.Services;
 using News4Devs.Infrastructure.UnitOfWork;
 using News4Devs.WebAPI.Filters;
 using System.Text;
+using System;
+using System.Collections.Generic;
 
 namespace News4Devs.WebAPI
 {
@@ -19,10 +21,18 @@ namespace News4Devs.WebAPI
         public static void RegisterDbContext(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-              options.UseSqlServer(
-                  connectionString,
-                  b => b.MigrationsAssembly(Constants.MigrationsAssembly))
-            );
+            {
+                options.UseSqlServer(
+                    connectionString,
+                    b => {
+                        b.MigrationsAssembly(Constants.MigrationsAssembly);
+                        // retry on failure + error numbers: https://makolyte.com/how-to-do-retries-in-ef-core/
+                        b.EnableRetryOnFailure(
+                            maxRetryCount: 3,
+                            maxRetryDelay: TimeSpan.FromSeconds(15),
+                            errorNumbersToAdd: new List<int> { 10060, 10929 });
+                    });
+            });
         }
 
         public static void ConfigureJwtAuthentication(this IServiceCollection services, string key)
